@@ -1,3 +1,9 @@
+# WebGL React App
+
+A base project for WebGL + React based projects.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
