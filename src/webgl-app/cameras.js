@@ -1,7 +1,7 @@
-import { PerspectiveCamera } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import renderer from "./renderer";
-import { VECTOR_ZERO } from "./utils/math";
+import { PerspectiveCamera } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import renderer from './renderer';
+import { VECTOR_ZERO } from './utils/math';
 
 export const FOV = 65;
 const near = 0.1;

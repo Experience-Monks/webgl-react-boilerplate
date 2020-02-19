@@ -1,8 +1,8 @@
-import { WebGLRenderer, Vector2 } from "three";
-import graphics from "./graphics";
-import { getGraphicsMode, FBO_FULL_SCREEN } from "./constants";
-import settings from "./settings";
-import { getTier } from "./profiler";
+import { WebGLRenderer, Vector2 } from 'three';
+import graphics from './graphics';
+import { getGraphicsMode, FBO_FULL_SCREEN } from './constants';
+import settings from './settings';
+import { getTier } from './profiler';
 
 const { pixelRatio, antialias, maxFrameBufferSize } = graphics[getGraphicsMode()];
 
@@ -29,7 +29,7 @@ function calculateRenderSize(windowWidth, windowHeight) {
 
 const renderer = new WebGLRenderer({
   antialias,
-  powerPreference: "high-performance",
+  powerPreference: 'high-performance',
   stencil: false
 });
 renderer.setClearColor(0x000000);
@@ -56,10 +56,9 @@ renderer.setScissorTest(true);
 setRendererSize(window.innerWidth, window.innerHeight);
 
 const gl = renderer.getContext();
-const gpuInfo = gl.getExtension("WEBGL_debug_renderer_info");
+const gpuInfo = gl.getExtension('WEBGL_debug_renderer_info');
 const gpu = gl.getParameter(gpuInfo.UNMASKED_RENDERER_WEBGL);
 
-if (settings.isDevelopment)
-  console.log(`Graphics: ${getGraphicsMode()}\nGPU: ${gpu}\nTier: ${getTier()}`);
+if (settings.isDevelopment) console.log(`Graphics: ${getGraphicsMode()}\nGPU: ${gpu}\nTier: ${getTier()}`);
 
 export default renderer;

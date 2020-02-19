@@ -1,26 +1,26 @@
-import { UniformsUtils } from "three";
+import { UniformsUtils } from 'three';
 
 const hooks = {
   vertex: {
-    preTransform: "before:#include <begin_vertex>\n",
-    postTransform: "after:#include <project_vertex>\n",
-    preNormal: "before:#include <beginnormal_vertex>\n"
+    preTransform: 'before:#include <begin_vertex>\n',
+    postTransform: 'after:#include <project_vertex>\n',
+    preNormal: 'before:#include <beginnormal_vertex>\n'
   },
   fragment: {
-    preFragColor: "before:gl_FragColor = vec4( outgoingLight, diffuseColor.a );\n",
-    postFragColor: "after:gl_FragColor = vec4( outgoingLight, diffuseColor.a );\n",
-    postNormal: "after:#include <normal_fragment>\n",
-    postFragFog: "after:#include <fog_fragment>\n"
+    preFragColor: 'before:gl_FragColor = vec4( outgoingLight, diffuseColor.a );\n',
+    postFragColor: 'after:gl_FragColor = vec4( outgoingLight, diffuseColor.a );\n',
+    postNormal: 'after:#include <normal_fragment>\n',
+    postFragFog: 'after:#include <fog_fragment>\n'
   }
 };
 
 function replace(shader, hooks, config) {
   Object.keys(hooks).forEach((hook: String) => {
     if (config[hook]) {
-      const parts = hooks[hook].split(":");
+      const parts = hooks[hook].split(':');
       const line = parts[1];
       switch (parts[0]) {
-        case "after": {
+        case 'after': {
           shader = shader.replace(
             line,
             `${line}

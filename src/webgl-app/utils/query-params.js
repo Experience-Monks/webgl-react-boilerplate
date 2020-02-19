@@ -1,4 +1,4 @@
-const queryString = require("query-string");
+const queryString = require('query-string');
 
 /**
  * getQueryFromParams
@@ -33,5 +33,5 @@ export function setQuery(query: String, val: String, reload: boolean = false) {
     return;
   }
   const url = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${stringified}`;
-  window.history.pushState({ path: url }, "", url);
+  window.history.pushState({ path: url }, '', url);
 }

@@ -1,4 +1,4 @@
-import { Math as Math3, Vector3 } from "three";
+import { Math as Math3, Vector3 } from 'three';
 
 export const TWO_PI = Math.PI * 2;
 export const PI = Math.PI;

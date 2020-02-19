@@ -1,6 +1,6 @@
-import { Vector2 } from "three";
-import { GRAPHICS_NORMAL, GRAPHICS_HIGH } from "./constants";
-import math from "./utils/math";
+import { Vector2 } from 'three';
+import { GRAPHICS_NORMAL, GRAPHICS_HIGH } from './constants';
+import math from './utils/math';
 
 export default {
   [GRAPHICS_HIGH]: {

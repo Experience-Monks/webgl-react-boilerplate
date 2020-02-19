@@ -1,11 +1,11 @@
-import React from "react";
-import "./App.css";
-import WebGLApp from "./webgl-app/webgl-app";
+import React from 'react';
+import './App.css';
+import WebGLApp from './webgl-app/webgl-app';
 
 class App extends React.PureComponent {
   componentDidMount() {
     this.webglApp = new WebGLApp(this.container);
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
 
     this.webglApp
       .setup()
@@ -20,7 +20,7 @@ class App extends React.PureComponent {
   componentWillUnmount() {
     this.webglApp.render(false);
     this.webglApp.dispose();
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   }
 
   onResize = () => {

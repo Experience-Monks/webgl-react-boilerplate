@@ -1,5 +1,5 @@
-import detect from "@jam3/detect";
-import settings from "../settings";
+import detect from '@jam3/detect';
+import settings from '../settings';
 
 /**
  * @class Folder
@@ -87,8 +87,8 @@ class GUIWrapper {
 
 let Cls = GUIWrapper;
 
-if (process.env.NODE_ENV !== "production" && settings.datGui) {
-  Cls = require("dat.gui").GUI;
+if (process.env.NODE_ENV !== 'production' && settings.datGui) {
+  Cls = require('dat.gui').GUI;
 
   Cls.prototype.removeFolder = function(name) {
     var folder = this.__folders[name];

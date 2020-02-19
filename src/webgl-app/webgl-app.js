@@ -1,21 +1,13 @@
-import EventEmitter from "eventemitter3";
-import renderer, { setRendererSize, rendererSize } from "./renderer";
-import {
-  Clock,
-  GridHelper,
-  AxesHelper,
-  CameraHelper,
-  Group,
-  DirectionalLight,
-  AmbientLight
-} from "three";
-import settings from "./settings";
-import scene from "./scene";
-import * as cameras from "./cameras";
-import { rendererStats } from "./utils/stats";
-import { setQuery } from "./utils/query-params";
-import { gui } from "./utils/gui";
-import Sphere from "./objects/sphere/sphere";
+import EventEmitter from 'eventemitter3';
+import { Clock, GridHelper, AxesHelper, CameraHelper, Group, DirectionalLight, AmbientLight } from 'three';
+import renderer, { setRendererSize, rendererSize } from './renderer';
+import settings from './settings';
+import scene from './scene';
+import * as cameras from './cameras';
+import { rendererStats } from './utils/stats';
+import { setQuery } from './utils/query-params';
+import { gui } from './utils/gui';
+import Sphere from './objects/sphere/sphere';
 
 class WebGLApp extends EventEmitter {
   constructor(parent: HTMLElement) {
@@ -33,15 +25,15 @@ class WebGLApp extends EventEmitter {
     this.helpers.visible = settings.helpers;
     scene.add(this.helpers);
 
-    const guiSettings = gui.addFolder("settings");
+    const guiSettings = gui.addFolder('settings');
     guiSettings.open();
 
-    guiSettings.add(settings, "devCamera").onChange((value: Boolean) => {
-      setQuery("devCamera", value);
+    guiSettings.add(settings, 'devCamera').onChange((value: Boolean) => {
+      setQuery('devCamera', value);
     });
-    guiSettings.add(settings, "helpers").onChange((value: Boolean) => {
+    guiSettings.add(settings, 'helpers').onChange((value: Boolean) => {
       this.helpers.visible = value;
-      setQuery("helpers", value);
+      setQuery('helpers', value);
     });
 
     // Lights
@@ -71,13 +63,7 @@ class WebGLApp extends EventEmitter {
     cameras.main.updateProjectionMatrix();
   };
 
-  renderScene = (
-    camera: PerspectiveCamera,
-    left: Number,
-    bottom: Number,
-    width: Number,
-    height: Number
-  ) => {
+  renderScene = (camera: PerspectiveCamera, left: Number, bottom: Number, width: Number, height: Number) => {
     left *= rendererSize.x;
     bottom *= rendererSize.y;
     width *= rendererSize.x;
