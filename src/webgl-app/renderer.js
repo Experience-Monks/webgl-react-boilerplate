@@ -27,7 +27,11 @@ function calculateRenderSize(windowWidth, windowHeight) {
   };
 }
 
-const renderer = new WebGLRenderer({ antialias });
+const renderer = new WebGLRenderer({
+  antialias,
+  powerPreference: "high-performance",
+  stencil: false
+});
 renderer.setClearColor(0x000000);
 export const rendererSize = new Vector2();
 
@@ -55,6 +59,7 @@ const gl = renderer.getContext();
 const gpuInfo = gl.getExtension("WEBGL_debug_renderer_info");
 const gpu = gl.getParameter(gpuInfo.UNMASKED_RENDERER_WEBGL);
 
-if (settings.isDevelopment) console.log(`Graphics: ${getGraphicsMode()}\nGPU: ${gpu}\nTier: ${getTier()}`);
+if (settings.isDevelopment)
+  console.log(`Graphics: ${getGraphicsMode()}\nGPU: ${gpu}\nTier: ${getTier()}`);
 
 export default renderer;
