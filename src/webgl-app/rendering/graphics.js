@@ -11,6 +11,6 @@ export default {
   [GRAPHICS_NORMAL]: {
     antialias: true,
     pixelRatio: 1,
-    maxFrameBufferSize: new Vector2(960, 540)
+    maxFrameBufferSize: new Vector2(1280, 720)
   }
 };
