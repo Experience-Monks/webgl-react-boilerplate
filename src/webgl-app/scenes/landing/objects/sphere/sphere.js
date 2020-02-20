@@ -1,3 +1,4 @@
+import { TweenLite } from 'gsap/gsap-core';
 import { Mesh, MeshLambertMaterial, SphereBufferGeometry } from 'three';
 import materialModifier from '../../../../utils/material-modifier';
 import shaderConfig from './shader.glsl';
@@ -8,7 +9,7 @@ export default class Sphere {
     // Use less polys on normal graphics mode
     const divisions = getGraphicsMode() === GRAPHICS_HIGH ? 64 : 32;
     const geometry = new SphereBufferGeometry(1, divisions, divisions);
-    const material = new MeshLambertMaterial();
+    const material = new MeshLambertMaterial({ transparent: true, opacity: 0 });
 
     this.shader = undefined;
     // Customise the lambert material
@@ -18,6 +19,33 @@ export default class Sphere {
 
     this.mesh = new Mesh(geometry, material);
   }
+
+  animateInit = () => {
+    TweenLite.killTweensOf(this.mesh.material.opacity);
+    this.mesh.material.opacity = 0;
+  };
+
+  animateIn = () => {
+    return new Promise((resolve, reject) => {
+      TweenLite.to(this.mesh.material, 1, {
+        opacity: 1,
+        onComplete: () => {
+          resolve();
+        }
+      });
+    });
+  };
+
+  animateOut = () => {
+    return new Promise((resolve, reject) => {
+      TweenLite.to(this.mesh.material.opacity, 1, {
+        opacity: 0,
+        onComplete: () => {
+          resolve();
+        }
+      });
+    });
+  };
 
   /**
    * Update loop

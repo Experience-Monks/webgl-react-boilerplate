@@ -8,7 +8,7 @@ export default class LandingScene extends BaseScene {
   constructor() {
     const lights = [new Ambient(), new Directional()];
     super({ id: 'landing', gui: true, guiOpen: true, lights, controls: true });
-    this.camera.position.set(0, 0, 10);
+    this.camera.position.set(0, 0, 5);
     this.camera.lookAt(VECTOR_ZERO);
   }
 
@@ -28,11 +28,17 @@ export default class LandingScene extends BaseScene {
     }
   };
 
-  animateInit = () => {};
+  animateInit = () => {
+    this.sphere.animateInit();
+  };
 
-  animateIn = () => {};
+  animateIn = () => {
+    this.sphere.animateIn();
+  };
 
-  animateOut = () => {};
+  animateOut = () => {
+    this.sphere.animateOut();
+  };
 
   /**
    * Update loop
