@@ -9,6 +9,7 @@ import { createPerspectiveCamera, createOrbitControls, resetCamera } from './cam
 import PreloaderScene from './scenes/preloader/preloader-scene';
 import AppState from './app-state';
 import LandingScene from './scenes/landing/landing-scene';
+import BaseScene from './scenes/base/base-scene';
 
 class WebGLApp extends EventEmitter {
   /**
@@ -46,7 +47,7 @@ class WebGLApp extends EventEmitter {
     // Setup the preloader scene right away as we need a scene to render on page load
     this.preloaderScene = new PreloaderScene();
     this.preloaderScene.setup();
-    this.currentScene = this.preloaderScene;
+    this.setScene(this.preloaderScene);
 
     // Gui settings group
     const guiSettings = gui.addFolder('settings');
@@ -98,7 +99,7 @@ class WebGLApp extends EventEmitter {
         .setup()
         .then(() => {
           this.preloaderScene.animateOut().then(() => {
-            this.currentScene = landingScene;
+            this.setScene(landingScene);
             landingScene.animateIn();
           });
         })
@@ -107,6 +108,17 @@ class WebGLApp extends EventEmitter {
         });
     }
   };
+
+  /**
+   * Set the current scene to render
+   * Should be inheritted from BaseScene
+   *
+   * @param {BaseScene} scene
+   * @memberof WebGLApp
+   */
+  setScene(scene: BaseScene) {
+    this.currentScene = scene;
+  }
 
   /**
    * resize handler
