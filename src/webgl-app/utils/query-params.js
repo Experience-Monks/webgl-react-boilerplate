@@ -1,7 +1,7 @@
 const queryString = require('query-string');
 
 /**
- * getQueryFromParams
+ * Get a query parameter
  *
  * @export
  * @param {String} prop
@@ -13,7 +13,7 @@ export function getQueryFromParams(prop: String) {
 }
 
 /**
- * setQuery
+ * Set a query parmeter
  *
  * @export
  * @param {String} query

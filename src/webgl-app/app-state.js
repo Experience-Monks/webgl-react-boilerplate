@@ -1,3 +1,9 @@
+/**
+ * A class to manage the state of the webgl app
+ *
+ * @export
+ * @class AppState
+ */
 export default class AppState {
   constructor(props: Object = {}) {
     this.ready = props.ready || false;

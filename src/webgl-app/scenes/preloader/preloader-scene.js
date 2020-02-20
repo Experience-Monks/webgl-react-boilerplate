@@ -10,8 +10,14 @@ export default class PreloaderScene extends BaseScene {
     this.camera.lookAt(VECTOR_ZERO);
   }
 
+  /**
+   * Create and setup any objects for the scene
+   *
+   * @memberof PreloaderScene
+   */
   createSceneObjects = (resolve: Function, reject: Function) => {
     try {
+      // Create a spinner mesh to show loading progression
       this.spinner = new Mesh(
         new RingBufferGeometry(0.9, 1, 32, 1, 0, TWO_PI * 0.75),
         new ShaderMaterial({
@@ -70,6 +76,11 @@ export default class PreloaderScene extends BaseScene {
     });
   };
 
+  /**
+   * Update loop
+   *
+   * @memberof PreloaderScene
+   */
   update = (delta: Number) => {
     this.spinner.rotation.z -= delta * 2;
   };

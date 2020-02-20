@@ -37,11 +37,11 @@ class WebGLApp extends EventEmitter {
     this.state = new AppState({ ready: false });
 
     // Dev camera and controls
-    this.devCamera = createPerspectiveCamera();
+    this.devCamera = createPerspectiveCamera(rendererSize.x / rendererSize.y);
     this.devControls = createOrbitControls(this.devCamera);
 
     // Initial camera position
-    resetCamera(this.devCamera, 5);
+    resetCamera(this.devCamera, 10);
 
     // Setup the preloader scene right away as we need a scene to render on page load
     this.preloaderScene = new PreloaderScene();
@@ -117,6 +117,7 @@ class WebGLApp extends EventEmitter {
     setRendererSize(width, height);
     this.devCamera.aspect = width / height;
     this.devCamera.updateProjectionMatrix();
+    this.currentScene.resize(width, height);
   };
 
   /**

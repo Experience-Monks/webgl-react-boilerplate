@@ -43,6 +43,15 @@ function replace(shader, hooks, config) {
   return shader;
 }
 
+/**
+ * The material modifier injects custom shader code and uniforms
+ * to three's built in materials
+ *
+ * @export
+ * @param {Object} shader
+ * @param {Object} config
+ * @returns
+ */
 export default function materialModifier(shader: Object, config: Object) {
   shader.uniforms = UniformsUtils.merge([shader.uniforms, config.uniforms]);
 

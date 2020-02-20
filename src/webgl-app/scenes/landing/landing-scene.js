@@ -12,6 +12,11 @@ export default class LandingScene extends BaseScene {
     this.camera.lookAt(VECTOR_ZERO);
   }
 
+  /**
+   * Create and setup any objects for the scene
+   *
+   * @memberof LandingScene
+   */
   createSceneObjects = (resolve: Function, reject: Function) => {
     try {
       this.sphere = new Sphere();
@@ -29,6 +34,11 @@ export default class LandingScene extends BaseScene {
 
   animateOut = () => {};
 
+  /**
+   * Update loop
+   *
+   * @memberof LandingScene
+   */
   update = (delta: Number) => {
     this.sphere.update(delta);
   };

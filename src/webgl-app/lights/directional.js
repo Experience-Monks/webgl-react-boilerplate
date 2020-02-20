@@ -1,13 +1,21 @@
 import { DirectionalLight, DirectionalLightHelper } from 'three';
 import { GUI_PRECISION } from '../constants';
 
+/**
+ * Utility for creating directional lights
+ *
+ * @export
+ * @class Directional
+ */
 export default class Directional {
-  constructor(options, gui) {
-    this.settings = {
-      color: 0xd4d4d4,
-      intensity: 0.6
-    };
-    Object.assign(this.settings, options);
+  constructor(options: Object = {}) {
+    this.settings = Object.assign(
+      {
+        color: 0xd4d4d4,
+        intensity: 0.6
+      },
+      options
+    );
     this.light = new DirectionalLight(this.settings.color, this.settings.intensity);
     this.light.position.set(1, 1, 1);
     this.helper = new DirectionalLightHelper(this.light);
@@ -18,7 +26,7 @@ export default class Directional {
     this.gui = guiParent.addFolder('directional');
     this.gui.open();
     this.gui.addColor(this.settings, 'color').onChange(this.onChange);
-    this.gui.add(this.light, 'intensity', 0, 1);
+    this.gui.add(this.light, 'intensity', 0, 1, GUI_PRECISION);
     const range = 1;
     this.gui
       .add(this.light.position, 'x', -range, range)
