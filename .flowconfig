@@ -1,0 +1,15 @@
+[ignore]
+.*/node_modules/*
+
+[include]
+src/
+
+[libs]
+
+[lints]
+; all=warn
+
+[options]
+; include_warnings=true
+
+[strict]
