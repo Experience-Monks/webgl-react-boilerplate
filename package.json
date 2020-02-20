@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@commitlint/cli": "^8.3.5",
     "@jam3/detect": "^1.0.2",
     "@jam3/stats": "^1.0.1",
     "dat.gui": "^0.7.6",
