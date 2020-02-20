@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
 import { Clock, GridHelper, AxesHelper, CameraHelper, Group, DirectionalLight, AmbientLight } from 'three';
-import renderer, { setRendererSize, rendererSize } from './renderer';
+import renderer, { setRendererSize, rendererSize } from './rendering/renderer';
 import settings from './settings';
 import scene from './scene';
 import * as cameras from './cameras';

@@ -1,4 +1,4 @@
-import profiler from './profiler';
+import profiler from './rendering/profiler';
 import { getQueryFromParams } from './utils/query-params';
 
 // Unlock full render size (should be false for prod)

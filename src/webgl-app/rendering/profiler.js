@@ -1,5 +1,5 @@
 import { getGPUTier } from 'detect-gpu';
-import { GRAPHICS_HIGH, GRAPHICS_NORMAL } from './constants';
+import { GRAPHICS_HIGH, GRAPHICS_NORMAL } from '../constants';
 
 const gpuTier = getGPUTier();
 
