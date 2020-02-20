@@ -1,31 +1,11 @@
 import { WebGLRenderer, Vector2 } from 'three';
 import graphics from './graphics';
-import { getGraphicsMode, FBO_FULL_SCREEN } from './constants';
-import settings from './settings';
+import { getGraphicsMode, FBO_FULL_SCREEN } from '../constants';
+import settings from '../settings';
 import { getTier } from './profiler';
+import resize from './resize';
 
-const { pixelRatio, antialias, maxFrameBufferSize } = graphics[getGraphicsMode()];
-
-const baseSize = Math.sqrt(maxFrameBufferSize.x * maxFrameBufferSize.y);
-const maxSize = baseSize * baseSize;
-
-function calculateRenderSize(windowWidth, windowHeight) {
-  let width = windowWidth;
-  let height = windowHeight;
-  if (windowWidth * windowHeight > maxSize) {
-    const ratio = height / width;
-    width = baseSize;
-    height = Math.floor(baseSize * ratio);
-    let newSize = width * height;
-    const scalar = Math.sqrt(maxSize / newSize);
-    width = Math.floor(width * scalar);
-    height = Math.floor(height * scalar);
-  }
-  return {
-    width,
-    height
-  };
-}
+const { pixelRatio, antialias } = graphics[getGraphicsMode()];
 
 const renderer = new WebGLRenderer({
   antialias,
@@ -33,10 +13,11 @@ const renderer = new WebGLRenderer({
   stencil: false
 });
 renderer.setClearColor(0x000000);
+
 export const rendererSize = new Vector2();
 
 export function setRendererSize(windowWidth: Number, windowHeight: Number) {
-  let { width, height } = calculateRenderSize(windowWidth, windowHeight);
+  let { width, height } = resize(windowWidth, windowHeight);
   if (FBO_FULL_SCREEN) {
     width = windowWidth;
     height = windowHeight;

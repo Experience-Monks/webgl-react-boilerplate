@@ -1,4 +1,4 @@
-import { simplexNoise3D } from '../../shaders/noise.glsl';
+import { simplexNoise3D } from '../../../../shaders/noise.glsl';
 
 export default {
   uniforms: {
@@ -29,6 +29,9 @@ export default {
     preFragColor: `
       vec3 normal = normalize(vNormal);
       outgoingLight *= (normal * 0.5 + 0.5);
-    `
+    `,
+    postFragColor: `
+      gl_FragColor.a = opacity;
+    `,
   }
 };
