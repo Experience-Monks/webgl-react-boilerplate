@@ -20,3 +20,5 @@ if (GRAPHICS_MODES.includes(getQueryFromParams('graphics'))) {
 export function getGraphicsMode() {
   return GRAPHICS_MODE;
 }
+
+export const GUI_PRECISION = 0.001;

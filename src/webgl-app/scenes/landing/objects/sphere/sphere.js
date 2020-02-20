@@ -1,7 +1,7 @@
 import { Mesh, MeshLambertMaterial, SphereBufferGeometry } from 'three';
-import materialModifier from '../../utils/material-modifier';
+import materialModifier from '../../../../utils/material-modifier';
 import shaderConfig from './shader.glsl';
-import { GRAPHICS_HIGH, getGraphicsMode } from '../../constants';
+import { GRAPHICS_HIGH, getGraphicsMode } from '../../../../constants';
 
 export default class Sphere {
   constructor() {

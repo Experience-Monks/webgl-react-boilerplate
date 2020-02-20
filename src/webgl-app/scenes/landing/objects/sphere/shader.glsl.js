@@ -1,4 +1,4 @@
-import { simplexNoise3D } from '../../shaders/noise.glsl';
+import { simplexNoise3D } from '../../../../shaders/noise.glsl';
 
 export default {
   uniforms: {
