@@ -20,6 +20,10 @@ export default class Sphere {
     this.mesh = new Mesh(geometry, material);
   }
 
+  preloadGpuCullScene = (culled: Boolean) => {
+    this.mesh.material.opacity = culled ? 1 : 0;
+  };
+
   animateInit = () => {
     TweenLite.killTweensOf(this.mesh.material.opacity);
     this.mesh.material.opacity = 0;
