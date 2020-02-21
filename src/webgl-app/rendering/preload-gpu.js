@@ -4,7 +4,7 @@ import { createRenderTarget } from './render-target';
 import RenderTargetHelper from '../utils/render-target-helper';
 
 const RENDER_TARGET_SIZE = 128;
-const RENDER_TARGET_DEBUG = true;
+const RENDER_TARGET_DEBUG = false;
 
 const renderTarget = createRenderTarget(RENDER_TARGET_SIZE, RENDER_TARGET_SIZE, {
   depthBuffer: false,
