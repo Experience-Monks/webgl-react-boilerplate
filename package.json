@@ -54,12 +54,10 @@
     ]
   },
   "lint-staged": {
-    "linters": {
-      "src/**/*.js": [
-        "prettier --write",
-        "git add"
-      ]
-    }
+    "src/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
