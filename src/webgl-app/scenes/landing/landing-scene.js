@@ -17,27 +17,33 @@ export default class LandingScene extends BaseScene {
    *
    * @memberof LandingScene
    */
-  createSceneObjects = (resolve: Function, reject: Function) => {
-    try {
-      this.sphere = new Sphere();
-      this.scene.add(this.sphere.mesh);
-      this.animateInit();
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
+  createSceneObjects = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        this.sphere = new Sphere();
+        this.scene.add(this.sphere.mesh);
+        this.animateInit();
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  preloadGpuCullScene = (culled: Boolean) => {
+    this.sphere.preloadGpuCullScene(culled);
   };
 
   animateInit = () => {
-    this.sphere.animateInit();
+    return this.sphere.animateInit();
   };
 
   animateIn = () => {
-    this.sphere.animateIn();
+    return this.sphere.animateIn();
   };
 
   animateOut = () => {
-    this.sphere.animateOut();
+    return this.sphere.animateOut();
   };
 
   /**

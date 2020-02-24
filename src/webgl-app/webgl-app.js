@@ -44,11 +44,6 @@ class WebGLApp extends EventEmitter {
     // Initial camera position
     resetCamera(this.devCamera, 10);
 
-    // Setup the preloader scene right away as we need a scene to render on page load
-    this.preloaderScene = new PreloaderScene();
-    this.preloaderScene.setup();
-    this.setScene(this.preloaderScene);
-
     // Gui settings group
     const guiSettings = gui.addFolder('settings');
     guiSettings.open();
@@ -73,11 +68,15 @@ class WebGLApp extends EventEmitter {
   setup = () => {
     return new Promise((resolve, reject) => {
       try {
+        // Setup the preloader scene right away as we need a scene to render on page load
+        this.preloaderScene = new PreloaderScene();
         this.preloaderScene
-          .animateIn()
-          .then(resolve)
+          .setup()
+          .then(() => {
+            this.setScene(this.preloaderScene);
+            resolve();
+          })
           .catch(reject);
-        resolve();
       } catch (error) {
         reject(error);
       }
@@ -100,7 +99,6 @@ class WebGLApp extends EventEmitter {
         .then(() => {
           this.preloaderScene.animateOut().then(() => {
             this.setScene(landingScene);
-            landingScene.animateIn();
           });
         })
         .catch((error: String) => {
@@ -117,7 +115,10 @@ class WebGLApp extends EventEmitter {
    * @memberof WebGLApp
    */
   setScene(scene: BaseScene) {
-    this.currentScene = scene;
+    return new Promise((resolve, reject) => {
+      this.currentScene = scene;
+      this.currentScene.animateIn().then(resolve, reject);
+    });
   }
 
   /**
