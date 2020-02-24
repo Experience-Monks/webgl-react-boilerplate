@@ -20,7 +20,7 @@ export default class LandingScene extends BaseScene {
   createSceneObjects = () => {
     return new Promise((resolve, reject) => {
       try {
-        this.sphere = new Sphere();
+        this.sphere = new Sphere(this.camera);
         this.scene.add(this.sphere.mesh);
         this.animateInit();
         resolve();

@@ -15,7 +15,7 @@ export default {
     preTransform: ``,
     postTransform: `
       float speed = time * 0.5;
-      float noise = simplexNoise3D(position.xyz * 0.75 + speed) * 0.25;
+      float noise = simplexNoise3D(position.xyz * 0.75 + speed) * 0.15;
       transformed = normal * noise;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(position + transformed, 1.0);
       vNormal = normal;
@@ -32,6 +32,6 @@ export default {
     `,
     postFragColor: `
       gl_FragColor.a = opacity;
-    `,
+    `
   }
 };
