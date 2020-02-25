@@ -1,6 +1,7 @@
 import EventEmitter from 'eventemitter3';
 import { Clock } from 'three';
-import renderer, { setRendererSize, rendererSize } from './rendering/renderer';
+import renderer, { postProcessing } from './rendering/renderer';
+import { setRendererSize, rendererSize } from './rendering/resize';
 import settings from './settings';
 import { rendererStats } from './utils/stats';
 import { setQuery } from './utils/query-params';
@@ -118,6 +119,8 @@ class WebGLApp extends EventEmitter {
     return new Promise((resolve, reject) => {
       this.currentScene = scene;
       this.currentScene.animateIn().then(resolve, reject);
+      postProcessing.setScenes(postProcessing.sceneB, scene);
+      postProcessing.transitionPass.transition();
     });
   }
 
@@ -127,10 +130,11 @@ class WebGLApp extends EventEmitter {
    * @memberof WebGLApp
    */
   resize = (width: Number, height: Number) => {
-    setRendererSize(width, height);
+    setRendererSize(renderer, width, height);
     this.devCamera.aspect = width / height;
     this.devCamera.updateProjectionMatrix();
     this.currentScene.resize(width, height);
+    postProcessing.resize();
   };
 
   /**
@@ -138,14 +142,29 @@ class WebGLApp extends EventEmitter {
    *
    * @memberof WebGLApp
    */
-  renderScene = (camera: PerspectiveCamera, left: Number, bottom: Number, width: Number, height: Number) => {
+  renderScene = (
+    camera: PerspectiveCamera,
+    left: Number,
+    bottom: Number,
+    width: Number,
+    height: Number,
+    delta: Number,
+    usePostProcessing: Boolean
+  ) => {
     left *= rendererSize.x;
     bottom *= rendererSize.y;
     width *= rendererSize.x;
     height *= rendererSize.y;
     renderer.setViewport(left, bottom, width, height);
     renderer.setScissor(left, bottom, width, height);
-    renderer.render(this.currentScene.scene, camera);
+
+    if (usePostProcessing) {
+      postProcessing.render(delta);
+    } else {
+      this.currentScene.update(this.delta);
+      renderer.setClearColor(this.currentScene.clearColor);
+      renderer.render(this.currentScene.scene, camera);
+    }
   };
 
   /**
@@ -172,15 +191,11 @@ class WebGLApp extends EventEmitter {
     this.rafId = requestAnimationFrame(this.update);
     this.delta = this.clock.getDelta();
 
-    this.currentScene.update(this.delta);
-
-    renderer.setClearColor(this.currentScene.clearColor);
-
     if (settings.devCamera) {
-      this.renderScene(this.devCamera, 0, 0, 1, 1);
-      this.renderScene(this.currentScene.camera, 0, 0, 0.25, 0.25);
+      this.renderScene(this.devCamera, 0, 0, 1, 1, this.delta);
+      this.renderScene(this.currentScene.camera, 0, 0, 0.25, 0.25, this.delta);
     } else {
-      this.renderScene(this.currentScene.camera, 0, 0, 1, 1);
+      this.renderScene(this.currentScene.camera, 0, 0, 1, 1, this.delta, true);
     }
 
     if (settings.stats) {

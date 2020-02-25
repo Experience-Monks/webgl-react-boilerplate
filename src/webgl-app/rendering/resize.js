@@ -1,12 +1,22 @@
+import { Vector2 } from 'three';
 import graphics from './graphics';
-import { getGraphicsMode } from '../constants';
+import { getGraphicsMode, FBO_FULL_SCREEN } from '../constants';
 
-const { maxFrameBufferSize } = graphics[getGraphicsMode()];
+const { maxFrameBufferSize, pixelRatio } = graphics[getGraphicsMode()];
 
 const baseSize = Math.sqrt(maxFrameBufferSize.x * maxFrameBufferSize.y);
 const maxSize = baseSize * baseSize;
 
-export default function(windowWidth, windowHeight) {
+export const rendererSize = new Vector2();
+
+export function getRenderBufferSize() {
+  return {
+    width: rendererSize.x * pixelRatio,
+    height: rendererSize.y * pixelRatio
+  };
+}
+
+function resize(windowWidth, windowHeight) {
   let width = windowWidth;
   let height = windowHeight;
   if (windowWidth * windowHeight > maxSize) {
@@ -22,4 +32,17 @@ export default function(windowWidth, windowHeight) {
     width,
     height
   };
+}
+
+export function setRendererSize(renderer: WebGLRenderer, windowWidth: Number, windowHeight: Number) {
+  let { width, height } = resize(windowWidth, windowHeight);
+  if (FBO_FULL_SCREEN) {
+    width = windowWidth;
+    height = windowHeight;
+  }
+  rendererSize.x = width;
+  rendererSize.y = height;
+  renderer.setSize(width, height);
+  renderer.domElement.style.width = `${windowWidth}px`;
+  renderer.domElement.style.height = `${windowHeight}px`;
 }

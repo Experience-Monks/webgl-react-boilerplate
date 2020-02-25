@@ -1,9 +1,11 @@
-import { WebGLRenderer, Vector2 } from 'three';
+import { WebGLRenderer } from 'three';
 import graphics from './graphics';
-import { getGraphicsMode, FBO_FULL_SCREEN } from '../constants';
+import { getGraphicsMode } from '../constants';
 import settings from '../settings';
 import { getTier } from './profiler';
-import resize from './resize';
+import { setRendererSize } from './resize';
+import PostProcessing from './post-processing/post-processing';
+import { gui } from '../utils/gui';
 
 const { pixelRatio, antialias } = graphics[getGraphicsMode()];
 
@@ -14,27 +16,17 @@ const renderer = new WebGLRenderer({
 });
 renderer.setClearColor(0x000000);
 
-export const rendererSize = new Vector2();
-
-export function setRendererSize(windowWidth: Number, windowHeight: Number) {
-  let { width, height } = resize(windowWidth, windowHeight);
-  if (FBO_FULL_SCREEN) {
-    width = windowWidth;
-    height = windowHeight;
-  }
-  rendererSize.x = width;
-  rendererSize.y = height;
-  renderer.setSize(width, height);
-  renderer.domElement.style.width = `${windowWidth}px`;
-  renderer.domElement.style.height = `${windowHeight}px`;
-}
-
 // Enable shader errors during dev
 renderer.debug.checkShaderErrors = settings.isDevelopment;
 
+const guiRendering = gui.addFolder('rendering');
+guiRendering.open();
+
 renderer.setPixelRatio(pixelRatio);
 renderer.setScissorTest(true);
-setRendererSize(window.innerWidth, window.innerHeight);
+setRendererSize(renderer, window.innerWidth, window.innerHeight);
+
+export const postProcessing = new PostProcessing(guiRendering);
 
 const gl = renderer.getContext();
 const gpuInfo = gl.getExtension('WEBGL_debug_renderer_info');
