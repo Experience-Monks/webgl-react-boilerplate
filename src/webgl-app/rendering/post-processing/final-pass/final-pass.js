@@ -1,7 +1,7 @@
 import { Scene, Mesh, ShaderMaterial, Vector2, UniformsUtils, WebGLRenderTarget } from 'three';
 import { vertexShader, fragmentShader } from './shader.glsl';
 import { getRenderBufferSize } from '../../resize';
-import { uniforms as noiseUniforms } from '../passes/noise.glsl';
+import { uniforms as filmUniforms, guiControls as filmGuiControls } from '../passes/film.glsl';
 import renderer from '../../renderer';
 
 export default class FinalPass {
@@ -24,14 +24,15 @@ export default class FinalPass {
             value: new Vector2(width, height)
           }
         },
-        noiseUniforms
+        filmUniforms
       ]),
       vertexShader,
       fragmentShader
     });
 
-    this.gui.add(material.uniforms.noiseAmount, 'value', 0, 1).name('noise amount');
-    this.gui.add(material.uniforms.noiseSpeed, 'value', 0, 1).name('noise speed');
+    // Film
+    filmGuiControls(this.gui, material);
+
     this.mesh = new Mesh(geometry, material);
     this.mesh.matrixAutoUpdate = false;
     this.mesh.updateMatrix();
