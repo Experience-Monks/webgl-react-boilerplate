@@ -22,7 +22,7 @@ This is a great starting place for creative coders who want to jump straight int
 **Scenes**
 
 - [BaseScene](blob/develop/src/webgl-app/scenes/base/base-scene.js), an extendable class that enforces a clean scene pattern
-- Event Emitter is used for event communication between classes
+- [EventEmitter3](https://github.com/primus/eventemitter3) is used for event communication between classes
 
 **Cameras**
 
@@ -39,7 +39,7 @@ This is a great starting place for creative coders who want to jump straight int
 **Interactions**
 
 - [Touch Controls](blob/develop/src/webgl-app/interaction/touch-controls.js) for normalizing mouse and touch events
-- [InteractiveObject](blob/develop/src/webgl-app/interaction/interactive-object.js), a raycasting helper for interactive meshes
+- [InteractiveObject](blob/develop/src/webgl-app/interaction/interactive-object.js) adds interactivity to meshes
 
 ## References
 
