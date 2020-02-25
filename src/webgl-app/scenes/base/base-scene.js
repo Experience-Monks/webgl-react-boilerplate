@@ -4,7 +4,7 @@ import { createPerspectiveCamera, createOrbitControls, resetCamera } from '../..
 import { gui, GUIWrapper } from '../../utils/gui';
 import Math3 from '../../utils/math';
 import settings from '../../settings';
-import { rendererSize } from '../../rendering/renderer';
+import { rendererSize } from '../../rendering/resize';
 import preloadGpu from '../../rendering/preload-gpu';
 
 /**
