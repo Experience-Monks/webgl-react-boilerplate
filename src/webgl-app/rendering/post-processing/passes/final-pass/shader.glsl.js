@@ -1,12 +1,12 @@
 import { fragmentUniforms as fxaaFragmentUniforms,
          fragmentMain as fxaaFragmentMain,
          fragmentPass as fxaaFragmentPass }
-         from '../passes/fxaa.glsl';
+         from '../../passes/fxaa.glsl';
 
 import { fragmentUniforms as filmFragmentUniforms,
          fragmentMain as filmFragmentMain,
          fragmentPass as filmFragmentPass }
-         from '../passes/film.glsl';
+         from '../../passes/film.glsl';
 
 export const vertexShader = `
   void main() {

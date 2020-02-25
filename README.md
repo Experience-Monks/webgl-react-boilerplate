@@ -10,30 +10,31 @@ This is a great starting place for creative coders who want to jump straight int
 
 **Rendering**
 
-- Graphics profiling using [detect-gpu](https://github.com/TimvanScherpenzeel/detect-gpu)
-- Preload objects on [GPU](https://medium.com/@hellomondaycom/how-we-built-the-google-cloud-infrastructure-webgl-experience-dec3ce7cd209)
+- [Graphics profiling](blob/develop/src/webgl-app/rendering/profiler.js)
+- Preload objects on [GPU](blob/develop/src/webgl-app/rendering/preload-gpu.js)
 - Post Processing
-  - FXAA as a replacement for antialising when using PostProcessing on WebGL 1
-  - Film Pass for a more filmic look
-  - Transition Pass for blending between two webgl scenes
+  - [FXAA](blob/develop/src/webgl-app/rendering/post-processing/passes/fxaa.glsl.js) as a replacement for antialising when using PostProcessing on WebGL 1
+  - [Film Pass](blob/develop/src/webgl-app/rendering/post-processing/passes/film.glsl.js) for a more filmic look
+  - [Transition Pass](blob/develop/src/webgl-app/rendering/post-processing/passes/transition-pass/transition-pass.js) for blending between two webgl scenes
+  - [Final Pass](blob/develop/src/webgl-app/rendering/post-processing/passes/final-pass/final-pass.js) Combine multiple effects in a single shader
 - [Stats](blob/develop/src/webgl-app/utils/stats.js) for fps and threejs for performance insights
 
 **Scenes**
 
-- BaseScene, an extendable class that enforces a clean scene pattern
+- [BaseScene](blob/develop/src/webgl-app/scenes/base/base-scene.js), an extendable class that enforces a clean scene pattern
 - Event Emitter is used for event communication between classes
 
 **Cameras**
 
-- Helpers for creating perspective cameras and adding orbit controls
+- Helpers for [creating perspective cameras](blob/develop/src/webgl-app/cameras/cameras.js#L30) and adding [orbit controls](blob/develop/src/webgl-app/cameras/cameras.js#L41)
 
 **Lights**
 
-- Helpers added for `Ambient Light, Directional Light, Point Light and Spot Light`
+- Helpers added for [Ambient Light](blob/develop/src/webgl-app/lights/ambient.js), [Directional Light](blob/develop/src/webgl-app/lights/directional.js), [Point Light](blob/develop/src/webgl-app/lights/point.js) and [Spot Light](blob/develop/src/webgl-app/lights/spot.js)
 
 **Materials**
 
-- A material modifier inspired by [three-material-modifier](https://github.com/jamieowen/three-material-modifier) that can extend three's built in Materials with custom shader code
+- A [material modifier](blob/develop/src/webgl-app/utils/material-modifier.js) inspired by [three-material-modifier](https://github.com/jamieowen/three-material-modifier) that can extend three's built in Materials with custom shader code
 
 **Interactions**
 

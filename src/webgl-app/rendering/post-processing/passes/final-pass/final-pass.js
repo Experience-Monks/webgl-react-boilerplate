@@ -1,9 +1,9 @@
 import { Scene, Mesh, ShaderMaterial, Vector2, UniformsUtils, WebGLRenderTarget } from 'three';
 import { vertexShader, fragmentShader } from './shader.glsl';
-import { getRenderBufferSize } from '../../resize';
-import { uniforms as filmUniforms, guiControls as filmGuiControls } from '../passes/film.glsl';
-import { uniforms as fxaaUniforms, guiControls as fxaaGuiControls } from '../passes/fxaa.glsl';
-import renderer from '../../renderer';
+import { getRenderBufferSize } from '../../../resize';
+import { uniforms as filmUniforms, guiControls as filmGuiControls } from '../../passes/film.glsl';
+import { uniforms as fxaaUniforms, guiControls as fxaaGuiControls } from '../../passes/fxaa.glsl';
+import renderer from '../../../renderer';
 
 /**
  * The final pass contains the post fx and is then output to the screen
