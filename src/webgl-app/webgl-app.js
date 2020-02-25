@@ -142,9 +142,8 @@ class WebGLApp extends EventEmitter {
     this.devCamera.updateProjectionMatrix();
     this.currentScene.resize(width, height);
     postProcessing.resize();
-
     this.viewport.debug.set(0, 0, rendererSize.x * VIEWPORT_PREVIEW_SCALE, rendererSize.y * VIEWPORT_PREVIEW_SCALE);
-    this.viewport.main.set(rendererSize.x, rendererSize.y, rendererSize.x, rendererSize.y);
+    this.viewport.main.set(0, 0, rendererSize.x, rendererSize.y);
   };
 
   /**

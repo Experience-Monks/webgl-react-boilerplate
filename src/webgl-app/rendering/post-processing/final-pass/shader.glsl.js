@@ -14,7 +14,6 @@ export const vertexShader = `
   }
 `;
 
-
 export const fragmentShader = `
   uniform vec2 resolution;
   uniform float time;
