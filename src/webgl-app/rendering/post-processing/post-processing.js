@@ -6,6 +6,8 @@ import TransitionPass from './transition-pass/transition-pass';
 import FinalPass from './final-pass/final-pass';
 import EmptyScene from '../../scenes/empty/empty-scene';
 import renderer from '../renderer';
+import settings from '../../settings';
+import { VIEWPORT_PREVIEW_SCALE } from '../../constants';
 
 export default class PostProcessing {
   constructor(gui) {
@@ -40,7 +42,10 @@ export default class PostProcessing {
   }
 
   resize() {
-    const { width, height } = getRenderBufferSize();
+    const scale = settings.devCamera ? VIEWPORT_PREVIEW_SCALE : 1;
+    let { width, height } = getRenderBufferSize();
+    width *= scale;
+    height *= scale;
     this.renderTargetA.setSize(width, height);
     this.renderTargetB.setSize(width, height);
     this.renderTargetC.setSize(width, height);

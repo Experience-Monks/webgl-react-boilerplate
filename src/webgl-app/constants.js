@@ -30,3 +30,6 @@ export function getGraphicsMode() {
 
 // GUI Number precision
 export const GUI_PRECISION = 0.001;
+
+// Viewport preview scale (when using devCamera)
+export const VIEWPORT_PREVIEW_SCALE = 0.25;

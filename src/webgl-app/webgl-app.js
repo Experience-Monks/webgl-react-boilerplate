@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { Clock } from 'three';
+import { Clock, Vector4 } from 'three';
 import renderer, { postProcessing } from './rendering/renderer';
 import { setRendererSize, rendererSize } from './rendering/resize';
 import settings from './settings';
@@ -11,6 +11,7 @@ import PreloaderScene from './scenes/preloader/preloader-scene';
 import AppState from './app-state';
 import LandingScene from './scenes/landing/landing-scene';
 import BaseScene from './scenes/base/base-scene';
+import { VIEWPORT_PREVIEW_SCALE } from './constants';
 
 class WebGLApp extends EventEmitter {
   /**
@@ -38,6 +39,11 @@ class WebGLApp extends EventEmitter {
     // Initial state
     this.state = new AppState({ ready: false });
 
+    this.viewport = {
+      debug: new Vector4(0, 0, rendererSize.x * VIEWPORT_PREVIEW_SCALE, rendererSize.y * VIEWPORT_PREVIEW_SCALE),
+      main: new Vector4(0, 0, rendererSize.x, rendererSize.y)
+    };
+
     // Dev camera and controls
     this.devCamera = createPerspectiveCamera(rendererSize.x / rendererSize.y);
     this.devControls = createOrbitControls(this.devCamera);
@@ -52,6 +58,7 @@ class WebGLApp extends EventEmitter {
     // Toggle between dev and scene camera
     guiSettings.add(settings, 'devCamera').onChange((value: Boolean) => {
       setQuery('devCamera', value);
+      postProcessing.resize();
     });
 
     // Toggle scene helpers
@@ -135,6 +142,9 @@ class WebGLApp extends EventEmitter {
     this.devCamera.updateProjectionMatrix();
     this.currentScene.resize(width, height);
     postProcessing.resize();
+
+    this.viewport.debug.set(0, 0, rendererSize.x * VIEWPORT_PREVIEW_SCALE, rendererSize.y * VIEWPORT_PREVIEW_SCALE);
+    this.viewport.main.set(rendererSize.x, rendererSize.y, rendererSize.x, rendererSize.y);
   };
 
   /**
@@ -142,21 +152,9 @@ class WebGLApp extends EventEmitter {
    *
    * @memberof WebGLApp
    */
-  renderScene = (
-    camera: PerspectiveCamera,
-    left: Number,
-    bottom: Number,
-    width: Number,
-    height: Number,
-    delta: Number,
-    usePostProcessing: Boolean
-  ) => {
-    left *= rendererSize.x;
-    bottom *= rendererSize.y;
-    width *= rendererSize.x;
-    height *= rendererSize.y;
-    renderer.setViewport(left, bottom, width, height);
-    renderer.setScissor(left, bottom, width, height);
+  renderScene = (camera: PerspectiveCamera, viewport: Vector4, delta: Number, usePostProcessing: Boolean) => {
+    renderer.setViewport(viewport.x, viewport.y, viewport.z, viewport.w);
+    renderer.setScissor(viewport.x, viewport.y, viewport.z, viewport.w);
 
     if (usePostProcessing) {
       postProcessing.render(delta);
@@ -192,10 +190,10 @@ class WebGLApp extends EventEmitter {
     this.delta = this.clock.getDelta();
 
     if (settings.devCamera) {
-      this.renderScene(this.devCamera, 0, 0, 1, 1, this.delta);
-      this.renderScene(this.currentScene.camera, 0, 0, 0.25, 0.25, this.delta);
+      this.renderScene(this.devCamera, this.viewport.main, this.delta);
+      this.renderScene(this.currentScene.camera, this.viewport.debug, this.delta, true);
     } else {
-      this.renderScene(this.currentScene.camera, 0, 0, 1, 1, this.delta, true);
+      this.renderScene(this.currentScene.camera, this.viewport.main, this.delta, true);
     }
 
     if (settings.stats) {
