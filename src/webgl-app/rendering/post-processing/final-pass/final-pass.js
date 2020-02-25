@@ -2,6 +2,7 @@ import { Scene, Mesh, ShaderMaterial, Vector2, UniformsUtils, WebGLRenderTarget 
 import { vertexShader, fragmentShader } from './shader.glsl';
 import { getRenderBufferSize } from '../../resize';
 import { uniforms as filmUniforms, guiControls as filmGuiControls } from '../passes/film.glsl';
+import { uniforms as fxaaUniforms, guiControls as fxaaGuiControls } from '../passes/fxaa.glsl';
 import renderer from '../../renderer';
 
 export default class FinalPass {
@@ -17,13 +18,15 @@ export default class FinalPass {
           time: {
             value: 0
           },
-          texture: {
+          tDiffuse: {
+            // Keep it the same as threejs for reusability
             value: null
           },
           resolution: {
             value: new Vector2(width, height)
           }
         },
+        fxaaUniforms,
         filmUniforms
       ]),
       vertexShader,
@@ -31,6 +34,7 @@ export default class FinalPass {
     });
 
     // Film
+    fxaaGuiControls(this.gui, material);
     filmGuiControls(this.gui, material);
 
     this.mesh = new Mesh(geometry, material);
@@ -42,13 +46,15 @@ export default class FinalPass {
   resize(width: Number, height: Number) {
     this.mesh.material.uniforms.resolution.value.x = width;
     this.mesh.material.uniforms.resolution.value.y = height;
+    this.mesh.material.uniforms.fxaaResolution.value.x = 1 / width;
+    this.mesh.material.uniforms.fxaaResolution.value.y = 1 / height;
   }
 
   render(scene, renderTarget: WebGLRenderTarget, delta: Number) {
     renderer.setRenderTarget(renderTarget);
     renderer.render(scene.scene, scene.camera);
     renderer.setRenderTarget(null);
-    this.mesh.material.uniforms.texture.value = renderTarget.texture;
+    this.mesh.material.uniforms.tDiffuse.value = renderTarget.texture;
     this.mesh.material.uniforms.time.value += delta;
     renderer.render(this.scene, this.camera);
   }

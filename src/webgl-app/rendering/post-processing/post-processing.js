@@ -31,6 +31,7 @@ export default class PostProcessing {
     this.lastPass = null;
 
     this.setScenes(sceneA, sceneB);
+    this.resize();
   }
 
   setScenes(sceneA, sceneB) {

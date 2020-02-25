@@ -1,14 +1,15 @@
 import { rand, PI } from '../../../shaders/math.glsl';
 
 export const uniforms = {
-  time: { value: 0 },
-  	filmNoiseIntensity: { value: 0.35 },
-		filmScanIntensity: { value: 0.05 },
-		filmScanCount: { value: 4096 },
-		filmGrayscale: { value: 0 }
+  filmEnabled: { value: 1 },
+  filmNoiseIntensity: { value: 0.35 },
+  filmScanIntensity: { value: 0.05 },
+  filmScanCount: { value: 4096 },
+  filmGrayscale: { value: 0 }
 };
 
 export const fragmentUniforms = `
+  uniform bool filmEnabled;
   uniform bool filmGrayscale;
   uniform float filmNoiseIntensity;
   uniform float filmScanIntensity;
@@ -67,14 +68,19 @@ export const fragmentPass = `
 `;
 
 export const fragmentMain = `
-  outgoingColor.rgb = filmPass(outgoingColor.rgb, uv);
+  // Film pass start
+  if (filmEnabled) {
+    outgoingColor.rgb = filmPass(outgoingColor.rgb, uv);
+  }
+  // Film pass end
 `
 
 export function guiControls(gui, material) {
-  const guiFilm = gui.addFolder('film pass');
-  guiFilm.open();
-  guiFilm.add(material.uniforms.filmNoiseIntensity, 'value', 0, 1).name('noise intensity');
-  guiFilm.add(material.uniforms.filmScanIntensity, 'value', 0, 1).name('scan intensity');
-  guiFilm.add(material.uniforms.filmScanCount, 'value', 0, 4096).name('scan count');
-  guiFilm.add(material.uniforms.filmGrayscale, 'value', 0, 1, 1).name('gayscale');
+  const guiPass = gui.addFolder('film pass');
+  guiPass.open();
+  guiPass.add(material.uniforms.filmEnabled, 'value', 0, 1, 1).name('enabled');
+  guiPass.add(material.uniforms.filmNoiseIntensity, 'value', 0, 1).name('noise intensity');
+  guiPass.add(material.uniforms.filmScanIntensity, 'value', 0, 1).name('scan intensity');
+  guiPass.add(material.uniforms.filmScanCount, 'value', 0, 4096).name('scan count');
+  guiPass.add(material.uniforms.filmGrayscale, 'value', 0, 1, 1).name('gayscale');
 }
