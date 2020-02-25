@@ -13,8 +13,6 @@ export const fragmentUniforms = `
   uniform float filmNoiseIntensity;
   uniform float filmScanIntensity;
   uniform float filmScanCount;
-  ${PI}
-  ${rand}
 `;
 
 /**
@@ -38,29 +36,39 @@ export const fragmentUniforms = `
  * This version is provided under a Creative Commons Attribution 3.0 License
  * http://creativecommons.org/licenses/by/3.0/
  */
-export const fragmentMain = `
-  // Make some noise
-  float dx = rand(uv + time);
 
-  // Add noise
-  vec3 cResult = outgoingColor.rgb + outgoingColor.rgb * clamp(0.1 + dx, 0.0, 1.0);
+export const fragmentPass = `
+  ${PI}
+  ${rand}
 
-  // Get us a sine and cosine
-  vec2 sc = vec2(sin(uv.y * filmScanCount), cos(uv.y * filmScanCount));
+  vec3 filmPass(vec3 outgoingColor, vec2 uv) {
+    // Make some noise
+    float dx = rand(uv + time);
 
-  // Add scanlines
-  cResult += outgoingColor.rgb * vec3(sc.x, sc.y, sc.x) * filmScanIntensity;
+    // Add noise
+    vec3 cResult = outgoingColor.rgb + outgoingColor.rgb * clamp(0.1 + dx, 0.0, 1.0);
 
-  // Interpolate between source and result by intensity
-  cResult = outgoingColor.rgb + clamp(filmNoiseIntensity, 0.0,1.0) * (cResult - outgoingColor.rgb);
+    // Get us a sine and cosine
+    vec2 sc = vec2(sin(uv.y * filmScanCount), cos(uv.y * filmScanCount));
 
-  // Convert to grayscale if desired
-  if (filmGrayscale) {
-    cResult = vec3( cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11 );
+    // Add scanlines
+    cResult += outgoingColor.rgb * vec3(sc.x, sc.y, sc.x) * filmScanIntensity;
+
+    // Interpolate between source and result by intensity
+    cResult = outgoingColor.rgb + clamp(filmNoiseIntensity, 0.0,1.0) * (cResult - outgoingColor.rgb);
+
+    // Convert to grayscale if desired
+    if (filmGrayscale) {
+      cResult = vec3( cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11 );
+    }
+
+    return cResult;
   }
-
-  outgoingColor.rgb = cResult;
 `;
+
+export const fragmentMain = `
+  outgoingColor.rgb = filmPass(outgoingColor.rgb, uv);
+`
 
 export function guiControls(gui, material) {
   const guiFilm = gui.addFolder('film pass');
