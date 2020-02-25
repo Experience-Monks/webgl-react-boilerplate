@@ -10,36 +10,36 @@ This is a great starting place for creative coders who want to jump straight int
 
 **Rendering**
 
-- [Graphics profiling](blob/develop/src/webgl-app/rendering/profiler.js)
-- Preload objects on [GPU](blob/develop/src/webgl-app/rendering/preload-gpu.js)
+- [Graphics profiling](src/webgl-app/rendering/profiler.js)
+- Preload objects on [GPU](src/webgl-app/rendering/preload-gpu.js)
 - Post Processing
-  - [FXAA](blob/develop/src/webgl-app/rendering/post-processing/passes/fxaa.glsl.js) as a replacement for antialising when using PostProcessing on WebGL 1
-  - [Film Pass](blob/develop/src/webgl-app/rendering/post-processing/passes/film.glsl.js) for a more filmic look
-  - [Transition Pass](blob/develop/src/webgl-app/rendering/post-processing/passes/transition-pass/transition-pass.js) for blending between two webgl scenes
-  - [Final Pass](blob/develop/src/webgl-app/rendering/post-processing/passes/final-pass/final-pass.js) Combine multiple effects in a single shader
-- [Stats](blob/develop/src/webgl-app/utils/stats.js) for fps and threejs for performance insights
+  - [FXAA](src/webgl-app/rendering/post-processing/passes/fxaa.glsl.js) as a replacement for antialising when using PostProcessing on WebGL 1
+  - [Film Pass](src/webgl-app/rendering/post-processing/passes/film.glsl.js) for a more filmic look
+  - [Transition Pass](src/webgl-app/rendering/post-processing/passes/transition-pass/transition-pass.js) for blending between two webgl scenes
+  - [Final Pass](src/webgl-app/rendering/post-processing/passes/final-pass/final-pass.js) Combine multiple effects in a single shader
+- [Stats](src/webgl-app/utils/stats.js) for fps and threejs for performance insights
 
 **Scenes**
 
-- [BaseScene](blob/develop/src/webgl-app/scenes/base/base-scene.js), an extendable class that enforces a clean scene pattern
+- [BaseScene](src/webgl-app/scenes/base/base-scene.js), an extendable class that enforces a clean scene pattern
 - [EventEmitter3](https://github.com/primus/eventemitter3) is used for event communication between classes
 
 **Cameras**
 
-- Helpers for [creating perspective cameras](blob/develop/src/webgl-app/cameras/cameras.js#L30) and adding [orbit controls](blob/develop/src/webgl-app/cameras/cameras.js#L41)
+- Helpers for [creating perspective cameras](src/webgl-app/cameras/cameras.js#L30) and adding [orbit controls](src/webgl-app/cameras/cameras.js#L41)
 
 **Lights**
 
-- Helpers added for [Ambient Light](blob/develop/src/webgl-app/lights/ambient.js), [Directional Light](blob/develop/src/webgl-app/lights/directional.js), [Point Light](blob/develop/src/webgl-app/lights/point.js) and [Spot Light](blob/develop/src/webgl-app/lights/spot.js)
+- Helpers added for [Ambient Light](src/webgl-app/lights/ambient.js), [Directional Light](src/webgl-app/lights/directional.js), [Point Light](src/webgl-app/lights/point.js) and [Spot Light](src/webgl-app/lights/spot.js)
 
 **Materials**
 
-- A [material modifier](blob/develop/src/webgl-app/utils/material-modifier.js) inspired by [three-material-modifier](https://github.com/jamieowen/three-material-modifier) that can extend three's built in Materials with custom shader code
+- A [material modifier](src/webgl-app/utils/material-modifier.js) inspired by [three-material-modifier](https://github.com/jamieowen/three-material-modifier) that can extend three's built in Materials with custom shader code
 
 **Interactions**
 
-- [Touch Controls](blob/develop/src/webgl-app/interaction/touch-controls.js) for normalizing mouse and touch events
-- [InteractiveObject](blob/develop/src/webgl-app/interaction/interactive-object.js) adds interactivity to meshes
+- [Touch Controls](src/webgl-app/interaction/touch-controls.js) for normalizing mouse and touch events
+- [InteractiveObject](src/webgl-app/interaction/interactive-object.js) adds interactivity to meshes
 
 ## References
 
