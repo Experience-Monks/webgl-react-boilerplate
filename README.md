@@ -1,6 +1,49 @@
 # WebGL React App
 
-A base project for WebGL + React based projects.
+The goal is this project is to standardise WebGL and React based projects at Jam3.
+
+Building upon experience it features highly optimised approaches for rendering and scene management.
+
+This is a great starting place for creative coders who want to jump straight into coding webgl.
+
+## Features
+
+**Rendering**
+
+- Graphics profiling using [detect-gpu](https://github.com/TimvanScherpenzeel/detect-gpu)
+- Preload objects on [GPU](https://medium.com/@hellomondaycom/how-we-built-the-google-cloud-infrastructure-webgl-experience-dec3ce7cd209)
+- Post Processing
+  - FXAA as a replacement for antialising when using PostProcessing on WebGL 1
+  - Film Pass for a more filmic look
+  - Transition Pass for blending between two webgl scenes
+- [Stats](blob/develop/src/webgl-app/utils/stats.js) for fps and threejs for performance insights
+
+**Scenes**
+
+- BaseScene, an extendable class that enforces a clean scene pattern
+- Event Emitter is used for event communication between classes
+
+**Cameras**
+
+- Helpers for creating perspective cameras and adding orbit controls
+
+**Lights**
+
+- Helpers added for `Ambient Light, Directional Light, Point Light and Spot Light`
+
+**Materials**
+
+- A material modifier inspired by [three-material-modifier](https://github.com/jamieowen/three-material-modifier) that can extend three's built in Materials with custom shader code
+
+**Interactions**
+
+- [Touch Controls](blob/develop/src/webgl-app/interaction/touch-controls.js) for normalizing mouse and touch events
+- [InteractiveObject](blob/develop/src/webgl-app/interaction/interactive-object.js), a raycasting helper for interactive meshes
+
+## References
+
+- [Threejs documentation](https://threejs.org/docs/)
+- [Discover threejs Tips and Tricks](https://discoverthreejs.com/tips-and-tricks/)
 
 ---
 
