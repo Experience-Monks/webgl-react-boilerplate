@@ -16,7 +16,7 @@ export const fragmentPass = `
   // FXAA 3.11 implementation by NVIDIA, ported to WebGL by Agost Biro (biro@archilogic.com)
 
   //----------------------------------------------------------------------------------
-  // File:        es3-kepler\FXAA\assets\shaders/FXAA_DefaultES.frag
+  // File:        es3-kepler/FXAA/assets/shaders/FXAA_DefaultES.frag
   // SDK Version: v3.00
   // Email:       gameworks@nvidia.com
   // Site:        http://developer.nvidia.com/
@@ -469,7 +469,7 @@ export const fragmentPass = `
   #endif
   /*--------------------------------------------------------------------------*/
   #if (FXAA_GLSL_130 == 1)
-      // Requires \#version 130\ or better
+      // Requires #version 130 or better
       #define FxaaTexTop(t, p) textureLod(t, p, 0.0)
       #define FxaaTexOff(t, p, o, r) textureLodOffset(t, p, 0.0, o)
       #if (FXAA_GATHER4_ALPHA == 1)
@@ -545,13 +545,13 @@ export const fragmentPass = `
       FxaaTex tex,
       //
       // Only used on the optimized 360 version of FXAA Console.
-      // For everything but 360, just use the same input here as for \tex\.
+      // For everything but 360, just use the same input here as for tex.
       // For 360, same texture, just alias with a 2nd sampler.
       // This sampler needs to have an exponent bias of -1.
       FxaaTex fxaaConsole360TexExpBiasNegOne,
       //
       // Only used on the optimized 360 version of FXAA Console.
-      // For everything but 360, just use the same input here as for \tex\.
+      // For everything but 360, just use the same input here as for tex.
       // For 360, same texture, just alias with a 3nd sampler.
       // This sampler needs to have an exponent bias of -2.
       FxaaTex fxaaConsole360TexExpBiasNegTwo,
