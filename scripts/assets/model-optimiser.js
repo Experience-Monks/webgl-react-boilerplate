@@ -1,17 +1,18 @@
 const fs = require('fs');
 const shell = require('shelljs');
-const sharp = require('sharp');
-const sizeOf = require('image-size');
+const convert = require('fbx2gltf');
 const fileExtension = require('file-extension');
-const configTemplate = require('./config').textures;
+const configTemplate = require('./config').models;
 
 /*
- * Resize and copy textures from
+ * Convert or copy models from
  * the source to destination directory
  *
- * Uses sharp for the image conversion: https://www.npmjs.com/package/sharp
+ * Preview your glb files with: https://gltf-viewer.donmccurdy.com/
+ * fbx2gltf plugin: https://www.npmjs.com/package/fbx2gltf
+ * GLTFLoader documentation: https://threejs.org/docs/#examples/en/loaders/GLTFLoader
  */
-module.exports = class TextureOptimiser {
+module.exports = class ModelOptimiser {
   constructor() {
     this.files = [];
   }
@@ -23,34 +24,34 @@ module.exports = class TextureOptimiser {
   }
 
   includes(file) {
-    return /(jpg|png)$/i.test(file);
+    return /(obj|fbx)$/i.test(file);
   }
 
   copy(file, fileDest) {
     return new Promise((resolve, reject) => {
-      sharp(file).toFile(fileDest, (error, info) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(fileDest);
-      });
+      const output = shell.cp('-f', file, fileDest);
+      if (output.code === 0) {
+        resolve();
+      } else {
+        reject(output.stderr);
+      }
     });
   }
 
-  resize(file, fileDest, size) {
+  convert(file, fileDest) {
     return new Promise((resolve, reject) => {
-      const dimensions = sizeOf(file);
-      const scale = dimensions.height / dimensions.width;
-      sharp(file)
-        .resize(size, Math.floor(size * scale))
-        .toFile(fileDest, (error, info) => {
-          if (error) {
-            reject(error);
-            return;
-          }
-          resolve(fileDest);
-        });
+      convert(file, fileDest, ['--khr-materials-unlit', '--draco', '--verbose']).then(
+        destPath => {
+          // yay, do what we will with our shiny new GLB file!
+          console.log('destPath -->', destPath);
+          resolve();
+        },
+        error => {
+          // ack, conversion failed: inspect 'error' for details
+          console.log('error -->', error);
+          reject(error);
+        }
+      );
     });
   }
 
@@ -61,27 +62,25 @@ module.exports = class TextureOptimiser {
   process(folderName, srcDirectory, destDirectory) {
     return new Promise((resolve, reject) => {
       try {
-        const tmpDirectory = `${srcDirectory}/tmp-textures`;
+        const tmpDirectory = `${srcDirectory}/tmp-models`;
         shell.mkdir('-p', tmpDirectory);
 
         // Check of the current directory includes a config file
         let config = {};
         try {
           const file = Object.assign(config, JSON.parse(fs.readFileSync(`${srcDirectory}/config.json`)));
-          if (this.validateConfig(file)) config = file.textures;
+          if (this.validateConfig(file)) config = file.models;
         } catch (error) {}
 
         const queue = [];
         this.files.forEach(data => {
           const fileConfig = config[data.fileName] || configTemplate;
-          // Only resize textures if a size is specified and the resize flag is true
-          if (fileConfig.sizes.length > 0 && fileConfig.resize) {
-            fileConfig.sizes.forEach(size => {
-              const fileDest = `${tmpDirectory}/${data.name}-${size}.${data.extension}`;
-              queue.push(this.resize(data.filePath, fileDest, size));
-            });
+          // Only convert models if the flag is true
+          if (fileConfig.convert) {
+            const fileDest = `${tmpDirectory}/${data.name}.glb`;
+            queue.push(this.convert(data.filePath, fileDest));
           } else {
-            const fileDest = `${tmpDirectory}/${data.fileName}`;
+            const fileDest = `${tmpDirectory}/`;
             queue.push(this.copy(data.filePath, fileDest));
           }
         });

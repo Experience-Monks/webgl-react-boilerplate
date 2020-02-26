@@ -32,7 +32,8 @@
     "image-size": "^0.8.3",
     "file-extension": "^4.0.5",
     "file-name": "^0.1.0",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "fbx2gltf": "^0.9.7-p1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,7 +43,7 @@
     "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
     "flow": "flow",
     "linters": "npm-run-all flow js-lint",
-    "assets": "node scripts/assets/optimiser"
+    "assets": "node scripts/assets/optimise"
   },
   "eslintConfig": {
     "extends": "react-app"
