@@ -42,13 +42,9 @@ module.exports = class ModelOptimiser {
     return new Promise((resolve, reject) => {
       convert(file, fileDest, ['--khr-materials-unlit', '--draco', '--verbose']).then(
         destPath => {
-          // yay, do what we will with our shiny new GLB file!
-          console.log('destPath -->', destPath);
           resolve();
         },
         error => {
-          // ack, conversion failed: inspect 'error' for details
-          console.log('error -->', error);
           reject(error);
         }
       );
