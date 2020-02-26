@@ -3,11 +3,12 @@ import { VECTOR_ZERO } from '../../utils/math';
 import Sphere from './objects/sphere/sphere';
 import Ambient from '../../lights/ambient';
 import Directional from '../../lights/directional';
+import assets from './assets';
 
 export default class LandingScene extends BaseScene {
   constructor() {
     const lights = [new Ambient(), new Directional()];
-    super({ id: 'landing', gui: true, guiOpen: true, lights, controls: true });
+    super({ id: 'landing', assets, gui: true, guiOpen: true, lights, controls: true });
     this.camera.position.set(0, 0, 5);
     this.camera.lookAt(VECTOR_ZERO);
   }

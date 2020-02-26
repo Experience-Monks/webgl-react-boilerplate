@@ -6,6 +6,7 @@ import Math3 from '../../utils/math';
 import settings from '../../settings';
 import { rendererSize } from '../../rendering/resize';
 import preloadGpu from '../../rendering/preload-gpu';
+import assetLoader from '../../loading/asset-loader';
 
 /**
  * A base scene for other scenes to inherit
@@ -25,6 +26,8 @@ export default class BaseScene extends EventEmitter {
     this.clearColor = options.clearColor || 0x000000;
     // Array of lights to add to the scene
     this.lights = options.lights || [];
+    // Assets manifest
+    this.assets = options.assets || [];
     // The scene for objects
     this.scene = new Scene();
     // The camera for rendering
@@ -48,6 +51,34 @@ export default class BaseScene extends EventEmitter {
       light.gui(this.gui);
     });
   }
+
+  /**
+   *
+   *
+   * @memberof BaseScene
+   */
+  loadAssets = () => {
+    return new Promise((resolve: Function, reject: Function) => {
+      try {
+        if (this.assets.length > 0) {
+          assetLoader.once('loaded', (response: Asset[]) => {
+            console.log('response', response);
+
+            // if (response.length > 0) assetManager.add(groupId, response);
+            resolve();
+          });
+          assetLoader.once('error', error => {
+            reject(error);
+          });
+          assetLoader.load(this.id, this.assets);
+        } else {
+          resolve();
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   /**
    * Use this function to setup any helpers for the scene
@@ -100,6 +131,7 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   async setup() {
+    await this.loadAssets();
     await this.createSceneHelpers();
     await this.createSceneObjects();
     this.preloadGpuCullScene(true);
