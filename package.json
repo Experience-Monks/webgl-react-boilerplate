@@ -27,7 +27,12 @@
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "flow-bin": "^0.118.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "sharp": "^0.24.1",
+    "image-size": "^0.8.3",
+    "file-extension": "^4.0.5",
+    "file-name": "^0.1.0",
+    "shelljs": "^0.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,7 +41,8 @@
     "audit": "audit-ci --high",
     "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
     "flow": "flow",
-    "linters": "npm-run-all flow js-lint"
+    "linters": "npm-run-all flow js-lint",
+    "assets": "node scripts/assets/optimiser"
   },
   "eslintConfig": {
     "extends": "react-app"

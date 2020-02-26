@@ -1,0 +1,5 @@
+{
+  "textures": {
+    "test.jpg": { "resize": true, "sizes": [128] }
+  }
+}
