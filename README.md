@@ -41,6 +41,16 @@ This is a great starting place for creative coders who want to jump straight int
 - [Touch Controls](src/webgl-app/interaction/touch-controls.js) for normalizing mouse and touch events
 - [InteractiveObject](src/webgl-app/interaction/interactive-object.js) adds interactivity to meshes
 
+**Asset Optimsing**
+
+- [TextureOptimiser](scripts/assets/texture-optimiser.js) for compressing and resizing webgl textures
+- [ModelOptimiser](scripts/assets/model-optimiser.js) for converting fbx models to gltf with draco compression
+
+**Asset Management**
+
+- [AssetLoader](src/webgl-app/loading/asset-loader.js) for loading an array of assets with different types
+- [AssetManager](src/webgl-app/loading/asset-manager.js) for storing and retriving assets loaded with the AssetLoader
+
 ## References
 
 - [Threejs documentation](https://threejs.org/docs/)
