@@ -2,6 +2,13 @@ import EventEmitter from 'eventemitter3';
 import Asset from './asset';
 import GroupLoader from './loaders/group-loader';
 
+/**
+ * Assetloader configures an instance of GroupLoader
+ * and should be used for loading any asset groups for the asset manager
+ *
+ * @class AssetLoader
+ * @extends {EventEmitter}
+ */
 class AssetLoader extends EventEmitter {
   load = (id: String, assets: Asset[]) => {
     const loader = new GroupLoader({ id });

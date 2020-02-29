@@ -8,6 +8,13 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/assets/lib/draco/gltf/');
 dracoLoader.preload();
 
+/**
+ * Threejs GLTF Loader
+ *
+ * @export
+ * @class ThreeGLTFLoader
+ * @extends {Loader}
+ */
 export default class ThreeGLTFLoader extends Loader {
   constructor(asset: Asset) {
     super();
@@ -15,13 +22,11 @@ export default class ThreeGLTFLoader extends Loader {
   }
 
   load = () => {
-    var loadStartTime = performance.now();
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
 
     const onLoaded = gltf => {
       this.asset.data = gltf;
-      console.info('Load time: ' + (performance.now() - loadStartTime).toFixed(2) / 1000 + ' s.');
       this.emit('loaded', this.asset);
     };
 

@@ -2,7 +2,7 @@ import EventEmitter from 'eventemitter3';
 import Asset from '../asset';
 
 /**
- *
+ * Base loader
  *
  * @class Loader
  * @extends {EventEmitter}

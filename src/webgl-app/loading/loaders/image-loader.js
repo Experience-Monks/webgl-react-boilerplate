@@ -1,6 +1,13 @@
 import Loader from './loader';
 import Asset from '../asset';
 
+/**
+ * Image Loader
+ *
+ * @export
+ * @class ImageLoader
+ * @extends {Loader}
+ */
 export default class ImageLoader extends Loader {
   constructor(asset: Asset) {
     super();

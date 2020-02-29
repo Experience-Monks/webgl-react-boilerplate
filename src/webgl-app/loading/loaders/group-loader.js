@@ -14,12 +14,20 @@ const LOADERS = {
   [Loader.threeGLTF]: ThreeGLTFLoader
 };
 
+/**
+ * Group loader loads an array of assets based on their asset types
+ *
+ * @export
+ * @class GroupLoader
+ * @extends {EventEmitter}
+ */
 export default class GroupLoader extends EventEmitter {
   constructor(options: Object = {}) {
     super();
     this.id = options.id || '';
     this.minParallel = options.minParallel || 5;
     this.maxParallel = options.maxParallel || 10;
+    // How many parallel loads at once
     this.parallelLoads = detect.device.isDesktop ? this.maxParallel : this.minParallel;
   }
 
@@ -44,6 +52,11 @@ export default class GroupLoader extends EventEmitter {
     }
   };
 
+  /**
+   * Load the next in queue
+   *
+   * @memberof GroupLoader
+   */
   loadNextInQueue = () => {
     if (this.queue < this.total) {
       if (this.currentParallel < this.parallelLoads) {
@@ -58,6 +71,11 @@ export default class GroupLoader extends EventEmitter {
     }
   };
 
+  /**
+   * Loaded handler
+   *
+   * @memberof GroupLoader
+   */
   onLoaded = () => {
     this.loaded += 1;
     // console.log(`${this.id} loaded`, this.loaded, '/', this.total);
@@ -74,6 +92,11 @@ export default class GroupLoader extends EventEmitter {
     }
   };
 
+  /**
+   * Error handler
+   *
+   * @memberof GroupLoader
+   */
   onError = (error: String) => {
     this.emit('error', error);
   };

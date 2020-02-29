@@ -7,6 +7,7 @@ import settings from '../../settings';
 import { rendererSize } from '../../rendering/resize';
 import preloadGpu from '../../rendering/preload-gpu';
 import assetLoader from '../../loading/asset-loader';
+import assetManager from '../../loading/asset-manager';
 
 /**
  * A base scene for other scenes to inherit
@@ -62,9 +63,7 @@ export default class BaseScene extends EventEmitter {
       try {
         if (this.assets.length > 0) {
           assetLoader.once('loaded', (response: Asset[]) => {
-            console.log('response', response);
-
-            // if (response.length > 0) assetManager.add(groupId, response);
+            if (response.length > 0) assetManager.add(this.id, response);
             resolve();
           });
           assetLoader.once('error', error => {

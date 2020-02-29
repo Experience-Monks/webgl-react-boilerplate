@@ -1,6 +1,13 @@
 import Loader from './loader';
 import Asset from '../asset';
 
+/**
+ * Json loader
+ *
+ * @export
+ * @class JsonLoader
+ * @extends {Loader}
+ */
 export default class JsonLoader extends Loader {
   constructor(asset: Asset) {
     super();

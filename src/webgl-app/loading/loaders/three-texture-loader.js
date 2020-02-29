@@ -2,6 +2,13 @@ import { TextureLoader } from 'three';
 import Loader from './loader';
 import Asset from '../asset';
 
+/**
+ * Threejs texture loader
+ *
+ * @export
+ * @class ThreeTextureLoader
+ * @extends {Loader}
+ */
 export default class ThreeTextureLoader extends Loader {
   constructor(asset: Asset) {
     super();
