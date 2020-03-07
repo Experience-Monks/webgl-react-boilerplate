@@ -4,6 +4,7 @@ import { vertexShader, fragmentShader } from './shader.glsl';
 import { getRenderBufferSize } from '../../../resize';
 import renderer from '../../../renderer';
 import BaseScene from '../../../../scenes/base/base-scene';
+import settings from '../../../../settings';
 
 /**
  * Transition pass handles transitioning between two scenes
@@ -65,6 +66,11 @@ export default class TransitionPass {
    */
   transition() {
     return new Promise((resolve, reject) => {
+      if (settings.skipTransitions) {
+        this.mesh.material.uniforms.transition.value = 1;
+        resolve();
+        return;
+      }
       this.mesh.material.uniforms.transition.value = 0;
       this.active = true;
       TweenLite.killTweensOf(this.mesh.material.uniforms.transition);

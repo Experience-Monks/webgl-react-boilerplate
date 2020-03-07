@@ -33,10 +33,10 @@ export default class BaseScene extends EventEmitter {
     this.scene = new Scene();
     // The camera for rendering
     this.camera = createPerspectiveCamera(rendererSize.x / rendererSize.y);
-    // Optionally create orbit controls
-    if (options.controls) this.controls = createOrbitControls(this.camera);
     // Set the initial camera position
     resetCamera(this.camera, 5);
+    // Optionally create orbit controls
+    if (options.controls) this.controls = createOrbitControls(this.camera);
 
     // Optionally create gui controls
     if (options.gui) {

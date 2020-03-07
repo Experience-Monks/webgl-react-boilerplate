@@ -4,6 +4,7 @@ import Sphere from './objects/sphere/sphere';
 import Ambient from '../../lights/ambient';
 import Directional from '../../lights/directional';
 import assets from './assets';
+import Background from './background/background';
 
 export default class LandingScene extends BaseScene {
   constructor() {
@@ -21,6 +22,8 @@ export default class LandingScene extends BaseScene {
   createSceneObjects = () => {
     return new Promise((resolve, reject) => {
       try {
+        this.background = new Background(this.gui);
+        this.scene.add(this.background.mesh);
         this.sphere = new Sphere(this.camera);
         this.scene.add(this.sphere.mesh);
         this.animateInit();

@@ -17,4 +17,7 @@ settings.helpers = getQueryFromParams('helpers') === 'true' && settings.isDevelo
 // Enable dat gui
 settings.datGui = getQueryFromParams('gui') === null && settings.isDevelopment;
 
+// Skips all transitions
+settings.skipTransitions = getQueryFromParams('skipTransitions') === null && settings.isDevelopment;
+
 export default settings;
