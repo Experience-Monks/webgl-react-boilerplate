@@ -2,6 +2,7 @@ import { TweenLite } from 'gsap/gsap-core';
 import { Mesh, RingBufferGeometry, ShaderMaterial } from 'three';
 import BaseScene from '../base/base-scene';
 import { TWO_PI, VECTOR_ZERO } from '../../utils/math';
+import settings from '../../settings';
 
 export default class PreloaderScene extends BaseScene {
   constructor() {
@@ -63,6 +64,10 @@ export default class PreloaderScene extends BaseScene {
 
   animateIn = () => {
     return new Promise((resolve, reject) => {
+      if (settings.skipTransitions) {
+        resolve();
+        return;
+      }
       TweenLite.to(this.spinner.material.uniforms.opacity, 1, {
         value: 1,
         onComplete: () => {
@@ -74,6 +79,10 @@ export default class PreloaderScene extends BaseScene {
 
   animateOut = () => {
     return new Promise((resolve, reject) => {
+      if (settings.skipTransitions) {
+        resolve();
+        return;
+      }
       TweenLite.to(this.spinner.material.uniforms.opacity, 1, {
         value: 0,
         onComplete: () => {
