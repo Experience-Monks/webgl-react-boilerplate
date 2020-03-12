@@ -11,6 +11,7 @@ class Loader extends EventEmitter {
   asset: Asset;
   static json = 'json';
   static image = 'image';
+  static threeFBX = 'fbx';
   static threeGLTF = 'gltf';
   static threeTexture = 'texture';
 }

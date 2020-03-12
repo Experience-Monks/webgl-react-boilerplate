@@ -5,12 +5,14 @@ import Loader from './loader';
 import ImageLoader from './image-loader';
 import JsonLoader from './json-loader';
 import ThreeTextureLoader from './three-texture-loader';
+import ThreeFBXLoader from './three-fbx-loader';
 import ThreeGLTFLoader from './three-gltf-loader';
 
 const LOADERS = {
   [Loader.image]: ImageLoader,
   [Loader.json]: JsonLoader,
   [Loader.threeTexture]: ThreeTextureLoader,
+  [Loader.threeFBX]: ThreeFBXLoader,
   [Loader.threeGLTF]: ThreeGLTFLoader
 };
 

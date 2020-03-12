@@ -3,6 +3,7 @@
     "test.jpg": { "resize": true, "sizes": [128] }
   },
   "models": {
-    "test.fbx": { "convert": true }
+    "scene.fbx": { "convert": true },
+    "cube.fbx": { "convert": false }
   }
 }

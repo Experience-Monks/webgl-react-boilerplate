@@ -24,7 +24,7 @@ module.exports = class ModelOptimiser {
   }
 
   includes(file) {
-    return /(obj|fbx)$/i.test(file);
+    return /(obj|fbx|glb|gltf)$/i.test(file);
   }
 
   copy(file, fileDest) {

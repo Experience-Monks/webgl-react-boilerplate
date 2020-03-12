@@ -18,8 +18,13 @@ export default [
     type: Loader.threeTexture
   }),
   new Asset({
-    id: 'test-gltf',
-    src: '/assets/webgl/test/test.glb',
+    id: 'scene-gltf',
+    src: '/assets/webgl/test/scene.glb',
     type: Loader.threeGLTF
+  }),
+  new Asset({
+    id: 'cube-fbx',
+    src: '/assets/webgl/test/cube.fbx',
+    type: Loader.threeFBX
   })
 ];
