@@ -58,6 +58,11 @@ module.exports = class ModelOptimiser {
   process(folderName, srcDirectory, destDirectory) {
     return new Promise((resolve, reject) => {
       try {
+        if (this.files.length === 0) {
+          resolve();
+          return;
+        }
+
         const tmpDirectory = `${srcDirectory}/tmp-models`;
         shell.mkdir('-p', tmpDirectory);
 

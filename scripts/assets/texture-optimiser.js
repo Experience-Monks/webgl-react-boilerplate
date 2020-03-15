@@ -61,6 +61,11 @@ module.exports = class TextureOptimiser {
   process(folderName, srcDirectory, destDirectory) {
     return new Promise((resolve, reject) => {
       try {
+        if (this.files.length === 0) {
+          resolve();
+          return;
+        }
+
         const tmpDirectory = `${srcDirectory}/tmp-textures`;
         shell.mkdir('-p', tmpDirectory);
 

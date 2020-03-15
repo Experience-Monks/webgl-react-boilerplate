@@ -8,9 +8,6 @@ const TextureOptimiser = require('./texture-optimiser');
 const ASSETS_SRC = './src/assets';
 const DESTINATION_DEST = './public/assets/webgl';
 
-const textureOptimiser = new TextureOptimiser();
-const modelOptimiser = new ModelOptimiser();
-
 /*
  * Loop through all files locacted in the source directory
  * and run optimisers on any directories found
@@ -22,6 +19,9 @@ shell.ls(ASSETS_SRC).forEach(value => {
     shell.echo(`Assets needs to be placed in a directory: ${value}`);
     return;
   }
+
+  const textureOptimiser = new TextureOptimiser();
+  const modelOptimiser = new ModelOptimiser();
 
   // Loop through files of the directory
   shell.ls('-A', directory).forEach(file => {
