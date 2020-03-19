@@ -15,8 +15,11 @@ export default class Sphere {
     const material = new MeshLambertMaterial({ transparent: true, opacity: 0 });
 
     this.shader = undefined;
+    let compiled = false;
     // Customise the lambert material
     material.onBeforeCompile = (shader: Object) => {
+      if (compiled) return;
+      compiled = true;
       this.shader = materialModifier(shader, shaderConfig);
     };
 

@@ -6,7 +6,6 @@ import settings from './settings';
 import { rendererStats } from './utils/stats';
 import { setQuery } from './utils/query-params';
 import { gui } from './utils/gui';
-import { createPerspectiveCamera, createOrbitControls, resetCamera } from './cameras/cameras';
 import PreloaderScene from './scenes/preloader/preloader-scene';
 import AppState from './app-state';
 import LandingScene from './scenes/landing/landing-scene';
@@ -44,13 +43,6 @@ class WebGLApp extends EventEmitter {
       main: new Vector4(0, 0, rendererSize.x, rendererSize.y)
     };
 
-    // Dev camera and controls
-    this.devCamera = createPerspectiveCamera(rendererSize.x / rendererSize.y);
-    this.devControls = createOrbitControls(this.devCamera);
-
-    // Initial camera position
-    resetCamera(this.devCamera, 10);
-
     // Gui settings group
     const guiSettings = gui.addFolder('settings');
     guiSettings.open();
@@ -59,6 +51,7 @@ class WebGLApp extends EventEmitter {
     guiSettings.add(settings, 'devCamera').onChange((value: Boolean) => {
       setQuery('devCamera', value);
       postProcessing.resize();
+      this.currentScene.toogleCameras(value);
     });
 
     // Toggle scene helpers
@@ -138,8 +131,6 @@ class WebGLApp extends EventEmitter {
    */
   resize = (width: Number, height: Number) => {
     setRendererSize(renderer, width, height);
-    this.devCamera.aspect = width / height;
-    this.devCamera.updateProjectionMatrix();
     this.currentScene.resize(width, height);
     postProcessing.resize();
     this.viewport.debug.set(0, 0, rendererSize.x * VIEWPORT_PREVIEW_SCALE, rendererSize.y * VIEWPORT_PREVIEW_SCALE);
@@ -189,7 +180,7 @@ class WebGLApp extends EventEmitter {
     this.delta = this.clock.getDelta();
 
     if (settings.devCamera) {
-      this.renderScene(this.devCamera, this.viewport.main, this.delta);
+      this.renderScene(this.currentScene.cameras.dev, this.viewport.main, this.delta);
       this.renderScene(this.currentScene.camera, this.viewport.debug, this.delta, true);
     } else {
       this.renderScene(this.currentScene.camera, this.viewport.main, this.delta, true);

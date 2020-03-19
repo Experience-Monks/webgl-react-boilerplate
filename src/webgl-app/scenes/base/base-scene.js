@@ -31,12 +31,28 @@ export default class BaseScene extends EventEmitter {
     this.assets = options.assets || [];
     // The scene for objects
     this.scene = new Scene();
-    // The camera for rendering
-    this.camera = createPerspectiveCamera(rendererSize.x / rendererSize.y);
-    // Set the initial camera position
-    resetCamera(this.camera, 5);
-    // Optionally create orbit controls
-    if (options.controls) this.controls = createOrbitControls(this.camera);
+
+    // The cameras for rendering
+    this.cameras = {
+      dev: createPerspectiveCamera(rendererSize.x / rendererSize.y),
+      main: createPerspectiveCamera(rendererSize.x / rendererSize.y)
+    };
+
+    // Active rendering camera
+    this.camera = settings.devCamera ? this.cameras.dev : this.cameras.main;
+
+    // Set the initial camera positions
+    resetCamera(this.cameras.dev, 5);
+    resetCamera(this.cameras.main, 5);
+
+    // Orbit controls
+    this.controls = {};
+
+    // Optionally create orbit controls for main camera
+    if (options.controls) {
+      this.controls.dev = createOrbitControls(this.cameras.dev);
+      this.controls.main = createOrbitControls(this.cameras.main);
+    }
 
     // Optionally create gui controls
     if (options.gui) {
@@ -148,13 +164,24 @@ export default class BaseScene extends EventEmitter {
   };
 
   /**
+   * Toggle helpers on and off
+   *
+   * @memberof BaseScene
+   */
+  toogleCameras = (devCamera: Boolean = true) => {
+    this.camera = devCamera ? this.cameras.dev : this.cameras.main;
+  };
+
+  /**
    * Resize the camera's projection matrix
    *
    * @memberof BaseScene
    */
   resize = (width: Number, height: Number) => {
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
+    this.cameras.dev.aspect = width / height;
+    this.cameras.dev.updateProjectionMatrix();
+    this.cameras.main.aspect = width / height;
+    this.cameras.main.updateProjectionMatrix();
   };
 
   /**
