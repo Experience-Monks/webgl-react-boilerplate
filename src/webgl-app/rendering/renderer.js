@@ -1,8 +1,6 @@
 import { WebGLRenderer } from 'three';
-import graphics from './graphics';
-import { getGraphicsMode } from '../constants';
+import graphics, { getGraphicsMode, getTier } from './graphics';
 import settings from '../settings';
-import { getTier } from './profiler';
 import { setRendererSize } from './resize';
 import PostProcessing from './post-processing/post-processing';
 import { gui } from '../utils/gui';

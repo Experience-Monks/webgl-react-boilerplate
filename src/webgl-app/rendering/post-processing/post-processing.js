@@ -7,7 +7,6 @@ import FinalPass from './passes/final-pass/final-pass';
 import EmptyScene from '../../scenes/empty/empty-scene';
 import renderer from '../renderer';
 import settings from '../../settings';
-import { VIEWPORT_PREVIEW_SCALE } from '../../constants';
 import BaseScene from '../../scenes/base/base-scene';
 
 export default class PostProcessing {
@@ -61,7 +60,7 @@ export default class PostProcessing {
    * @memberof PostProcessing
    */
   resize() {
-    const scale = settings.devCamera ? VIEWPORT_PREVIEW_SCALE : 1;
+    const scale = settings.devCamera ? settings.viewportPreviewScale : 1;
     let { width, height } = getRenderBufferSize();
     width *= scale;
     height *= scale;

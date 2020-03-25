@@ -2,8 +2,8 @@ import { TweenLite } from 'gsap/gsap-core';
 import { Mesh, MeshLambertMaterial, SphereBufferGeometry, PerspectiveCamera } from 'three';
 import materialModifier from '../../../../utils/material-modifier';
 import shaderConfig from './shader.glsl';
-import { GRAPHICS_HIGH, getGraphicsMode } from '../../../../constants';
 import InteractiveObject from '../../../../interaction/interactive-object';
+import { getGraphicsMode, GRAPHICS_HIGH } from '../../../../rendering/graphics';
 
 export default class Sphere {
   constructor(camera: PerspectiveCamera) {

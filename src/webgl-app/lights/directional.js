@@ -1,5 +1,5 @@
 import { DirectionalLight, DirectionalLightHelper } from 'three';
-import { GUI_PRECISION } from '../constants';
+import settings from '../settings';
 
 /**
  * Utility for creating directional lights
@@ -27,19 +27,19 @@ export default class Directional {
     this.gui = guiParent.addFolder('directional');
     if (this.settings.guiOpen) this.gui.open();
     this.gui.addColor(this.settings, 'color').onChange(this.onChange);
-    this.gui.add(this.light, 'intensity', 0, 1, GUI_PRECISION);
+    this.gui.add(this.light, 'intensity', 0, 1, settings.guiPrecision);
     const range = 1;
     this.gui
       .add(this.light.position, 'x', -range, range)
-      .step(GUI_PRECISION)
+      .step(settings.guiPrecision)
       .name('direction x');
     this.gui
       .add(this.light.position, 'y', -range, range)
-      .step(GUI_PRECISION)
+      .step(settings.guiPrecision)
       .name('direction y');
     this.gui
       .add(this.light.position, 'z', -range, range)
-      .step(GUI_PRECISION)
+      .step(settings.guiPrecision)
       .name('direction z');
   }
 

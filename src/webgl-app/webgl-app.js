@@ -10,7 +10,6 @@ import PreloaderScene from './scenes/preloader/preloader-scene';
 import AppState from './app-state';
 import LandingScene from './scenes/landing/landing-scene';
 import BaseScene from './scenes/base/base-scene';
-import { VIEWPORT_PREVIEW_SCALE } from './constants';
 
 class WebGLApp extends EventEmitter {
   /**
@@ -39,7 +38,12 @@ class WebGLApp extends EventEmitter {
     this.state = new AppState({ ready: false });
 
     this.viewport = {
-      debug: new Vector4(0, 0, rendererSize.x * VIEWPORT_PREVIEW_SCALE, rendererSize.y * VIEWPORT_PREVIEW_SCALE),
+      debug: new Vector4(
+        0,
+        0,
+        rendererSize.x * settings.viewportPreviewScale,
+        rendererSize.y * settings.viewportPreviewScale
+      ),
       main: new Vector4(0, 0, rendererSize.x, rendererSize.y)
     };
 
@@ -133,7 +137,12 @@ class WebGLApp extends EventEmitter {
     setRendererSize(renderer, width, height);
     this.currentScene.resize(width, height);
     postProcessing.resize();
-    this.viewport.debug.set(0, 0, rendererSize.x * VIEWPORT_PREVIEW_SCALE, rendererSize.y * VIEWPORT_PREVIEW_SCALE);
+    this.viewport.debug.set(
+      0,
+      0,
+      rendererSize.x * settings.viewportPreviewScale,
+      rendererSize.y * settings.viewportPreviewScale
+    );
     this.viewport.main.set(0, 0, rendererSize.x, rendererSize.y);
   };
 

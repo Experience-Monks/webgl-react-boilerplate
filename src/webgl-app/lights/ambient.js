@@ -1,5 +1,5 @@
 import { AmbientLight } from 'three';
-import { GUI_PRECISION } from '../constants';
+import settings from '../settings';
 
 /**
  * Utility for creating ambient lights
@@ -24,7 +24,7 @@ export default class Ambient {
     this.guiParent = guiParent;
     this.gui = guiParent.addFolder('ambient');
     if (this.settings.guiOpen) this.gui.open();
-    this.gui.add(this.light, 'intensity', 0, 1, GUI_PRECISION);
+    this.gui.add(this.light, 'intensity', 0, 1, settings.guiPrecision);
     this.gui.addColor(this.settings, 'color').onChange(this.onChange);
   }
 
