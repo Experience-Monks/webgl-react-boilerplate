@@ -40,7 +40,7 @@ module.exports = class ModelOptimiser {
 
   convert(file, fileDest) {
     return new Promise((resolve, reject) => {
-      convert(file, fileDest, ['--khr-materials-unlit', '--draco', '--verbose']).then(
+      convert(file, fileDest, ['--khr-materials-unlit', '--draco', '--verbose', '--no-flip-v']).then(
         destPath => {
           resolve();
         },

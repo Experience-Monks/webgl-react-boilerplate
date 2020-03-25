@@ -12,7 +12,8 @@ export default class Ambient {
     this.settings = Object.assign(
       {
         color: 0xd4d4d4,
-        intensity: 0.6
+        intensity: 0.6,
+        guiOpen: false
       },
       options
     );
@@ -22,7 +23,7 @@ export default class Ambient {
   gui(guiParent) {
     this.guiParent = guiParent;
     this.gui = guiParent.addFolder('ambient');
-    this.gui.open();
+    if (this.settings.guiOpen) this.gui.open();
     this.gui.add(this.light, 'intensity', 0, 1, GUI_PRECISION);
     this.gui.addColor(this.settings, 'color').onChange(this.onChange);
   }

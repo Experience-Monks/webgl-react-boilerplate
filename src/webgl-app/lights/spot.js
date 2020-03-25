@@ -17,7 +17,8 @@ export class Spot {
         angle: Math.PI / 3,
         power: Math.PI * 4,
         penumbra: 0,
-        decay: 1
+        decay: 1,
+        guiOpen: false
       },
       options
     );
@@ -36,7 +37,7 @@ export class Spot {
   gui(guiParent) {
     this.guiParent = guiParent;
     this.gui = guiParent.addFolder('spot');
-    this.gui.open();
+    if (this.settings.guiOpen) this.gui.open();
     const range = 100;
     this.gui.addColor(this.settings, 'color').onChange(this.onChange);
     this.gui.add(this.light, 'intensity', 0, 10, GUI_PRECISION);

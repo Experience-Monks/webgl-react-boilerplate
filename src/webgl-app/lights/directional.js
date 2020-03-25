@@ -12,7 +12,8 @@ export default class Directional {
     this.settings = Object.assign(
       {
         color: 0xd4d4d4,
-        intensity: 0.6
+        intensity: 0.6,
+        guiOpen: false
       },
       options
     );
@@ -24,7 +25,7 @@ export default class Directional {
   gui(guiParent) {
     this.guiParent = guiParent;
     this.gui = guiParent.addFolder('directional');
-    this.gui.open();
+    if (this.settings.guiOpen) this.gui.open();
     this.gui.addColor(this.settings, 'color').onChange(this.onChange);
     this.gui.add(this.light, 'intensity', 0, 1, GUI_PRECISION);
     const range = 1;

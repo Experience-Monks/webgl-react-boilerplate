@@ -185,6 +185,36 @@ export default class BaseScene extends EventEmitter {
   };
 
   /**
+   * Provide a promise after the scene has animated in
+   *
+   * @memberof BaseScene
+   */
+  animateIn = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  /**
+   * Provide a promise after the scene has animated out
+   *
+   * @memberof BaseScene
+   */
+  animateOut = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  /**
    * Update loop for animation, override this function
    *
    * @memberof BaseScene
