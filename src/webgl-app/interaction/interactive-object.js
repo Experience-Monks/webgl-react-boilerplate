@@ -2,7 +2,8 @@
 
 import { Object3D, Raycaster, Vector2, PerspectiveCamera } from 'three';
 import EventEmitter from 'eventemitter3';
-import TouchControls, { TouchControlsEvent } from './touch-controls';
+import TouchControls from './touch-controls';
+import type pointersArray from './touch-controls';
 import renderer from '../rendering/renderer';
 
 /**
@@ -55,7 +56,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  onTouchStart = (event: TouchControlsEvent[]) => {
+  onTouchStart = (event: pointersArray[]) => {
     this.setCoords(event[0].normalX, event[0].normalY);
     this.intersected = this.raycast();
     if (this.intersected) this.emit('start', this.intersects[0]);
@@ -66,7 +67,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  onTouchMove = (event: TouchControlsEvent[]) => {
+  onTouchMove = (event: pointersArray[]) => {
     this.setCoords(event[0].normalX, event[0].normalY);
     this.intersected = this.raycast();
     this.hovering = this.intersected;
@@ -86,7 +87,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  onTouchEnd = (event: TouchControlsEvent[]) => {
+  onTouchEnd = (event: pointersArray[]) => {
     if (this.hovering) {
       this.hovering = false;
       this.emit('hover', false);

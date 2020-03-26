@@ -1,16 +1,26 @@
+// @flow
+
 import React from 'react';
 import { TweenLite } from 'gsap/gsap-core';
 import './App.css';
 import WebGLApp from './webgl-app/webgl-app';
 import AppState from './webgl-app/app-state';
 
-class App extends React.PureComponent {
+type Props = {};
+
+type State = {|
+  ready: boolean,
+  windowSize: { width: number, height: number }
+|};
+
+class App extends React.PureComponent<Props, State> {
   state = {
     ready: false,
     windowSize: { width: window.innerWidth, height: window.innerHeight }
   };
 
   componentDidMount() {
+    if (this.container === null) return;
     this.webglApp = new WebGLApp(this.container);
     this.webglApp
       .setup()
@@ -27,6 +37,8 @@ class App extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps: Object, prevState: Object) {
+    if (this.container === null) return;
+
     this.webglApp.setState(new AppState(this.state));
 
     if (
@@ -39,9 +51,13 @@ class App extends React.PureComponent {
   }
 
   componentWillUnmount() {
+    if (this.container === null) return;
     this.webglApp.render(false);
     window.removeEventListener('resize', this.onResize);
   }
+
+  container: HTMLElement | null;
+  webglApp: WebGLApp;
 
   onReady = () => {
     this.setState({
@@ -59,7 +75,7 @@ class App extends React.PureComponent {
     return (
       <div
         className="App"
-        ref={node => {
+        ref={(node: HTMLElement | null) => {
           this.container = node;
         }}
       ></div>

@@ -171,7 +171,7 @@ class WebGLApp extends EventEmitter {
    *
    * @memberof WebGLApp
    */
-  render = (render: Boolean) => {
+  render = (render: boolean) => {
     if (this.isRendering === render) return;
     this.isRendering = render;
     if (render) {
