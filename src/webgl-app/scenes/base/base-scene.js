@@ -193,7 +193,7 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   async animateIn() {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       try {
         resolve();
       } catch (error) {
@@ -208,7 +208,7 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   async animateOut() {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       try {
         resolve();
       } catch (error) {
