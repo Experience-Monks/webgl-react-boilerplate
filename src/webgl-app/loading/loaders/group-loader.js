@@ -99,7 +99,7 @@ export default class GroupLoader extends EventEmitter {
    *
    * @memberof GroupLoader
    */
-  onError = (error: String) => {
+  onError = (error: string) => {
     this.emit('error', error);
   };
 }

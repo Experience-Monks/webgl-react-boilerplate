@@ -1,9 +1,15 @@
 import { Mesh, SphereBufferGeometry, BackSide, ShaderMaterial, Color } from 'three';
+import { GUI } from 'dat.gui';
 import { vertexShader, fragmentShader } from './shader.glsl';
-import { GRAPHICS_HIGH, GRAPHICS_NORMAL, getGraphicsMode } from '../../../rendering/graphics';
+import { GRAPHICS_HIGH, GRAPHICS_NORMAL, getGraphicsMode } from '../../../../rendering/graphics';
 
 export default class Background {
-  constructor(gui) {
+  gui: GUI;
+  guiParent: GUI;
+  config: Object;
+  mesh: Mesh;
+
+  constructor(gui: GUI) {
     this.guiParent = gui;
 
     this.config = {

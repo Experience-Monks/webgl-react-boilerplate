@@ -4,7 +4,7 @@ import Sphere from './objects/sphere/sphere';
 import Ambient from '../../lights/ambient';
 import Directional from '../../lights/directional';
 import assets from './assets';
-import Background from './background/background';
+import Background from './objects/background/background';
 
 export default class LandingScene extends BaseScene {
   constructor() {
@@ -19,8 +19,8 @@ export default class LandingScene extends BaseScene {
    *
    * @memberof LandingScene
    */
-  createSceneObjects = () => {
-    return new Promise((resolve, reject) => {
+  async createSceneObjects() {
+    await new Promise((resolve, reject) => {
       try {
         this.background = new Background(this.gui);
         this.scene.add(this.background.mesh);
@@ -32,9 +32,9 @@ export default class LandingScene extends BaseScene {
         reject(error);
       }
     });
-  };
+  }
 
-  preloadGpuCullScene = (culled: Boolean) => {
+  preloadGpuCullScene = (culled: boolean) => {
     this.sphere.preloadGpuCullScene(culled);
   };
 
@@ -55,7 +55,7 @@ export default class LandingScene extends BaseScene {
    *
    * @memberof LandingScene
    */
-  update = (delta: Number) => {
+  update = (delta: number) => {
     this.sphere.update(delta);
   };
 }

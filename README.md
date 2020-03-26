@@ -51,6 +51,20 @@ This is a great starting place for creative coders who want to jump straight int
 - [AssetLoader](src/webgl-app/loading/asset-loader.js) for loading an array of assets with different types
 - [AssetManager](src/webgl-app/loading/asset-manager.js) for storing and retriving assets loaded with the AssetLoader
 
+## Precommit and Husky
+
+Sometimes husky doesn't run if you're using Git software.
+
+To check this, open the console output in your Git software and make sure the pre-commit hook isn't bypassed.
+
+If husky isn't working create a `~/.huskyrc` file and add:
+
+```
+# ~/.huskyrc
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
 ## References
 
 - [Threejs documentation](https://threejs.org/docs/)

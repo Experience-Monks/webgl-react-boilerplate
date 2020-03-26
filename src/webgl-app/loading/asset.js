@@ -3,12 +3,12 @@
  *
  * @interface AssetConfig
  */
-interface AssetConfig {
-  id: String;
-  src: String;
-  type: String;
+export interface AssetConfig {
+  id: string;
+  src: string;
+  type: string;
   args?: Object;
-  data?: any;
+  data?: mixed;
 }
 
 /**
@@ -18,11 +18,11 @@ interface AssetConfig {
  * @class Asset
  */
 export default class Asset {
-  id: String;
-  src: String;
-  type: String;
+  id: string;
+  src: string;
+  type: string;
   args: Object;
-  data: any;
+  data: mixed;
   constructor(config: AssetConfig) {
     Object.assign(this, config);
   }

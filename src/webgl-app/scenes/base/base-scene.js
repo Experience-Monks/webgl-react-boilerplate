@@ -1,3 +1,5 @@
+// @flow
+
 import EventEmitter from 'eventemitter3';
 import { Scene, Group, GridHelper, AxesHelper } from 'three';
 import { createPerspectiveCamera, createOrbitControls, resetCamera } from '../../cameras/cameras';
@@ -8,6 +10,7 @@ import { rendererSize } from '../../rendering/resize';
 import preloadGpu from '../../rendering/preload-gpu';
 import assetLoader from '../../loading/asset-loader';
 import assetManager from '../../loading/asset-manager';
+import Asset from '../../loading/asset';
 
 /**
  * A base scene for other scenes to inherit
@@ -74,8 +77,8 @@ export default class BaseScene extends EventEmitter {
    *
    * @memberof BaseScene
    */
-  loadAssets = () => {
-    return new Promise((resolve: Function, reject: Function) => {
+  async loadAssets() {
+    await new Promise((resolve, reject) => {
       try {
         if (this.assets.length > 0) {
           assetLoader.once('loaded', (response: Asset[]) => {
@@ -93,15 +96,15 @@ export default class BaseScene extends EventEmitter {
         reject(error);
       }
     });
-  };
+  }
 
   /**
    * Use this function to setup any helpers for the scene
    *
    * @memberof BaseScene
    */
-  createSceneHelpers = () => {
-    return new Promise((resolve: Function, reject: Function) => {
+  async createSceneHelpers() {
+    await new Promise((resolve: Function, reject: Function) => {
       try {
         // Add helpers
         this.helpers = new Group();
@@ -113,22 +116,22 @@ export default class BaseScene extends EventEmitter {
         reject(error);
       }
     });
-  };
+  }
 
   /**
    * Use this function to setup any 3d objects once overridden
    *
    * @memberof BaseScene
    */
-  createSceneObjects = () => {
-    return new Promise((resolve, reject) => {
+  async createSceneObjects() {
+    await new Promise((resolve, reject) => {
       try {
-        throw new Error('createSceneObjects needs to be implemented');
+        resolve();
       } catch (error) {
         reject(error);
       }
     });
-  };
+  }
 
   /**
    * Use this function to show any materials or objects that can't be seen
@@ -137,7 +140,7 @@ export default class BaseScene extends EventEmitter {
    *
    * @memberof BaseScene
    */
-  preloadGpuCullScene = (culled: Boolean) => {};
+  preloadGpuCullScene = (culled: boolean) => {};
 
   /**
    * Setup is used to create any 3D objects
@@ -150,7 +153,7 @@ export default class BaseScene extends EventEmitter {
     await this.createSceneHelpers();
     await this.createSceneObjects();
     this.preloadGpuCullScene(true);
-    await preloadGpu(this.scene, this.camera);
+    preloadGpu(this.scene, this.camera);
     this.preloadGpuCullScene(false);
   }
 
@@ -159,7 +162,7 @@ export default class BaseScene extends EventEmitter {
    *
    * @memberof BaseScene
    */
-  toggleHelpers = (visible: Boolean = true) => {
+  toggleHelpers = (visible: boolean = true) => {
     this.helpers.visible = visible;
   };
 
@@ -168,7 +171,7 @@ export default class BaseScene extends EventEmitter {
    *
    * @memberof BaseScene
    */
-  toogleCameras = (devCamera: Boolean = true) => {
+  toogleCameras = (devCamera: boolean = true) => {
     this.camera = devCamera ? this.cameras.dev : this.cameras.main;
   };
 
@@ -177,7 +180,7 @@ export default class BaseScene extends EventEmitter {
    *
    * @memberof BaseScene
    */
-  resize = (width: Number, height: Number) => {
+  resize = (width: number, height: number) => {
     this.cameras.dev.aspect = width / height;
     this.cameras.dev.updateProjectionMatrix();
     this.cameras.main.aspect = width / height;
@@ -189,35 +192,35 @@ export default class BaseScene extends EventEmitter {
    *
    * @memberof BaseScene
    */
-  animateIn = () => {
-    return new Promise((resolve, reject) => {
+  async animateIn() {
+    await new Promise((resolve, reject) => {
       try {
         resolve();
       } catch (error) {
         reject(error);
       }
     });
-  };
+  }
 
   /**
    * Provide a promise after the scene has animated out
    *
    * @memberof BaseScene
    */
-  animateOut = () => {
-    return new Promise((resolve, reject) => {
+  async animateOut() {
+    await new Promise((resolve, reject) => {
       try {
         resolve();
       } catch (error) {
         reject(error);
       }
     });
-  };
+  }
 
   /**
    * Update loop for animation, override this function
    *
    * @memberof BaseScene
    */
-  update = (delta: Number) => {};
+  update = (delta: number) => {};
 }

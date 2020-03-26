@@ -64,7 +64,7 @@ const RendererStats = function() {
 export function RenderStatsWrapper() {
   return {
     domElement: document.createElement('div'),
-    update: () => {}
+    update: (renderer: WebGLRenderer) => {}
   };
 }
 

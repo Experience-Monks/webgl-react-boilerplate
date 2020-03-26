@@ -6,6 +6,11 @@ import InteractiveObject from '../../../../interaction/interactive-object';
 import { getGraphicsMode, GRAPHICS_HIGH } from '../../../../rendering/graphics';
 
 export default class Sphere {
+  camera: PerspectiveCamera;
+  shader: Object;
+  mesh: Mesh;
+  interactiveObject: InteractiveObject;
+
   constructor(camera: PerspectiveCamera) {
     this.camera = camera;
 
@@ -40,7 +45,7 @@ export default class Sphere {
     this.scaleMesh(true);
   };
 
-  onHover = (over: Boolean, event: Object) => {
+  onHover = (over: boolean, event: Object) => {
     // console.log(over ? 'over' : 'out', over ? event : '');
   };
 
@@ -49,7 +54,7 @@ export default class Sphere {
     this.scaleMesh(false);
   };
 
-  preloadGpuCullScene = (culled: Boolean) => {
+  preloadGpuCullScene = (culled: boolean) => {
     this.mesh.material.opacity = culled ? 1 : 0;
   };
 
@@ -58,8 +63,8 @@ export default class Sphere {
     this.mesh.material.opacity = 0;
   };
 
-  animateIn = () => {
-    return new Promise((resolve, reject) => {
+  async animateIn() {
+    await new Promise((resolve, reject) => {
       TweenLite.to(this.mesh.material, 1, {
         opacity: 1,
         onComplete: () => {
@@ -67,10 +72,10 @@ export default class Sphere {
         }
       });
     });
-  };
+  }
 
-  animateOut = () => {
-    return new Promise((resolve, reject) => {
+  async animateOut() {
+    await new Promise((resolve, reject) => {
       TweenLite.to(this.mesh.material.opacity, 1, {
         opacity: 0,
         onComplete: () => {
@@ -78,9 +83,9 @@ export default class Sphere {
         }
       });
     });
-  };
+  }
 
-  scaleMesh = (over: Boolean) => {
+  scaleMesh = (over: boolean) => {
     TweenLite.killTweensOf(this.mesh.scale);
     TweenLite.to(this.mesh.scale, 0.5, {
       x: over ? 1.6 : 1,
@@ -95,7 +100,7 @@ export default class Sphere {
    * @param {Number} delta
    * @memberof Sphere
    */
-  update(delta: Number) {
+  update(delta: number) {
     if (this.shader) {
       this.shader.uniforms.time.value += delta;
     }

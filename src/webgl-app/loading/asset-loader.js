@@ -10,7 +10,7 @@ import GroupLoader from './loaders/group-loader';
  * @extends {EventEmitter}
  */
 class AssetLoader extends EventEmitter {
-  load = (id: String, assets: Asset[]) => {
+  load = (id: string, assets: Asset[]) => {
     const loader = new GroupLoader({ id });
     assets.forEach(asset => {
       if (asset.args === undefined) asset.args = {};

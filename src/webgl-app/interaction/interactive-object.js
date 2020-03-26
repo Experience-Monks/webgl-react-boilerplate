@@ -1,6 +1,7 @@
 import { Object3D, Raycaster, Vector2, PerspectiveCamera } from 'three';
 import EventEmitter from 'eventemitter3';
 import TouchControls from './touch-controls';
+import type pointersArray from './touch-controls';
 import renderer from '../rendering/renderer';
 
 /**
@@ -40,7 +41,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  bindEvents = (bind: Boolean) => {
+  bindEvents = (bind: boolean) => {
     const listener = bind ? 'on' : 'off';
     if (this.options.touchStart) this.touchControls[listener]('start', this.onTouchStart);
     if (this.options.touchMove) this.touchControls[listener]('move', this.onTouchMove);
@@ -53,7 +54,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  onTouchStart = event => {
+  onTouchStart = (event: pointersArray[]) => {
     this.setCoords(event[0].normalX, event[0].normalY);
     this.intersected = this.raycast();
     if (this.intersected) this.emit('start', this.intersects[0]);
@@ -64,7 +65,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  onTouchMove = event => {
+  onTouchMove = (event: pointersArray[]) => {
     this.setCoords(event[0].normalX, event[0].normalY);
     this.intersected = this.raycast();
     this.hovering = this.intersected;
@@ -84,7 +85,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  onTouchEnd = event => {
+  onTouchEnd = (event: pointersArray[]) => {
     if (this.hovering) {
       this.hovering = false;
       this.emit('hover', false);
@@ -100,7 +101,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  setCoords = (normalX: Number, normalY: Number) => {
+  setCoords = (normalX: number, normalY: number) => {
     this.coords.x = normalX * 2 - 1;
     this.coords.y = -normalY * 2 + 1;
   };
@@ -110,7 +111,7 @@ export default class InteractiveObject extends EventEmitter {
    *
    * @memberof InteractiveObject
    */
-  raycast = () => {
+  raycast = (): boolean => {
     this.raycaster.setFromCamera(this.coords, this.camera);
     this.intersects = this.raycaster.intersectObject(this.object);
     return this.intersects.length > 0;

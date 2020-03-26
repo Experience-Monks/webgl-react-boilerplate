@@ -16,13 +16,13 @@ let GRAPHICS_MODE = GRAPHICS_NORMAL;
  * @export
  * @returns
  */
-export function getGraphicsMode() {
+export function getGraphicsMode(): string {
   return GRAPHICS_MODE;
 }
 
 const gpuTier = getGPUTier();
 
-export function profiler() {
+export function profiler(): string {
   switch (gpuTier.tier) {
     case 'GPU_DESKTOP_TIER_3':
     case 'GPU_DESKTOP_TIER_2':
@@ -35,13 +35,14 @@ export function profiler() {
 }
 
 // If the graphics query parameter is set, use it over the current gpu tier
-if (GRAPHICS_MODES.includes(getQueryFromParams('graphics'))) {
-  GRAPHICS_MODE = getQueryFromParams('graphics');
+const graphicsMode = getQueryFromParams('graphics');
+if (GRAPHICS_MODES.includes(graphicsMode) && typeof graphicsMode === 'string') {
+  GRAPHICS_MODE = graphicsMode;
 } else {
   GRAPHICS_MODE = profiler();
 }
 
-export function getTier() {
+export function getTier(): string {
   return gpuTier.tier;
 }
 

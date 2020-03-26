@@ -1,4 +1,5 @@
-import { Vector2 } from 'three';
+import { Vector2, Material } from 'three';
+import { GUI } from 'dat.gui';
 
 export const uniforms = {
   fxaaEnabled: { value: 1 },
@@ -1089,7 +1090,7 @@ export const fragmentMain = `
   // FXAA pass end
 `
 
-export function guiControls(gui, material) {
+export function guiControls(gui: GUI, material: Material) {
   const guiPass = gui.addFolder('fxaa pass');
   guiPass.open();
   guiPass.add(material.uniforms.fxaaEnabled, 'value', 0, 1, 1).name('enabled');

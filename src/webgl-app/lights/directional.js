@@ -1,4 +1,5 @@
 import { DirectionalLight, DirectionalLightHelper } from 'three';
+import { GUI } from 'dat.gui';
 import settings from '../settings';
 
 /**
@@ -8,6 +9,12 @@ import settings from '../settings';
  * @class Directional
  */
 export default class Directional {
+  settings: Object;
+  light: DirectionalLight;
+  gui: GUI;
+  guiParent: GUI;
+  helper: DirectionalLightHelper;
+
   constructor(options: Object = {}) {
     this.settings = Object.assign(
       {
@@ -22,7 +29,7 @@ export default class Directional {
     this.helper = new DirectionalLightHelper(this.light);
   }
 
-  gui(guiParent) {
+  gui(guiParent: GUI) {
     this.guiParent = guiParent;
     this.gui = guiParent.addFolder('directional');
     if (this.settings.guiOpen) this.gui.open();

@@ -7,6 +7,8 @@ import Asset from './asset';
  * @class AssetManager
  */
 class AssetManager {
+  assets: Object;
+
   constructor() {
     this.assets = {};
   }
@@ -32,7 +34,7 @@ class AssetManager {
    * @returns
    * @memberof AssetManager
    */
-  get(groupId: String, id: String, all: Boolean = false) {
+  get(groupId: string, id: string, all: boolean = false): boolean | Asset | mixed {
     // console.log('groupId', groupId, 'id', id);
     const asset = this.find(this.assets[groupId], id);
     if (asset && asset instanceof Asset) {
@@ -49,7 +51,7 @@ class AssetManager {
    * @returns
    * @memberof AssetManager
    */
-  find(assets: Asset[], id: String) {
+  find(assets: Asset[], id: string): boolean | Asset {
     return assets.find(asset => asset.id === id) || false;
   }
 }

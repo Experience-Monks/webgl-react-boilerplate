@@ -18,7 +18,7 @@ export default class ThreeFBXLoader extends Loader {
   load = () => {
     const loader = new FBXLoader();
 
-    const onLoaded = data => {
+    const onLoaded = (data: Object) => {
       this.asset.data = data;
       this.emit('loaded', this.asset);
     };

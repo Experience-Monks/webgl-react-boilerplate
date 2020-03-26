@@ -1,6 +1,30 @@
 import EventEmitter from 'eventemitter3';
 import detect from '@jam3/detect';
 
+type touchControlsOptions = {|
+  touchStart?: boolean,
+  touchMove?: boolean,
+  touchEnd?: boolean,
+  hover?: boolean
+|};
+
+export type pointersArray = {|
+  x: number,
+  y: number,
+  normalX: number,
+  normalY: number
+|};
+
+type pointersEvent = {|
+  push: ({| x: number, y: number, normalX: number, normalY: number |}) => void,
+  touches: {|
+    pageX: boolean,
+    pageY: boolean,
+    length: number
+  |},
+  MouseEvent: MouseEvent
+|};
+
 /**
  * A class to normalize mouse and touch events
  *
@@ -9,7 +33,7 @@ import detect from '@jam3/detect';
  * @extends {EventEmitter}
  */
 export default class TouchControls extends EventEmitter {
-  constructor(element: HTMLElement, options: Object = {}) {
+  constructor(element: HTMLElement, options: touchControlsOptions) {
     super();
     this.element = element;
     this.pointers = [];
@@ -32,7 +56,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  bindEvents = (bind: Boolean) => {
+  bindEvents = (bind: boolean) => {
     const listener = bind ? 'addEventListener' : 'removeEventListener';
     const isDesktop = detect.device.isDesktop;
     if (this.options.touchStart) this.element[listener](isDesktop ? 'mousedown' : 'touchstart', this.onTouchStart);
@@ -50,7 +74,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  setPointers = (event: Object) => {
+  setPointers = (event: pointersEvent) => {
     this.pointers = [];
     if (event.touches) {
       this.touchesLength = event.touches.length;
@@ -78,7 +102,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  onTouchStart = (event: Object) => {
+  onTouchStart = (event: pointersEvent) => {
     this.isDown = true;
     this.setPointers(event);
     this.emit('start', this.pointers);
@@ -89,7 +113,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  onTouchMove = (event: Object) => {
+  onTouchMove = (event: pointersEvent) => {
     this.onMouseMove(event);
     if (!this.isDown) return;
     this.setPointers(event);
@@ -101,7 +125,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  onTouchEnd = (event: Object) => {
+  onTouchEnd = () => {
     this.isDown = false;
     this.emit('end', this.pointers);
   };
@@ -111,7 +135,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  onMouseMove = (event: Object) => {
+  onMouseMove = (event: pointersEvent) => {
     this.setPointers(event);
     this.emit('mousemove', this.pointers);
   };
@@ -121,7 +145,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  onMouseOver = (event: Object) => {
+  onMouseOver = (event: pointersEvent) => {
     this.emit('hover', true);
   };
 
@@ -130,7 +154,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  onMouseOut = (event: Object) => {
+  onMouseOut = (event: pointersEvent) => {
     this.emit('hover', false);
   };
 

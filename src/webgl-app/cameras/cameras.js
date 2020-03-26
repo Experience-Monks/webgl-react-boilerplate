@@ -13,10 +13,10 @@ const far = 1000;
  *
  * @export
  * @param {PerspectiveCamera} camera
- * @param {Number} [zoom=1]
+ * @param {number} [zoom=1]
  * @param {Vector3} [angle=VECTOR_ONE]
  */
-export function resetCamera(camera: PerspectiveCamera, zoom: Number = 1, angle: Vector3 = VECTOR_ONE) {
+export function resetCamera(camera: PerspectiveCamera, zoom: number = 1, angle: Vector3 = VECTOR_ONE) {
   camera.position.set(angle.x * zoom, angle.y * zoom, angle.z * zoom);
   camera.lookAt(VECTOR_ZERO);
 }
@@ -27,7 +27,7 @@ export function resetCamera(camera: PerspectiveCamera, zoom: Number = 1, angle: 
  * @export
  * @returns
  */
-export function createPerspectiveCamera(aspect: Number) {
+export function createPerspectiveCamera(aspect: number): PerspectiveCamera {
   return new PerspectiveCamera(FOV, aspect, near, far);
 }
 
@@ -38,6 +38,6 @@ export function createPerspectiveCamera(aspect: Number) {
  * @param {PerspectiveCamera} camera
  * @returns
  */
-export function createOrbitControls(camera: PerspectiveCamera) {
+export function createOrbitControls(camera: PerspectiveCamera): OrbitControls {
   return new OrbitControls(camera, renderer.domElement);
 }

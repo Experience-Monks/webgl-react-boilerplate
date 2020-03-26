@@ -6,7 +6,7 @@ if (settings.stats) {
   rendererStats.domElement.style.position = 'absolute';
   rendererStats.domElement.style.left = '0px';
   rendererStats.domElement.style.top = '48px';
-  document.body.appendChild(rendererStats.domElement);
+  if (document.body) document.body.appendChild(rendererStats.domElement);
 }
 
 export { rendererStats };

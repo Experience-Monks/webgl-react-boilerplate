@@ -1,15 +1,22 @@
 [ignore]
 .*/node_modules/*
+.*/flow-typed/.*
+<PROJECT_ROOT>/build/.*
+<PROJECT_ROOT>/public/.*
+<PROJECT_ROOT>/scripts/.*
 
 [include]
-src/
+<PROJECT_ROOT>/src/.*
 
 [libs]
 
 [lints]
-; all=warn
 
 [options]
-; include_warnings=true
+all=true
+emoji=true
 
 [strict]
+
+[version]
+0.118.0
