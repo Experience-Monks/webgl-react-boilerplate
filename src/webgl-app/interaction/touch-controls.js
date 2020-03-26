@@ -1,11 +1,11 @@
 import EventEmitter from 'eventemitter3';
 import detect from '@jam3/detect';
 
-type optionsObjectType = {|
+type touchControlsOptions = {|
   touchStart?: boolean,
   touchMove?: boolean,
   touchEnd?: boolean,
-  hover: boolean
+  hover?: boolean
 |};
 
 export type pointersArray = {|
@@ -33,7 +33,7 @@ type pointersEvent = {|
  * @extends {EventEmitter}
  */
 export default class TouchControls extends EventEmitter {
-  constructor(element: HTMLElement, options: optionsObjectType) {
+  constructor(element: HTMLElement, options: touchControlsOptions) {
     super();
     this.element = element;
     this.pointers = [];
