@@ -1,5 +1,3 @@
-// @flow
-
 import EventEmitter from 'eventemitter3';
 import detect from '@jam3/detect';
 

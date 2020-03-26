@@ -1,5 +1,3 @@
-// @flow
-
 import { WebGLRenderer } from 'three';
 import settings from '../settings';
 

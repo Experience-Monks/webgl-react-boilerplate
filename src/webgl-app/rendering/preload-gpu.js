@@ -1,5 +1,3 @@
-// @flow
-
 import { Scene, PerspectiveCamera, RGBAFormat, Object3D } from 'three';
 import renderer from './renderer';
 import { createRenderTarget } from './render-target';

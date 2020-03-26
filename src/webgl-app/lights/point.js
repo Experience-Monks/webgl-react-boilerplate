@@ -1,5 +1,3 @@
-// @flow
-
 import { PointLight } from 'three';
 import { GUI } from 'dat.gui';
 import settings from '../settings';

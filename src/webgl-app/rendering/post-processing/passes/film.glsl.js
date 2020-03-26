@@ -1,3 +1,5 @@
+import { GUI } from 'dat.gui';
+import { Material } from 'three';
 import { rand, PI } from '../../../shaders/math.glsl';
 
 export const uniforms = {
@@ -75,7 +77,7 @@ export const fragmentMain = `
   // Film pass end
 `
 
-export function guiControls(gui, material) {
+export function guiControls(gui: GUI, material: Material) {
   const guiPass = gui.addFolder('film pass');
   guiPass.open();
   guiPass.add(material.uniforms.filmEnabled, 'value', 0, 1, 1).name('enabled');

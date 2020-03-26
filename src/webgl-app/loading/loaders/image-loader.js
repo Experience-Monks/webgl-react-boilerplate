@@ -1,5 +1,3 @@
-// @flow
-
 import Loader from './loader';
 import Asset from '../asset';
 

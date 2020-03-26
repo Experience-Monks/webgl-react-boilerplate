@@ -1,5 +1,3 @@
-// @flow
-
 import BaseScene from '../base/base-scene';
 import { VECTOR_ZERO } from '../../utils/math';
 import Sphere from './objects/sphere/sphere';

@@ -1,5 +1,3 @@
-// @flow
-
 import { WebGLRenderTarget } from 'three';
 import createCanvas from './canvas';
 import renderer from '../rendering/renderer';

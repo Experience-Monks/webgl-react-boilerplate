@@ -1,5 +1,3 @@
-// @flow
-
 import { BufferGeometry, BufferAttribute } from 'three';
 
 /**

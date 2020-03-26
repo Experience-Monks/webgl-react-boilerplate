@@ -1,5 +1,3 @@
-// @flow
-
 import { TweenLite } from 'gsap/gsap-core';
 import { Mesh, MeshLambertMaterial, SphereBufferGeometry, PerspectiveCamera } from 'three';
 import materialModifier from '../../../../utils/material-modifier';
@@ -66,7 +64,7 @@ export default class Sphere {
   };
 
   async animateIn() {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       TweenLite.to(this.mesh.material, 1, {
         opacity: 1,
         onComplete: () => {
@@ -77,7 +75,7 @@ export default class Sphere {
   }
 
   async animateOut() {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       TweenLite.to(this.mesh.material.opacity, 1, {
         opacity: 0,
         onComplete: () => {

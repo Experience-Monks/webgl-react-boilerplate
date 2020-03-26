@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * A class to manage the state of the webgl app
  *

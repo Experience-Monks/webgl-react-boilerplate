@@ -1,5 +1,3 @@
-// @flow
-
 import { WebGLRenderTarget, LinearFilter, NearestFilter, RGBFormat, UnsignedByteType } from 'three';
 
 export function createRenderTarget(width: number = 1024, height: number = 1024, options: Object = {}) {

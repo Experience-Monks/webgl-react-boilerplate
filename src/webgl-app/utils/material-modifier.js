@@ -1,5 +1,3 @@
-// @flow
-
 import { UniformsUtils } from 'three';
 
 const hooks = {

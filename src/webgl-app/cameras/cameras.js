@@ -1,5 +1,3 @@
-// @flow
-
 import { PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import renderer from '../rendering/renderer';

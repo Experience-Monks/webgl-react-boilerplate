@@ -1,5 +1,3 @@
-// @flow
-
 import { getGPUTier } from 'detect-gpu';
 import { Vector2 } from 'three';
 import math from '../utils/math';

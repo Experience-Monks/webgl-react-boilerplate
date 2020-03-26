@@ -1,5 +1,3 @@
-// @flow
-
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import Loader from './loader';
 import Asset from '../asset';

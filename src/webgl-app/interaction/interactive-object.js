@@ -1,5 +1,3 @@
-// @flow
-
 import { Object3D, Raycaster, Vector2, PerspectiveCamera } from 'three';
 import EventEmitter from 'eventemitter3';
 import TouchControls from './touch-controls';

@@ -1,5 +1,3 @@
-// @flow
-
 import EventEmitter from 'eventemitter3';
 import Asset from './asset';
 import GroupLoader from './loaders/group-loader';

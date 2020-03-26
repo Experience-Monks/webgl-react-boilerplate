@@ -1,5 +1,3 @@
-// @flow
-
 import settings from '../settings';
 import RendererStats from './render-stats';
 

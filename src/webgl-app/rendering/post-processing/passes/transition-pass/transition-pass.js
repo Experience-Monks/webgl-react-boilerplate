@@ -1,5 +1,3 @@
-// @flow
-
 import { Scene, Mesh, ShaderMaterial, Vector2, BufferGeometry, OrthographicCamera, WebGLRenderTarget } from 'three';
 import { TweenLite } from 'gsap';
 import { GUI } from 'dat.gui';

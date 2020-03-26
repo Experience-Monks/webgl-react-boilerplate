@@ -1,5 +1,3 @@
-// @flow
-
 import { Mesh, SphereBufferGeometry, BackSide, ShaderMaterial, Color } from 'three';
 import { GUI } from 'dat.gui';
 import { vertexShader, fragmentShader } from './shader.glsl';

@@ -1,5 +1,3 @@
-// @flow
-
 import { Vector2, WebGLRenderer } from 'three';
 import graphics, { getGraphicsMode } from './graphics';
 import settings from '../settings';

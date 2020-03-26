@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * Create a canvas and 2d context
  *

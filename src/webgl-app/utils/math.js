@@ -1,5 +1,3 @@
-// @flow
-
 import { Math as Math3, Vector3 } from 'three';
 
 // Math constants that are regularly used

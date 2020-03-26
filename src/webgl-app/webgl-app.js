@@ -1,5 +1,3 @@
-// @flow
-
 import EventEmitter from 'eventemitter3';
 import { Clock, Vector4, PerspectiveCamera } from 'three';
 import renderer, { postProcessing } from './rendering/renderer';
@@ -122,7 +120,7 @@ class WebGLApp extends EventEmitter {
    * @memberof WebGLApp
    */
   async setScene(scene: BaseScene) {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       this.currentScene = scene;
       this.currentScene.animateIn().then(resolve, reject);
       postProcessing.setScenes(postProcessing.sceneB, scene);

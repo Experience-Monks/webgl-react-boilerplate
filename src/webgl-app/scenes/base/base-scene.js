@@ -78,7 +78,7 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   async loadAssets() {
-    await new Promise<any>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       try {
         if (this.assets.length > 0) {
           assetLoader.once('loaded', (response: Asset[]) => {
@@ -104,7 +104,7 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   async createSceneHelpers() {
-    await new Promise<void>((resolve: Function, reject: Function) => {
+    await new Promise((resolve: Function, reject: Function) => {
       try {
         // Add helpers
         this.helpers = new Group();
@@ -124,9 +124,9 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   async createSceneObjects() {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       try {
-        throw new Error('createSceneObjects needs to be implemented');
+        resolve();
       } catch (error) {
         reject(error);
       }

@@ -1,5 +1,3 @@
-// @flow
-
 import { OrthographicCamera, WebGLRenderTarget } from 'three';
 import { GUI } from 'dat.gui';
 import { bigTriangle } from '../../utils/geometry';

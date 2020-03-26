@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { TweenLite } from 'gsap/gsap-core';
 import './App.css';

@@ -1,5 +1,3 @@
-// @flow
-
 import { getQueryFromParams } from './utils/query-params';
 
 const settings = {};

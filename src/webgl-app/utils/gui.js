@@ -1,5 +1,3 @@
-// @flow
-
 import detect from '@jam3/detect';
 import settings from '../settings';
 
