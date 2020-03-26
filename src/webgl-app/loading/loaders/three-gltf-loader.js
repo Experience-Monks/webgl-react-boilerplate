@@ -1,3 +1,5 @@
+// @flow
+
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import Loader from './loader';
@@ -25,7 +27,7 @@ export default class ThreeGLTFLoader extends Loader {
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
 
-    const onLoaded = gltf => {
+    const onLoaded = (gltf: Object) => {
       this.asset.data = gltf;
       this.emit('loaded', this.asset);
     };

@@ -1,3 +1,5 @@
+// @flow
+
 import { WebGLRenderer } from 'three';
 import settings from '../settings';
 
@@ -64,7 +66,7 @@ const RendererStats = function() {
 export function RenderStatsWrapper() {
   return {
     domElement: document.createElement('div'),
-    update: () => {}
+    update: (renderer: WebGLRenderer) => {}
   };
 }
 

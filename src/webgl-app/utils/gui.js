@@ -1,3 +1,5 @@
+// @flow
+
 import detect from '@jam3/detect';
 import settings from '../settings';
 
@@ -5,7 +7,7 @@ import settings from '../settings';
  * @class Folder
  */
 class Folder {
-  add() {
+  add(object: any, key: string) {
     return this;
   }
   listen() {
@@ -20,10 +22,10 @@ class Folder {
   close() {
     return this;
   }
-  onChange() {
+  onChange(value: mixed) {
     return this;
   }
-  addFolder() {
+  addFolder(id: string) {
     return this;
   }
   addColor() {
@@ -47,10 +49,10 @@ class GUIWrapper {
   static toggleHide() {
     return this;
   }
-  add() {
+  add(object: any, key: string) {
     return this;
   }
-  addFolder() {
+  addFolder(id: string) {
     return new Folder();
   }
   removeFolder() {
@@ -71,7 +73,7 @@ class GUIWrapper {
   step() {
     return this;
   }
-  onChange() {
+  onChange(value: mixed) {
     return this;
   }
   setValue() {

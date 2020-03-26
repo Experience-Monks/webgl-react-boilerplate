@@ -1,10 +1,14 @@
+// @flow
+
 import { Scene, Mesh, ShaderMaterial, Vector2, BufferGeometry, OrthographicCamera, WebGLRenderTarget } from 'three';
 import { TweenLite } from 'gsap';
+import { GUI } from 'dat.gui';
 import { vertexShader, fragmentShader } from './shader.glsl';
 import { getRenderBufferSize } from '../../../resize';
 import renderer from '../../../renderer';
 import BaseScene from '../../../../scenes/base/base-scene';
 import settings from '../../../../settings';
+const animate = require('gsap-promisify')(Promise, TweenLite);
 
 /**
  * Transition pass handles transitioning between two scenes
@@ -13,7 +17,13 @@ import settings from '../../../../settings';
  * @class TransitionPass
  */
 export default class TransitionPass {
-  constructor(gui, geometry: BufferGeometry, camera: OrthographicCamera) {
+  gui: GUI;
+  scene: Scene;
+  camera: OrthographicCamera;
+  active: boolean;
+  mesh: Mesh;
+
+  constructor(gui: GUI, geometry: BufferGeometry, camera: OrthographicCamera) {
     // Create gui
     this.gui = gui.addFolder('transition pass');
     this.gui.open();
@@ -51,7 +61,7 @@ export default class TransitionPass {
     // Setup gui
     this.gui
       .add(this.mesh.material.uniforms.transition, 'value', 0, 1)
-      .onChange((value: Number) => {
+      .onChange((value: number) => {
         this.active = value !== 0 && value !== 1;
       })
       .name('transition')
@@ -61,27 +71,23 @@ export default class TransitionPass {
   /**
    * Transition activates this pass and blends from sceneA to sceneB
    *
-   * @returns
    * @memberof TransitionPass
    */
-  transition() {
-    return new Promise((resolve, reject) => {
-      if (settings.skipTransitions) {
-        this.mesh.material.uniforms.transition.value = 1;
-        resolve();
-        return;
-      }
+  async transition() {
+    if (settings.skipTransitions) {
+      this.mesh.material.uniforms.transition.value = 1;
+    } else {
       this.mesh.material.uniforms.transition.value = 0;
       this.active = true;
       TweenLite.killTweensOf(this.mesh.material.uniforms.transition);
-      TweenLite.to(this.mesh.material.uniforms.transition, 1, {
-        value: 1,
-        onComplete: () => {
+      await animate
+        .to(this.mesh.material.uniforms.transition, 1, {
+          value: 1
+        })
+        .then(() => {
           this.active = false;
-          resolve();
-        }
-      });
-    });
+        });
+    }
   }
 
   /**
@@ -91,7 +97,7 @@ export default class TransitionPass {
    * @param {Number} height
    * @memberof TransitionPass
    */
-  resize(width: Number, height: Number) {
+  resize(width: number, height: number) {
     this.mesh.material.uniforms.resolution.value.x = width;
     this.mesh.material.uniforms.resolution.value.y = height;
   }
@@ -111,7 +117,7 @@ export default class TransitionPass {
     sceneB: BaseScene,
     renderTargetA: WebGLRenderTarget,
     renderTargetB: WebGLRenderTarget,
-    delta: Number
+    delta: number
   ) {
     sceneA.update(delta);
     sceneB.update(delta);

@@ -1,5 +1,14 @@
+// @flow
+
 import EventEmitter from 'eventemitter3';
 import detect from '@jam3/detect';
+
+export interface TouchControlsEvent {
+  x: number;
+  y: number;
+  normalX: number;
+  normalY: number;
+}
 
 /**
  * A class to normalize mouse and touch events
@@ -32,7 +41,7 @@ export default class TouchControls extends EventEmitter {
    *
    * @memberof TouchControls
    */
-  bindEvents = (bind: Boolean) => {
+  bindEvents = (bind: boolean) => {
     const listener = bind ? 'addEventListener' : 'removeEventListener';
     const isDesktop = detect.device.isDesktop;
     if (this.options.touchStart) this.element[listener](isDesktop ? 'mousedown' : 'touchstart', this.onTouchStart);

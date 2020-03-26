@@ -1,3 +1,5 @@
+// @flow
+
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import Loader from './loader';
 import Asset from '../asset';
@@ -18,7 +20,7 @@ export default class ThreeFBXLoader extends Loader {
   load = () => {
     const loader = new FBXLoader();
 
-    const onLoaded = data => {
+    const onLoaded = (data: Object) => {
       this.asset.data = data;
       this.emit('loaded', this.asset);
     };

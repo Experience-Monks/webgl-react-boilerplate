@@ -1,3 +1,5 @@
+// @flow
+
 import EventEmitter from 'eventemitter3';
 import Asset from '../asset';
 
@@ -9,11 +11,11 @@ import Asset from '../asset';
  */
 class Loader extends EventEmitter {
   asset: Asset;
-  static json = 'json';
-  static image = 'image';
-  static threeFBX = 'fbx';
-  static threeGLTF = 'gltf';
-  static threeTexture = 'texture';
+  static json: string = 'json';
+  static image: string = 'image';
+  static threeFBX: string = 'fbx';
+  static threeGLTF: string = 'gltf';
+  static threeTexture: string = 'texture';
 }
 
 export default Loader;

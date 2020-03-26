@@ -1,3 +1,5 @@
+// @flow
+
 import { Scene, PerspectiveCamera, RGBAFormat, Object3D } from 'three';
 import renderer from './renderer';
 import { createRenderTarget } from './render-target';
@@ -17,7 +19,7 @@ if (RENDER_TARGET_DEBUG) {
 }
 
 // https://medium.com/@hellomondaycom/how-we-built-the-google-cloud-infrastructure-webgl-experience-dec3ce7cd209
-function setAllCulled(obj: Object3D, overrideCulled: Boolean) {
+function setAllCulled(obj: Object3D, overrideCulled: boolean) {
   if (overrideCulled === false) {
     obj.wasFrustumCulled = obj.frustumCulled;
     obj.wasVisible = obj.visible;
@@ -31,22 +33,15 @@ function setAllCulled(obj: Object3D, overrideCulled: Boolean) {
 }
 
 export default function preloadGpu(scene: Scene, camera: PerspectiveCamera) {
-  return new Promise((resolve, reject) => {
-    try {
-      const cameraAspect = camera.aspect;
-      camera.aspect = 1;
-      camera.updateProjectionMatrix();
-      setAllCulled(scene, false);
-      renderer.setRenderTarget(renderTarget);
-      renderer.render(scene, camera);
-      if (RENDER_TARGET_DEBUG) renderTargetHelper.update();
-      renderer.setRenderTarget(null);
-      camera.aspect = cameraAspect;
-      camera.updateProjectionMatrix();
-      setAllCulled(scene, true);
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
-  });
+  const cameraAspect = camera.aspect;
+  camera.aspect = 1;
+  camera.updateProjectionMatrix();
+  setAllCulled(scene, false);
+  renderer.setRenderTarget(renderTarget);
+  renderer.render(scene, camera);
+  if (RENDER_TARGET_DEBUG) renderTargetHelper.update();
+  renderer.setRenderTarget(null);
+  camera.aspect = cameraAspect;
+  camera.updateProjectionMatrix();
+  setAllCulled(scene, true);
 }

@@ -1,8 +1,18 @@
+// @flow
+
 import { WebGLRenderTarget } from 'three';
 import createCanvas from './canvas';
 import renderer from '../rendering/renderer';
 
 export default class RenderTargetHelper {
+  renderTarget: WebGLRenderTarget;
+  canvas: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+  canvasFlipped: HTMLCanvasElement;
+  ctxFlipped: CanvasRenderingContext2D;
+  pixelBuffer: Uint8Array;
+  imageData: ImageData;
+
   constructor(renderTarget: WebGLRenderTarget, options: Object = {}) {
     this.renderTarget = renderTarget;
 
@@ -17,7 +27,7 @@ export default class RenderTargetHelper {
 
     Object.assign(canvas.style, {
       position: 'absolute',
-      zIndex: 1000,
+      zIndex: '1000',
       border: '1px solid white',
       pointerEvents: 'none',
       width: `${renderTarget.width}px`,
@@ -25,10 +35,10 @@ export default class RenderTargetHelper {
     });
     this.setCssPosition(options);
 
-    document.body.appendChild(this.canvas);
+    if (document.body) document.body.appendChild(this.canvas);
   }
 
-  resize(width: Number, height: Number) {
+  resize(width: number, height: number) {
     this.canvas.width = width;
     this.canvas.height = height;
     this.canvasFlipped.width = width;

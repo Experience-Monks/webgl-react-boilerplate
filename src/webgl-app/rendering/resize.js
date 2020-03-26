@@ -1,4 +1,6 @@
-import { Vector2 } from 'three';
+// @flow
+
+import { Vector2, WebGLRenderer } from 'three';
 import graphics, { getGraphicsMode } from './graphics';
 import settings from '../settings';
 
@@ -9,14 +11,14 @@ const maxSize = baseSize * baseSize;
 
 export const rendererSize = new Vector2();
 
-export function getRenderBufferSize() {
+export function getRenderBufferSize(): { width: number, height: number } {
   return {
     width: rendererSize.x * pixelRatio,
     height: rendererSize.y * pixelRatio
   };
 }
 
-function resize(windowWidth, windowHeight) {
+function resize(windowWidth: number, windowHeight: number): { width: number, height: number } {
   let width = windowWidth;
   let height = windowHeight;
   if (windowWidth * windowHeight > maxSize) {
@@ -34,7 +36,7 @@ function resize(windowWidth, windowHeight) {
   };
 }
 
-export function setRendererSize(renderer: WebGLRenderer, windowWidth: Number, windowHeight: Number) {
+export function setRendererSize(renderer: WebGLRenderer, windowWidth: number, windowHeight: number) {
   let { width, height } = resize(windowWidth, windowHeight);
   if (settings.renderBufferFullscreen) {
     width = windowWidth;

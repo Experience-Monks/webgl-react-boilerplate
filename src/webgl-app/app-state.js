@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * A class to manage the state of the webgl app
  *
@@ -5,6 +7,8 @@
  * @class AppState
  */
 export default class AppState {
+  ready: boolean;
+
   constructor(props: Object = {}) {
     this.ready = props.ready || false;
   }

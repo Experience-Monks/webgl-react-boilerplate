@@ -1,4 +1,7 @@
+// @flow
+
 import { AmbientLight } from 'three';
+import { GUI } from 'dat.gui';
 import settings from '../settings';
 
 /**
@@ -8,6 +11,11 @@ import settings from '../settings';
  * @class Ambient
  */
 export default class Ambient {
+  settings: Object;
+  light: AmbientLight;
+  gui: GUI;
+  guiParent: GUI;
+
   constructor(options: Object = {}) {
     this.settings = Object.assign(
       {
@@ -20,7 +28,7 @@ export default class Ambient {
     this.light = new AmbientLight(this.settings.color, this.settings.intensity);
   }
 
-  gui(guiParent) {
+  gui(guiParent: GUI) {
     this.guiParent = guiParent;
     this.gui = guiParent.addFolder('ambient');
     if (this.settings.guiOpen) this.gui.open();

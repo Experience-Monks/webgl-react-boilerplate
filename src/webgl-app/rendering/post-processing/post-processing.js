@@ -1,4 +1,7 @@
-import { OrthographicCamera } from 'three';
+// @flow
+
+import { OrthographicCamera, WebGLRenderTarget } from 'three';
+import { GUI } from 'dat.gui';
 import { bigTriangle } from '../../utils/geometry';
 import { createRenderTarget } from '../render-target';
 import { getRenderBufferSize } from '../resize';
@@ -10,7 +13,19 @@ import settings from '../../settings';
 import BaseScene from '../../scenes/base/base-scene';
 
 export default class PostProcessing {
-  constructor(gui) {
+  gui: GUI;
+  camera: OrthographicCamera;
+  renderTargetA: WebGLRenderTarget;
+  renderTargetB: WebGLRenderTarget;
+  renderTargetC: WebGLRenderTarget;
+  transitionPass: TransitionPass;
+  finalPass: FinalPass;
+  currentScene: BaseScene;
+  lastPass: mixed;
+  sceneA: BaseScene;
+  sceneB: BaseScene;
+
+  constructor(gui: GUI) {
     // Create gui
     this.gui = gui.addFolder('post processing');
     this.gui.open();
@@ -34,9 +49,6 @@ export default class PostProcessing {
     const sceneB = new EmptyScene('post scene b', 0x000000);
     sceneA.setup();
     sceneB.setup();
-
-    this.currentScene = null;
-    this.lastPass = null;
 
     this.setScenes(sceneA, sceneB);
     this.resize();
@@ -77,7 +89,7 @@ export default class PostProcessing {
    * @param {Number} delta
    * @memberof PostProcessing
    */
-  render(delta: Number) {
+  render(delta: number) {
     // Determine the current scene based on the transition pass value
     this.currentScene = this.transitionPass.mesh.material.uniforms.transition.value === 0 ? this.sceneA : this.sceneB;
     this.lastPass = this.currentScene;

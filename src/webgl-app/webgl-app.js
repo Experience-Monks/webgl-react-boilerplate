@@ -1,5 +1,7 @@
+// @flow
+
 import EventEmitter from 'eventemitter3';
-import { Clock, Vector4 } from 'three';
+import { Clock, Vector4, PerspectiveCamera } from 'three';
 import renderer, { postProcessing } from './rendering/renderer';
 import { setRendererSize, rendererSize } from './rendering/resize';
 import settings from './settings';
@@ -52,14 +54,14 @@ class WebGLApp extends EventEmitter {
     guiSettings.open();
 
     // Toggle between dev and scene camera
-    guiSettings.add(settings, 'devCamera').onChange((value: Boolean) => {
+    guiSettings.add(settings, 'devCamera').onChange((value: string) => {
       setQuery('devCamera', value);
       postProcessing.resize();
       this.currentScene.toogleCameras(value);
     });
 
     // Toggle scene helpers
-    guiSettings.add(settings, 'helpers').onChange((value: Boolean) => {
+    guiSettings.add(settings, 'helpers').onChange((value: string) => {
       setQuery('helpers', value);
       this.currentScene.toggleHelpers(value);
     });
@@ -70,8 +72,8 @@ class WebGLApp extends EventEmitter {
    *
    * @memberof WebGLApp
    */
-  setup = () => {
-    return new Promise((resolve, reject) => {
+  async setup() {
+    await new Promise((resolve, reject) => {
       try {
         // Setup the preloader scene right away as we need a scene to render on page load
         this.preloaderScene = new PreloaderScene();
@@ -86,7 +88,7 @@ class WebGLApp extends EventEmitter {
         reject(error);
       }
     });
-  };
+  }
 
   // Set the new state
   setState = (state: AppState) => {
@@ -119,8 +121,8 @@ class WebGLApp extends EventEmitter {
    * @param {BaseScene} scene
    * @memberof WebGLApp
    */
-  setScene(scene: BaseScene) {
-    return new Promise((resolve, reject) => {
+  async setScene(scene: BaseScene) {
+    await new Promise<void>((resolve, reject) => {
       this.currentScene = scene;
       this.currentScene.animateIn().then(resolve, reject);
       postProcessing.setScenes(postProcessing.sceneB, scene);
@@ -133,7 +135,7 @@ class WebGLApp extends EventEmitter {
    *
    * @memberof WebGLApp
    */
-  resize = (width: Number, height: Number) => {
+  resize = (width: number, height: number) => {
     setRendererSize(renderer, width, height);
     this.currentScene.resize(width, height);
     postProcessing.resize();
@@ -151,7 +153,7 @@ class WebGLApp extends EventEmitter {
    *
    * @memberof WebGLApp
    */
-  renderScene = (camera: PerspectiveCamera, viewport: Vector4, delta: Number, usePostProcessing: Boolean) => {
+  renderScene = (camera: PerspectiveCamera, viewport: Vector4, delta: number, usePostProcessing: boolean) => {
     renderer.setViewport(viewport.x, viewport.y, viewport.z, viewport.w);
     renderer.setScissor(viewport.x, viewport.y, viewport.z, viewport.w);
 
@@ -189,7 +191,7 @@ class WebGLApp extends EventEmitter {
     this.delta = this.clock.getDelta();
 
     if (settings.devCamera) {
-      this.renderScene(this.currentScene.cameras.dev, this.viewport.main, this.delta);
+      this.renderScene(this.currentScene.cameras.dev, this.viewport.main, this.delta, false);
       this.renderScene(this.currentScene.camera, this.viewport.debug, this.delta, true);
     } else {
       this.renderScene(this.currentScene.camera, this.viewport.main, this.delta, true);

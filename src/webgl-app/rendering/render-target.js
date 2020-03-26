@@ -1,6 +1,8 @@
+// @flow
+
 import { WebGLRenderTarget, LinearFilter, NearestFilter, RGBFormat, UnsignedByteType } from 'three';
 
-export function createRenderTarget(width: Number = 1024, height: Number = 1024, options: Object = {}) {
+export function createRenderTarget(width: number = 1024, height: number = 1024, options: Object = {}) {
   const defaults = {
     minFilter: LinearFilter,
     magFilter: NearestFilter,

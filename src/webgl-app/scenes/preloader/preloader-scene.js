@@ -1,3 +1,5 @@
+// @flow
+
 import { TweenLite } from 'gsap/gsap-core';
 import { Mesh, RingBufferGeometry, ShaderMaterial } from 'three';
 import BaseScene from '../base/base-scene';
@@ -16,8 +18,8 @@ export default class PreloaderScene extends BaseScene {
    *
    * @memberof PreloaderScene
    */
-  createSceneObjects = () => {
-    return new Promise((resolve, reject) => {
+  async createSceneObjects() {
+    await new Promise<void>((resolve, reject) => {
       try {
         // Create a spinner mesh to show loading progression
         this.spinner = new Mesh(
@@ -51,9 +53,9 @@ export default class PreloaderScene extends BaseScene {
         reject(error);
       }
     });
-  };
+  }
 
-  preloadGpuCullScene = (culled: Boolean) => {
+  preloadGpuCullScene = (culled: boolean) => {
     this.spinner.material.uniforms.opacity.value = culled ? 1 : 0;
   };
 
@@ -62,8 +64,8 @@ export default class PreloaderScene extends BaseScene {
     this.spinner.material.uniforms.opacity.value = 0;
   };
 
-  animateIn = () => {
-    return new Promise((resolve, reject) => {
+  async animateIn() {
+    await new Promise<void>((resolve, reject) => {
       if (settings.skipTransitions) {
         resolve();
         return;
@@ -75,10 +77,10 @@ export default class PreloaderScene extends BaseScene {
         }
       });
     });
-  };
+  }
 
-  animateOut = () => {
-    return new Promise((resolve, reject) => {
+  async animateOut() {
+    await new Promise<void>((resolve, reject) => {
       if (settings.skipTransitions) {
         resolve();
         return;
@@ -90,14 +92,14 @@ export default class PreloaderScene extends BaseScene {
         }
       });
     });
-  };
+  }
 
   /**
    * Update loop
    *
    * @memberof PreloaderScene
    */
-  update = (delta: Number) => {
+  update = (delta: number) => {
     this.spinner.rotation.z -= delta * 2;
   };
 }

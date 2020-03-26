@@ -1,3 +1,5 @@
+// @flow
+
 import { UniformsUtils } from 'three';
 
 const hooks = {
@@ -14,8 +16,8 @@ const hooks = {
   }
 };
 
-function replace(shader, hooks, config) {
-  Object.keys(hooks).forEach((hook: String) => {
+function replace(shader: string, hooks: Object, config: Object) {
+  Object.keys(hooks).forEach((hook: string) => {
     if (config[hook]) {
       const parts = hooks[hook].split(':');
       const line = parts[1];

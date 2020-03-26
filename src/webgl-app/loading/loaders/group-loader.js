@@ -1,3 +1,5 @@
+// @flow
+
 import EventEmitter from 'eventemitter3';
 import detect from '@jam3/detect';
 import Asset from '../asset';
@@ -99,7 +101,7 @@ export default class GroupLoader extends EventEmitter {
    *
    * @memberof GroupLoader
    */
-  onError = (error: String) => {
+  onError = (error: string) => {
     this.emit('error', error);
   };
 }

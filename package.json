@@ -9,6 +9,7 @@
     "detect-gpu": "^1.2.0",
     "eventemitter3": "^4.0.0",
     "gsap": "^3.1.1",
+    "gsap-promisify": "^1.0.2",
     "query-string": "^6.11.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -27,6 +28,7 @@
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "flow-bin": "^0.118.0",
+    "flow-typed": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "sharp": "^0.24.1",
     "image-size": "^0.8.3",
@@ -42,6 +44,7 @@
     "audit": "audit-ci --high",
     "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
     "flow": "flow",
+    "flow-typed": "rm -rf ./flow-typed && flow-typed install",
     "linters": "npm-run-all flow js-lint",
     "assets": "node scripts/assets/optimise"
   },

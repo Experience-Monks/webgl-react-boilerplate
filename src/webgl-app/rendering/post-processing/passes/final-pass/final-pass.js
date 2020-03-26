@@ -1,4 +1,16 @@
-import { Scene, Mesh, ShaderMaterial, Vector2, UniformsUtils, WebGLRenderTarget } from 'three';
+// @flow
+
+import {
+  Scene,
+  Mesh,
+  ShaderMaterial,
+  Vector2,
+  UniformsUtils,
+  WebGLRenderTarget,
+  BufferGeometry,
+  OrthographicCamera
+} from 'three';
+import { GUI } from 'dat.gui';
 import { vertexShader, fragmentShader } from './shader.glsl';
 import { getRenderBufferSize } from '../../../resize';
 import { uniforms as filmUniforms, guiControls as filmGuiControls } from '../../passes/film.glsl';
@@ -12,7 +24,12 @@ import renderer from '../../../renderer';
  * @class FinalPass
  */
 export default class FinalPass {
-  constructor(gui, geometry, camera) {
+  gui: GUI;
+  scene: Scene;
+  camera: OrthographicCamera;
+  mesh: Mesh;
+
+  constructor(gui: GUI, geometry: BufferGeometry, camera: OrthographicCamera) {
     // Create gui
     this.gui = gui.addFolder('final pass');
     this.gui.open();
@@ -61,7 +78,7 @@ export default class FinalPass {
    * @param {Number} height
    * @memberof FinalPass
    */
-  resize(width: Number, height: Number) {
+  resize(width: number, height: number) {
     this.mesh.material.uniforms.resolution.value.x = width;
     this.mesh.material.uniforms.resolution.value.y = height;
     this.mesh.material.uniforms.fxaaResolution.value.x = 1 / width;
@@ -76,7 +93,7 @@ export default class FinalPass {
    * @param {Number} delta
    * @memberof FinalPass
    */
-  render(scene, renderTarget: WebGLRenderTarget, delta: Number) {
+  render(scene: Scene, renderTarget: WebGLRenderTarget, delta: number) {
     renderer.setRenderTarget(renderTarget);
     renderer.render(scene.scene, scene.camera);
     renderer.setRenderTarget(null);
