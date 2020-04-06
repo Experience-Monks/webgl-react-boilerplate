@@ -8,6 +8,7 @@
     "dat.gui": "^0.7.6",
     "detect-gpu": "^1.2.0",
     "eventemitter3": "^4.0.0",
+    "file-saver": "^2.0.2",
     "gsap": "^3.1.1",
     "gsap-promisify": "^1.0.2",
     "query-string": "^6.11.0",
