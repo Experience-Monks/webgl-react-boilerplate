@@ -10,6 +10,7 @@ import PreloaderScene from './scenes/preloader/preloader-scene';
 import AppState from './app-state';
 import LandingScene from './scenes/landing/landing-scene';
 import BaseScene from './scenes/base/base-scene';
+import Screenshot from './utils/screenshot';
 
 class WebGLApp extends EventEmitter {
   /**
@@ -47,6 +48,10 @@ class WebGLApp extends EventEmitter {
       main: new Vector4(0, 0, rendererSize.x, rendererSize.y)
     };
 
+    // Add screenshot utility
+    this.screenshot = new Screenshot(gui, 1280, 720, 2);
+    this.screenshot.gui.add(this, 'captureScreenshot').name('capture');
+
     // Gui settings group
     const guiSettings = gui.addFolder('settings');
     guiSettings.open();
@@ -64,6 +69,10 @@ class WebGLApp extends EventEmitter {
       this.currentScene.toggleHelpers(value);
     });
   }
+
+  captureScreenshot = () => {
+    this.screenshot.capture(this.currentScene.scene, this.currentScene.camera);
+  };
 
   /**
    * Setup any

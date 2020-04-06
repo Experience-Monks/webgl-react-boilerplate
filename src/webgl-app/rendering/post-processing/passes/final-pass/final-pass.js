@@ -6,7 +6,8 @@ import {
   UniformsUtils,
   WebGLRenderTarget,
   BufferGeometry,
-  OrthographicCamera
+  OrthographicCamera,
+  PerspectiveCamera
 } from 'three';
 import { GUI } from 'dat.gui';
 import { vertexShader, fragmentShader } from './shader.glsl';
@@ -97,6 +98,29 @@ export default class FinalPass {
     renderer.setRenderTarget(null);
     this.mesh.material.uniforms.tDiffuse.value = renderTarget.texture;
     this.mesh.material.uniforms.time.value += delta;
+    renderer.render(this.scene, this.camera);
+  }
+
+  /**
+   * Render the final pass when used with the screenshot utility
+   *
+   * @param {Scene} scene
+   * @param {PerspectiveCamera} camera
+   * @param {WebGLRenderTarget} renderTargetA
+   * @param {WebGLRenderTarget} renderTargetB
+   * @param {number} delta
+   * @memberof FinalPass
+   */
+  screenshotRender(
+    scene: Scene,
+    camera: PerspectiveCamera,
+    renderTargetA: WebGLRenderTarget,
+    renderTargetB: WebGLRenderTarget,
+    delta: number
+  ) {
+    this.mesh.material.uniforms.tDiffuse.value = renderTargetA.texture;
+    this.mesh.material.uniforms.time.value += delta;
+    renderer.setRenderTarget(renderTargetB);
     renderer.render(this.scene, this.camera);
   }
 }
