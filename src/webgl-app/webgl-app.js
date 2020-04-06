@@ -49,7 +49,7 @@ class WebGLApp extends EventEmitter {
     };
 
     // Add screenshot utility
-    this.screenshot = new Screenshot(gui, renderer, 1280, 720, 2);
+    this.screenshot = new Screenshot(gui, 1280, 720, 2);
     this.screenshot.gui.add(this, 'captureScreenshot').name('capture');
 
     // Gui settings group

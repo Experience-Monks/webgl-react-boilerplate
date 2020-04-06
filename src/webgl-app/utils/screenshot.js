@@ -1,9 +1,9 @@
-import { WebGLRenderTarget, LinearFilter, RGBAFormat, WebGLRenderer, PerspectiveCamera } from 'three';
+import { WebGLRenderTarget, LinearFilter, RGBAFormat, PerspectiveCamera } from 'three';
 import { GUI } from 'dat.gui';
 import { saveAs } from 'file-saver';
 import createCanvas from './canvas';
 import { rendererSize } from '../rendering/resize';
-import { postProcessing } from '../rendering/renderer';
+import renderer, { postProcessing } from '../rendering/renderer';
 import BaseScene from '../scenes/base/base-scene';
 
 const DEBUG_RENDER = false;
@@ -17,7 +17,6 @@ const DEBUG_RENDER = false;
  */
 export default class Screenshot {
   gui: GUI;
-  renderer: WebGLRenderer;
   renderTargetA: WebGLRenderTarget;
   renderTargetB: WebGLRenderTarget;
   imageData: ImageData;
@@ -29,10 +28,9 @@ export default class Screenshot {
   height: number;
   pixelBuffer: Uint8Array;
 
-  constructor(gui: GUI, renderer: WebGLRenderer, width: number, height: number, pixelRatio: number = 1) {
+  constructor(gui: GUI, width: number, height: number, pixelRatio: number = 1) {
     this.gui = gui.addFolder('screenshot');
     this.gui.open();
-    this.renderer = renderer;
     this.width = width * pixelRatio;
     this.height = height * pixelRatio;
 
@@ -119,21 +117,21 @@ export default class Screenshot {
 
     // Update renderer viewport, this will get reset in the main render loop
     // inside webgl-app.js
-    this.renderer.setViewport(left, bottom, width, height);
-    this.renderer.setScissor(left, bottom, width, height);
+    renderer.setViewport(left, bottom, width, height);
+    renderer.setScissor(left, bottom, width, height);
 
     // Update the final pass uniforms
     postProcessing.finalPass.resize(this.width, this.height);
 
     // Render the current scene into renderTargetA
-    this.renderer.setRenderTarget(this.renderTargetA);
-    this.renderer.render(scene, camera);
-    this.renderer.setRenderTarget(null);
+    renderer.setRenderTarget(this.renderTargetA);
+    renderer.render(scene, camera);
+    renderer.setRenderTarget(null);
 
     // Apply the post processing fx which is output into renderTargetB
     postProcessing.finalPass.screenshotRender(scene, camera, this.renderTargetA, this.renderTargetB, 0);
     // Put the rendered pixels into the pixelBuffer
-    this.renderer.readRenderTargetPixels(
+    renderer.readRenderTargetPixels(
       this.renderTargetB,
       0,
       0,
