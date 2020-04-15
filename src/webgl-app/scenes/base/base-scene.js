@@ -11,6 +11,7 @@ import preloadGpu from '../../rendering/preload-gpu';
 import assetLoader from '../../loading/asset-loader';
 import assetManager from '../../loading/asset-manager';
 import Asset from '../../loading/asset';
+import disposeObjects from '../../utils/dispose-objects';
 
 /**
  * A base scene for other scenes to inherit
@@ -223,4 +224,14 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   update = (delta: number) => {};
+
+  /**
+   * Clear up scene objects
+   *
+   * @memberof BaseScene
+   */
+  dispose = () => {
+    disposeObjects(this.scene, null);
+    if (this.gui) gui.removeFolder(this.gui.name);
+  };
 }

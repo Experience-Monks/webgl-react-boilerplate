@@ -76,7 +76,7 @@ export default class Sphere {
 
   async animateOut() {
     await new Promise((resolve, reject) => {
-      TweenLite.to(this.mesh.material.opacity, 1, {
+      TweenLite.to(this.mesh.material, 1, {
         opacity: 0,
         onComplete: () => {
           resolve();
