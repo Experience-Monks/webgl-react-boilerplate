@@ -100,7 +100,14 @@ export default class CameraDolly extends EventEmitter {
     this.createLine(this.curves.lookat.points);
 
     this.gui.add(this, 'steps', 5, 100, 1).onChange(this.rebuild);
-    this.gui.add(this.controls, 'visible').name('controls');
+    this.gui
+      .add(this.controls, 'visible')
+      .name('controls')
+      .onChange(() => {
+        for (let i = 0; i < this.controls.children.length; i++) {
+          this.controls.children[i].enabled = this.controls.visible;
+        }
+      });
     this.gui.add(this.points, 'visible').name('points');
     this.gui.add(this.lines, 'visible').name('lines');
     this.gui.add(this, 'export');
@@ -144,6 +151,7 @@ export default class CameraDolly extends EventEmitter {
 
     // Create control
     const control = new TransformControls(this.camera, renderer.domElement);
+    control.enabled = this.controls.visible;
     this.controls.add(control);
     control.addEventListener('dragging-changed', this.onTransformChanged);
     control.attach(mesh);
