@@ -1,4 +1,4 @@
-import { getQueryFromParams } from './utils/query-params';
+// import { getQueryFromParams } from './utils/query-params';
 
 const settings = {};
 
@@ -6,19 +6,19 @@ const settings = {};
 settings.isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Show fps stats
-settings.stats = getQueryFromParams('stats') === null && settings.isDevelopment;
+settings.stats = true; //getQueryFromParams('stats') === null && settings.isDevelopment;
 
 // Enable dev camera rendering
-settings.devCamera = getQueryFromParams('devCamera') === 'true' && settings.isDevelopment;
+settings.devCamera = true; //getQueryFromParams('devCamera') === 'true' && settings.isDevelopment;
 
 // Enable helpers
-settings.helpers = getQueryFromParams('helpers') === 'true' && settings.isDevelopment;
+settings.helpers = true; //getQueryFromParams('helpers') === 'true' && settings.isDevelopment;
 
 // Enable dat gui
-settings.datGui = getQueryFromParams('gui') === null && settings.isDevelopment;
+settings.datGui = true; //getQueryFromParams('gui') === null && settings.isDevelopment;
 
 // Skips all transitions
-settings.skipTransitions = getQueryFromParams('skipTransitions') === null && settings.isDevelopment;
+settings.skipTransitions = true; //getQueryFromParams('skipTransitions') === null && settings.isDevelopment;
 
 // GUI Number precision
 settings.guiPrecision = 0.001;

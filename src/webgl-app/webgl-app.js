@@ -239,10 +239,12 @@ class WebGLApp extends EventEmitter {
 
     if (settings.devCamera) {
       this.renderScene(this.currentScene.cameras.dev, this.viewport.main, this.delta, false);
-      this.renderScene(this.currentScene.camera, this.viewport.debug, this.delta, true);
+      this.renderScene(this.currentScene.cameras.main, this.viewport.debug, this.delta, false);
     } else {
-      this.renderScene(this.currentScene.camera, this.viewport.main, this.delta, true);
+      this.renderScene(this.currentScene.cameras.main, this.viewport.main, this.delta, false);
     }
+
+    // this.renderScene(this.currentScene.camera, this.viewport.main, this.delta, false);
 
     if (settings.stats) {
       rendererStats.update(renderer);

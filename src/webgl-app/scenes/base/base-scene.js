@@ -58,6 +58,9 @@ export default class BaseScene extends EventEmitter {
       this.controls.main = createOrbitControls(this.cameras.main);
     }
 
+    // Active camera control
+    this.control = settings.devCamera ? this.controls.dev : this.controls.main;
+
     // Optionally create gui controls
     if (options.gui) {
       this.gui = gui.addFolder(`${this.id} scene`);
@@ -174,6 +177,7 @@ export default class BaseScene extends EventEmitter {
    */
   toogleCameras = (devCamera: boolean = true) => {
     this.camera = devCamera ? this.cameras.dev : this.cameras.main;
+    this.control = devCamera ? this.controls.dev : this.controls.main;
   };
 
   /**
