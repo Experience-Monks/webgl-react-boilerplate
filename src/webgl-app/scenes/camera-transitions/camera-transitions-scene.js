@@ -26,19 +26,26 @@ export default class CameraTransitionsScene extends BaseScene {
   async createSceneObjects() {
     await new Promise((resolve, reject) => {
       try {
+        // Disable main control sincw we're using the camera dolly
+        this.controls.main.enabled = false;
+
+        const helper = new CameraHelper(this.cameras.main);
+        this.scene.add(helper);
+
+        const tracks = {
+          'track 0': require('./data/dolly-data-0.json'),
+          'track 1': require('./data/dolly-data-1.json')
+        };
+
         this.cameraDollyManager = new CameraDollyManager({
           gui: this.gui,
           guiOpen: true
         });
         this.scene.add(this.cameraDollyManager.group);
 
-        this.controls.main.enabled = false;
-
-        const helper = new CameraHelper(this.cameras.main);
-        this.scene.add(helper);
-
-        const data = require('./data/dolly-data.json');
-        this.cameraDollyManager.addTransition('default', data, this.cameras.main, this.cameras.dev, this.controls.dev);
+        Object.keys(tracks).forEach((id: string) => {
+          this.cameraDollyManager.addTransition(id, tracks[id], this.cameras.main, this.cameras.dev, this.controls.dev);
+        });
 
         resolve();
       } catch (error) {

@@ -19,8 +19,10 @@ export default class CameraDollyManager {
   dollies: Object;
   time: number;
   gui: GUI;
+  tracksGui: GUI;
   group: Group;
   dollyId: string;
+  dollyIds: string[];
   lookat: Vector3;
   camera: PerspectiveCamera;
 
@@ -29,6 +31,7 @@ export default class CameraDollyManager {
     this.group = new Group();
     this.dollies = {};
     this.dollyId = '';
+    this.dollyIds = [];
     this.lookat = new Vector3();
     this.camera = null;
 
@@ -40,6 +43,9 @@ export default class CameraDollyManager {
     } else {
       this.gui = new GUIWrapper();
     }
+
+    this.tracksGui = this.gui.addFolder('tracks');
+    this.tracksGui.open();
   }
 
   addTransition(
@@ -57,9 +63,26 @@ export default class CameraDollyManager {
 
   setTransition(id: string, camera: PerspectiveCamera) {
     this.dollyId = id;
+    if (!this.dollyIds.includes(id)) this.dollyIds.push(id);
+
+    this.gui.removeFolder(this.tracksGui.name);
+    this.tracksGui = this.gui.addFolder('tracks');
+    this.tracksGui.open();
+    this.tracksGui.add(this, 'dollyId', this.dollyIds).onChange(this.onTrackChange);
+
     this.camera = camera;
+
+    Object.keys(this.dollies).forEach((key: string) => {
+      const visible = key === id;
+      this.dollies[key].toggleVisibility(visible);
+    });
+
     this.update();
   }
+
+  onTrackChange = (value: string) => {
+    this.setTransition(value, this.camera);
+  };
 
   update = () => {
     if (this.dollies[this.dollyId] === undefined) return;

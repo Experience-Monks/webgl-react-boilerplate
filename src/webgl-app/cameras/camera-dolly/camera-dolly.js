@@ -71,11 +71,11 @@ export default class CameraDolly extends EventEmitter {
 
     // Add transform controls
     this.controls = new Group();
-    this.controls.visible = false;
+    // this.controls.visible = false;
     this.group.add(this.controls);
 
     this.points = new Group();
-    this.points.visible = false;
+    // this.points.visible = false;
     this.group.add(this.points);
 
     this.curvePoints = {
@@ -91,7 +91,7 @@ export default class CameraDolly extends EventEmitter {
 
     // Create visible curves
     this.lines = new Group();
-    this.lines.visible = false;
+    // this.lines.visible = false;
     // List of currently visible line meshes
     this.lineMeshes = [];
     this.group.add(this.lines);
@@ -103,15 +103,25 @@ export default class CameraDolly extends EventEmitter {
     this.gui
       .add(this.controls, 'visible')
       .name('controls')
-      .onChange(() => {
-        for (let i = 0; i < this.controls.children.length; i++) {
-          this.controls.children[i].enabled = this.controls.visible;
-        }
+      .onChange((value: boolean) => {
+        this.toggleControls(value);
       });
     this.gui.add(this.points, 'visible').name('points');
     this.gui.add(this.lines, 'visible').name('lines');
     this.gui.add(this, 'export');
     this.gui.open();
+  }
+
+  toggleVisibility = (visible: boolean) => {
+    this.group.visible = visible;
+    this.gui[visible ? 'open' : 'close']();
+    this.toggleControls(visible);
+  };
+
+  toggleControls(enabled: boolean) {
+    for (let i = 0; i < this.controls.children.length; i++) {
+      this.controls.children[i].enabled = this.controls.visible && this.group.visible;
+    }
   }
 
   createSmoothSpline = (positions: Vector3[], totalPoints: number = 10) => {
