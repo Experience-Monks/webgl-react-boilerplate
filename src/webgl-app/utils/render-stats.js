@@ -1,4 +1,5 @@
 import { WebGLRenderer } from 'three';
+import settings from '../settings';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -6,7 +7,7 @@ import { WebGLRenderer } from 'three';
  */
 
 /**
- * provide info on THREE.WebGLRenderer
+ * Provide info on THREE.WebGLRenderer
  *
  * @param {Object} renderer the renderer to update
  * @param {Object} Camera the camera to update
@@ -60,4 +61,13 @@ const RendererStats = function() {
   };
 };
 
-export default RendererStats;
+export function RenderStatsWrapper() {
+  return {
+    domElement: document.createElement('div'),
+    update: (renderer: WebGLRenderer) => {}
+  };
+}
+
+const Cls = settings.isDevelopment ? RendererStats : RenderStatsWrapper;
+
+export default Cls;

@@ -1,19 +1,19 @@
 const queryString = require('query-string');
 
 /**
- * getQueryFromParams
+ * Get a query parameter
  *
  * @export
  * @param {String} prop
  * @returns
  */
-export function getQueryFromParams(prop: String) {
+export function getQueryFromParams(prop: string): mixed {
   const params = queryString.parse(window.location.search);
   return params[prop] !== undefined ? params[prop] : false;
 }
 
 /**
- * setQuery
+ * Set a query parmeter
  *
  * @export
  * @param {String} query
@@ -21,7 +21,7 @@ export function getQueryFromParams(prop: String) {
  * @param {boolean} [reload=false]
  * @returns
  */
-export function setQuery(query: String, val: String, reload: boolean = false) {
+export function setQuery(query: string, val: string, reload: boolean = false) {
   const queries = queryString.parse(window.location.search);
   const newQueries = Object.assign({}, queries, {
     [query]: val

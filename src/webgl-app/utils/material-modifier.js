@@ -14,8 +14,8 @@ const hooks = {
   }
 };
 
-function replace(shader, hooks, config) {
-  Object.keys(hooks).forEach((hook: String) => {
+function replace(shader: string, hooks: Object, config: Object) {
+  Object.keys(hooks).forEach((hook: string) => {
     if (config[hook]) {
       const parts = hooks[hook].split(':');
       const line = parts[1];
@@ -43,6 +43,15 @@ function replace(shader, hooks, config) {
   return shader;
 }
 
+/**
+ * The material modifier injects custom shader code and uniforms
+ * to three's built in materials
+ *
+ * @export
+ * @param {Object} shader
+ * @param {Object} config
+ * @returns
+ */
 export default function materialModifier(shader: Object, config: Object) {
   shader.uniforms = UniformsUtils.merge([shader.uniforms, config.uniforms]);
 

@@ -1,6 +1,74 @@
 # WebGL React App
 
-A base project for WebGL + React based projects.
+The goal is this project is to standardise WebGL and React based projects at Jam3.
+
+Building upon experience it features highly optimised approaches for rendering and scene management.
+
+This is a great starting place for creative coders who want to jump straight into coding webgl.
+
+## Features
+
+**Rendering**
+
+- [Graphics profiling](src/webgl-app/rendering/profiler.js)
+- Preload objects on [GPU](src/webgl-app/rendering/preload-gpu.js)
+- Post Processing
+  - [FXAA](src/webgl-app/rendering/post-processing/passes/fxaa.glsl.js) as a replacement for antialising when using PostProcessing on WebGL 1
+  - [Film Pass](src/webgl-app/rendering/post-processing/passes/film.glsl.js) for a more filmic look
+  - [Transition Pass](src/webgl-app/rendering/post-processing/passes/transition-pass/transition-pass.js) for blending between two webgl scenes
+  - [Final Pass](src/webgl-app/rendering/post-processing/passes/final-pass/final-pass.js) Combine multiple effects in a single shader
+- [Stats](src/webgl-app/utils/stats.js) for fps and threejs for performance insights
+
+**Scenes**
+
+- [BaseScene](src/webgl-app/scenes/base/base-scene.js), an extendable class that enforces a clean scene pattern
+- [EventEmitter3](https://github.com/primus/eventemitter3) is used for event communication between classes
+
+**Cameras**
+
+- Helpers for [creating perspective cameras](src/webgl-app/cameras/cameras.js#L30) and adding [orbit controls](src/webgl-app/cameras/cameras.js#L41)
+
+**Lights**
+
+- Helpers added for [Ambient Light](src/webgl-app/lights/ambient.js), [Directional Light](src/webgl-app/lights/directional.js), [Point Light](src/webgl-app/lights/point.js) and [Spot Light](src/webgl-app/lights/spot.js)
+
+**Materials**
+
+- A [material modifier](src/webgl-app/utils/material-modifier.js) inspired by [three-material-modifier](https://github.com/jamieowen/three-material-modifier) that can extend three's built in Materials with custom shader code
+
+**Interactions**
+
+- [Touch Controls](src/webgl-app/interaction/touch-controls.js) for normalizing mouse and touch events
+- [InteractiveObject](src/webgl-app/interaction/interactive-object.js) adds interactivity to meshes
+
+**Asset Optimsing**
+
+- [TextureOptimiser](scripts/assets/texture-optimiser.js) for compressing and resizing webgl textures
+- [ModelOptimiser](scripts/assets/model-optimiser.js) for converting fbx models to gltf with draco compression
+
+**Asset Management**
+
+- [AssetLoader](src/webgl-app/loading/asset-loader.js) for loading an array of assets with different types
+- [AssetManager](src/webgl-app/loading/asset-manager.js) for storing and retriving assets loaded with the AssetLoader
+
+## Precommit and Husky
+
+Sometimes husky doesn't run if you're using Git software.
+
+To check this, open the console output in your Git software and make sure the pre-commit hook isn't bypassed.
+
+If husky isn't working create a `~/.huskyrc` file and add:
+
+```
+# ~/.huskyrc
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
+## References
+
+- [Threejs documentation](https://threejs.org/docs/)
+- [Discover threejs Tips and Tricks](https://discoverthreejs.com/tips-and-tricks/)
 
 ---
 

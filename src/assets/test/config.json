@@ -1,0 +1,9 @@
+{
+  "textures": {
+    "test.jpg": { "resize": true, "sizes": [128] }
+  },
+  "models": {
+    "scene.fbx": { "convert": true },
+    "cube.fbx": { "convert": false }
+  }
+}
