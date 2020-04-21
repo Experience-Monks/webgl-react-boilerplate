@@ -5,6 +5,9 @@ const settings = {};
 // Enviroment setting
 settings.isDevelopment = process.env.NODE_ENV !== 'production';
 
+// Base url
+settings.baseUrl = process.env.PUBLIC_URL || '';
+
 // Show fps stats
 settings.stats = getQueryFromParams('stats') === null && settings.isDevelopment;
 

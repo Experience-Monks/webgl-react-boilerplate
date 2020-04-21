@@ -7,6 +7,7 @@
     "@jam3/stats": "^1.0.1",
     "dat.gui": "^0.7.6",
     "detect-gpu": "^1.2.0",
+    "env-cmd": "^10.1.0",
     "eventemitter3": "^4.0.0",
     "file-saver": "^2.0.2",
     "gsap": "^3.1.1",
@@ -42,7 +43,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run linters && react-scripts build",
-    "deploy": "npm run build && gh-pages -d build",
+    "deploy": "env-cmd -f .env.gh-pages npm run build && gh-pages -d build",
     "eject": "react-scripts eject",
     "audit": "audit-ci --high",
     "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
