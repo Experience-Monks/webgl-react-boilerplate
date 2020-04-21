@@ -32,10 +32,14 @@ export interface DollyData {
 const ORIGIN = 'origin';
 const LOOKAT = 'lookat';
 
+// Create reuseable geometry and materials
 const helperGeometry = new SphereBufferGeometry(0.1, 16, 16);
 const helperMaterial = new MeshBasicMaterial();
-const helperLineMaterial = new LineBasicMaterial({
+const helperLineMaterialOrigin = new LineBasicMaterial({
   color: 0xffffff
+});
+const helperLineMaterialLookat = new LineBasicMaterial({
+  color: 0xffff00
 });
 
 export default class CameraDolly extends EventEmitter {
@@ -46,10 +50,15 @@ export default class CameraDolly extends EventEmitter {
 
   constructor(id: string, data: DollyData, gui: GUI | GUIWrapper, camera: PerspectiveCamera, control: OrbitControls) {
     super();
+    // Container to contain any 3d objects
     this.group = new Group();
+    // Smoothness of camera path
     this.steps = data.steps;
+    // The dev camera
     this.camera = camera;
+    // Active orbit control
     this.control = control;
+    // Origin
     this.origin = [];
     this.lookat = [];
     this.gui = gui.addFolder(`${id} camera dolly`);
@@ -78,10 +87,14 @@ export default class CameraDolly extends EventEmitter {
     // this.points.visible = false;
     this.group.add(this.points);
 
+    // List of positions from each path
+    // These get updated from the transform controls
     this.curvePoints = {
       [ORIGIN]: [],
       [LOOKAT]: []
     };
+
+    // Add a transform control for each point
     this.origin.forEach((point: Vector3, i: number) => {
       this.addControl(ORIGIN, i, point);
     });
@@ -96,8 +109,9 @@ export default class CameraDolly extends EventEmitter {
     this.lineMeshes = [];
     this.group.add(this.lines);
 
-    this.createLine(this.curves.origin.points);
-    this.createLine(this.curves.lookat.points);
+    // Create helper lines to see the paths
+    this.createLine(this.curves.origin.points, helperLineMaterialOrigin);
+    this.createLine(this.curves.lookat.points, helperLineMaterialLookat);
 
     this.gui.add(this, 'steps', 5, 100, 1).onChange(this.rebuild);
     this.gui
@@ -112,18 +126,34 @@ export default class CameraDolly extends EventEmitter {
     this.gui.open();
   }
 
+  /**
+   * Toggle the visibility of the helpers and gui
+   *
+   * @memberof CameraDolly
+   */
   toggleVisibility = (visible: boolean) => {
     this.group.visible = visible;
     this.gui[visible ? 'open' : 'close']();
     this.toggleControls(visible);
   };
 
+  /**
+   * Toggle transform controls
+   *
+   * @param {boolean} enabled
+   * @memberof CameraDolly
+   */
   toggleControls(enabled: boolean) {
     for (let i = 0; i < this.controls.children.length; i++) {
       this.controls.children[i].enabled = this.controls.visible && this.group.visible;
     }
   }
 
+  /**
+   * Create a smooth spline from the data points
+   *
+   * @memberof CameraDolly
+   */
   createSmoothSpline = (positions: Vector3[], totalPoints: number = 10) => {
     let curve = new CatmullRomCurve3(positions);
     const points = curve.getPoints(totalPoints);
@@ -148,11 +178,21 @@ export default class CameraDolly extends EventEmitter {
     };
   };
 
+  /**
+   * Recreate the curves after the points change
+   *
+   * @memberof CameraDolly
+   */
   updateSplines = () => {
     this.curves.origin = this.createSmoothSpline(this.origin, this.steps);
     this.curves.lookat = this.createSmoothSpline(this.lookat, this.steps);
   };
 
+  /**
+   * Add a transform control and helper
+   *
+   * @memberof CameraDolly
+   */
   addControl = (id: string, index: number, point: Vector3) => {
     // Create mesh
     const mesh = new Mesh(helperGeometry, helperMaterial);
@@ -169,25 +209,45 @@ export default class CameraDolly extends EventEmitter {
     this.curvePoints[id][index] = mesh.position;
   };
 
-  createLine = (vertices: Vector3[]) => {
+  /**
+   * Create a helper line for the curve
+   *
+   * @memberof CameraDolly
+   */
+  createLine = (vertices: Vector3[], material: LineBasicMaterial) => {
     const geometry = new Geometry();
     geometry.vertices = vertices;
-    const line = new Line(geometry, helperLineMaterial);
+    const line = new Line(geometry, material);
     this.lines.add(line);
     this.lineMeshes.push(line);
   };
 
+  /**
+   * Remove old lines
+   *
+   * @memberof CameraDolly
+   */
   removeLines() {
     for (let i = 0; i < this.lineMeshes.length; i++) {
       this.lines.remove(this.lineMeshes[i]);
     }
   }
 
+  /**
+   * When the transform control is manipulated, disable the orbit controls
+   *
+   * @memberof CameraDolly
+   */
   onTransformChanged = (event: any) => {
     this.control.enabled = !event.value;
     this.rebuild();
   };
 
+  /**
+   * Rebuild the curves and update the points
+   *
+   * @memberof CameraDolly
+   */
   rebuild = () => {
     for (let i = 0; i < this.origin.length; i++) {
       this.origin[i].copy(this.curvePoints[ORIGIN][i]);
@@ -197,10 +257,15 @@ export default class CameraDolly extends EventEmitter {
     }
     this.updateSplines();
     this.removeLines();
-    this.createLine(this.curves.origin.points);
-    this.createLine(this.curves.lookat.points);
+    this.createLine(this.curves.origin.points, helperLineMaterialOrigin);
+    this.createLine(this.curves.lookat.points, helperLineMaterialLookat);
   };
 
+  /**
+   * Export data to json
+   *
+   * @memberof CameraDolly
+   */
   export = () => {
     const data = JSON.stringify(
       {
@@ -214,6 +279,11 @@ export default class CameraDolly extends EventEmitter {
     window.prompt('Copy to clipboard: Ctrl+C, Enter', data);
   };
 
+  /**
+   * Dispose
+   *
+   * @memberof CameraDolly
+   */
   dispose = () => {
     for (let i = 0; i < this.controls.children.length; i++) {
       this.controls.children[i].removeEventListener('dragging-changed', this.onTransformDragChanged);
