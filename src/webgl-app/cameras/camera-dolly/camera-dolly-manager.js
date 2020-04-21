@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GUI } from 'dat.gui';
 import Dolly from './camera-dolly';
 import type DollyData from './camera-dolly';
+import type HelperOptions from './camera-dolly';
 import { GUIWrapper } from '../../utils/gui';
 
 export type CameraDollyManagerOptions = {|
@@ -90,9 +91,10 @@ export default class CameraDollyManager {
     data: DollyData,
     cameraMain: PerspectiveCamera,
     cameraDev: PerspectiveCamera,
-    control: OrbitControls
+    control: OrbitControls,
+    helperOptions: HelperOptions
   ) {
-    this.dollies[id] = new Dolly(id, data, this.gui, cameraDev, control);
+    this.dollies[id] = new Dolly(id, data, this.gui, cameraDev, control, helperOptions);
     this.dollies[id].on('rebuild', this.update);
     this.group.add(this.dollies[id].group);
     this.setTransition(id, cameraMain);

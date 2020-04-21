@@ -29,6 +29,12 @@ export interface DollyData {
   lookat: DollyPoint[];
 }
 
+export type HelperOptions = {
+  linesVisible: boolean,
+  controlsVisible: boolean,
+  pointsVisible: boolean
+};
+
 const ORIGIN = 'origin';
 const LOOKAT = 'lookat';
 
@@ -48,7 +54,14 @@ export default class CameraDolly extends EventEmitter {
   lookat: Vector3[];
   curves: Object;
 
-  constructor(id: string, data: DollyData, gui: GUI | GUIWrapper, camera: PerspectiveCamera, control: OrbitControls) {
+  constructor(
+    id: string,
+    data: DollyData,
+    gui: GUI | GUIWrapper,
+    camera: PerspectiveCamera,
+    control: OrbitControls,
+    helperOptions: HelperOptions
+  ) {
     super();
     // Container to contain any 3d objects
     this.group = new Group();
@@ -58,9 +71,11 @@ export default class CameraDolly extends EventEmitter {
     this.camera = camera;
     // Active orbit control
     this.control = control;
-    // Origin
+    // Origin points
     this.origin = [];
+    // Lookat points
     this.lookat = [];
+    // Create gui
     this.gui = gui.addFolder(`${id} camera dolly`);
 
     // Convert point to vectors
@@ -80,11 +95,11 @@ export default class CameraDolly extends EventEmitter {
 
     // Add transform controls
     this.controls = new Group();
-    // this.controls.visible = false;
+    this.controls.visible = helperOptions.controlsVisible;
     this.group.add(this.controls);
 
     this.points = new Group();
-    // this.points.visible = false;
+    this.points.visible = helperOptions.pointsVisible;
     this.group.add(this.points);
 
     // List of positions from each path
@@ -104,7 +119,7 @@ export default class CameraDolly extends EventEmitter {
 
     // Create visible curves
     this.lines = new Group();
-    // this.lines.visible = false;
+    this.lines.visible = helperOptions.linesVisible;
     // List of currently visible line meshes
     this.lineMeshes = [];
     this.group.add(this.lines);

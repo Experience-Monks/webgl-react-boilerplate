@@ -56,7 +56,18 @@ export default class CameraTransitionsScene extends BaseScene {
 
         // Add tracks to the manager
         Object.keys(tracks).forEach((id: string) => {
-          this.cameraDollyManager.addTransition(id, tracks[id], this.cameras.main, this.cameras.dev, this.controls.dev);
+          this.cameraDollyManager.addTransition(
+            id,
+            tracks[id],
+            this.cameras.main,
+            this.cameras.dev,
+            this.controls.dev,
+            {
+              linesVisible: true,
+              controlsVisible: false,
+              pointsVisible: true
+            }
+          );
         });
 
         this.play();
