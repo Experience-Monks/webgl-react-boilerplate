@@ -28,6 +28,7 @@ export default {
     functions: ``,
     preFragColor: `
       vec3 normal = normalize(vNormal);
+      normal.b = 1.0;
       outgoingLight *= (normal * 0.5 + 0.5);
     `,
     postFragColor: `
