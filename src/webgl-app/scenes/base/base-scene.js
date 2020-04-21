@@ -11,6 +11,7 @@ import preloadGpu from '../../rendering/preload-gpu';
 import assetLoader from '../../loading/asset-loader';
 import assetManager from '../../loading/asset-manager';
 import Asset from '../../loading/asset';
+import disposeObjects from '../../utils/dispose-objects';
 
 /**
  * A base scene for other scenes to inherit
@@ -56,6 +57,9 @@ export default class BaseScene extends EventEmitter {
       this.controls.dev = createOrbitControls(this.cameras.dev);
       this.controls.main = createOrbitControls(this.cameras.main);
     }
+
+    // Active camera control
+    this.control = settings.devCamera ? this.controls.dev : this.controls.main;
 
     // Optionally create gui controls
     if (options.gui) {
@@ -173,6 +177,7 @@ export default class BaseScene extends EventEmitter {
    */
   toogleCameras = (devCamera: boolean = true) => {
     this.camera = devCamera ? this.cameras.dev : this.cameras.main;
+    this.control = devCamera ? this.controls.dev : this.controls.main;
   };
 
   /**
@@ -223,4 +228,14 @@ export default class BaseScene extends EventEmitter {
    * @memberof BaseScene
    */
   update = (delta: number) => {};
+
+  /**
+   * Clear up scene objects
+   *
+   * @memberof BaseScene
+   */
+  dispose = () => {
+    disposeObjects(this.scene, null);
+    if (this.gui) gui.removeFolder(this.gui.name);
+  };
 }

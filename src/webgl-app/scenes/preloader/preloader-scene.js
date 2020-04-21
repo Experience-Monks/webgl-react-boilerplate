@@ -4,9 +4,11 @@ import BaseScene from '../base/base-scene';
 import { TWO_PI, VECTOR_ZERO } from '../../utils/math';
 import settings from '../../settings';
 
+export const PRELOADER_SCENE_ID = 'preloader';
+
 export default class PreloaderScene extends BaseScene {
   constructor() {
-    super({ id: 'preloader' });
+    super({ id: PRELOADER_SCENE_ID });
     this.camera.position.set(0, 0, 10);
     this.camera.lookAt(VECTOR_ZERO);
   }

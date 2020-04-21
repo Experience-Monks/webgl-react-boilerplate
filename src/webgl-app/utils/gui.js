@@ -5,7 +5,7 @@ import settings from '../settings';
  * @class Folder
  */
 class Folder {
-  add(object: any, key: string) {
+  add(object: any, key: string, list?: mixed[]) {
     return this;
   }
   listen() {
@@ -29,7 +29,7 @@ class Folder {
   addColor() {
     return this;
   }
-  removeFolder() {
+  removeFolder(id: string) {
     return this;
   }
   remove() {
@@ -47,13 +47,13 @@ class GUIWrapper {
   static toggleHide() {
     return this;
   }
-  add(object: any, key: string) {
+  add(object: any, key: string, list?: mixed[]) {
     return this;
   }
   addFolder(id: string) {
     return new Folder();
   }
-  removeFolder() {
+  removeFolder(id: string) {
     return this;
   }
   addColor() {
