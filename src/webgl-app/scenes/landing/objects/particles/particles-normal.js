@@ -105,6 +105,12 @@ export default class ParticlesNormal {
     }
   }
 
+  /**
+   * Render the scene into the render target
+   *
+   * @param {PerspectiveCamera} camera
+   * @memberof ParticlesNormal
+   */
   render(camera: PerspectiveCamera) {
     // Set the active render target
     this.renderer.setRenderTarget(this.renderTarget);

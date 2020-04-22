@@ -5,11 +5,13 @@ import Ambient from '../../lights/ambient';
 import Directional from '../../lights/directional';
 import assets from './assets';
 import Background from '../../objects/background/background';
+import settings from '../../settings';
 
 export const INTERACTIVE_SPHERE_SCENE_ID = 'interactive-sphere';
 
 export default class InteractiveSphereScene extends BaseScene {
   constructor() {
+    settings.devCamera = false;
     const lights = [new Ambient(), new Directional()];
     super({ id: INTERACTIVE_SPHERE_SCENE_ID, assets, gui: true, guiOpen: true, lights, controls: true });
     this.camera.position.set(0, 0, 5);

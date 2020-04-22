@@ -27,6 +27,7 @@ export default class Particles {
   scene: Scene;
 
   constructor(gui: GUI, totalParticles: number, particlesNormal: ParticlesNormal, pixelRatio: number) {
+    // Config to adjust particles
     this.config = {
       totalParticles,
       size: {
@@ -35,6 +36,7 @@ export default class Particles {
       }
     };
 
+    // Create scene
     this.scene = new Scene();
 
     const { width, height } = getRenderBufferSize();
@@ -83,6 +85,13 @@ export default class Particles {
     this.scene.add(this.mesh);
   }
 
+  /**
+   * Render the scene into the render target
+   *
+   * @param {number} delta
+   * @param {PerspectiveCamera} camera
+   * @memberof Particles
+   */
   render(delta: number, camera: PerspectiveCamera) {
     this.mesh.rotation.y += delta * 0.1;
     renderer.setRenderTarget(this.renderTarget);
@@ -90,6 +99,18 @@ export default class Particles {
     renderer.setRenderTarget(null);
   }
 
+  /**
+   * Util for random spherical distribution
+   *
+   * @param {number} x0
+   * @param {number} y0
+   * @param {number} z0
+   * @param {number} u
+   * @param {number} v
+   * @param {number} radius
+   * @returns
+   * @memberof Particles
+   */
   spherePoint(x0: number, y0: number, z0: number, u: number, v: number, radius: number) {
     const theta = 2 * Math.PI * u;
     const phi = Math.acos(2 * v - 1);

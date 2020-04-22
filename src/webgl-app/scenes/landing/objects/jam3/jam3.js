@@ -16,6 +16,7 @@ export default class Jam3 {
     this.gui.open();
     this.group = new Group();
 
+    // Setup material
     const { width, height } = getRenderBufferSize();
     this.material = new ShaderMaterial({
       uniforms: {
@@ -38,6 +39,7 @@ export default class Jam3 {
 
     const asset = assetManager.get('landing', 'jam3-logo');
 
+    // Make sure asset exists
     if (typeof asset === 'object' && asset !== null) {
       const scene: Scene = asset.scene;
       const model: Mesh = scene.children[0]?.children[0];
@@ -51,13 +53,27 @@ export default class Jam3 {
       this.group.add(model);
     }
 
+    // Gui controls
     this.gui.add(this.material.uniforms.fresnelPow, 'value', 0, 50).name('fresnelPow');
   }
 
+  /**
+   * Resize handler
+   *
+   * @param {number} width
+   * @param {number} height
+   * @memberof Jam3
+   */
   resize(width: number, height: number) {
     this.material.uniforms.resolution.value.set(width, height);
   }
 
+  /**
+   * Update handler
+   *
+   * @param {PerspectiveCamera} camera
+   * @memberof Jam3
+   */
   update(camera: PerspectiveCamera) {
     this.material.uniforms.cameraPosition.value.copy(camera.position);
   }
