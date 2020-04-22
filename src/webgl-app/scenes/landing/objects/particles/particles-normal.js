@@ -14,7 +14,7 @@ import createCanvas from '../../../../utils/canvas';
 // Render target size
 const TEXTURE_SIZE = 128;
 // Preview render target in canvas for debugging
-const DEBUG_CANVAS = true;
+const DEBUG_CANVAS = false;
 
 export default class ParticlesNormal {
   renderer: WebGLRenderer;

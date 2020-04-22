@@ -1,7 +1,7 @@
 import { Mesh, SphereBufferGeometry, BackSide, ShaderMaterial, Color } from 'three';
 import { GUI } from 'dat.gui';
 import { vertexShader, fragmentShader } from './shader.glsl';
-import { GRAPHICS_HIGH, GRAPHICS_NORMAL, getGraphicsMode } from '../../../../rendering/graphics';
+import { GRAPHICS_HIGH, GRAPHICS_NORMAL, getGraphicsMode } from '../../rendering/graphics';
 
 export default class Background {
   gui: GUI;
@@ -9,7 +9,7 @@ export default class Background {
   config: Object;
   mesh: Mesh;
 
-  constructor(gui: GUI) {
+  constructor(gui: GUI, radius: number = 50) {
     this.guiParent = gui;
 
     this.config = {
@@ -57,7 +57,7 @@ export default class Background {
     };
     const divisions = divisionSettings[getGraphicsMode()];
 
-    this.mesh = new Mesh(new SphereBufferGeometry(50, divisions[0], divisions[1]), material);
+    this.mesh = new Mesh(new SphereBufferGeometry(radius, divisions[0], divisions[1]), material);
     this.mesh.matrixAutoUpdate = false;
     this.mesh.updateMatrix();
   }

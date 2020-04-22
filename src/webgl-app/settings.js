@@ -12,10 +12,10 @@ settings.baseUrl = process.env.PUBLIC_URL || '';
 settings.stats = true; //getQueryFromParams('stats') === null && settings.isDevelopment;
 
 // Enable dev camera rendering
-settings.devCamera = true; //getQueryFromParams('devCamera') === 'true' && settings.isDevelopment;
+settings.devCamera = false; //getQueryFromParams('devCamera') === 'true' && settings.isDevelopment;
 
 // Enable helpers
-settings.helpers = true; //getQueryFromParams('helpers') === 'true' && settings.isDevelopment;
+settings.helpers = false; //getQueryFromParams('helpers') === 'true' && settings.isDevelopment;
 
 // Enable dat gui
 settings.datGui = true; //getQueryFromParams('gui') === null && settings.isDevelopment;

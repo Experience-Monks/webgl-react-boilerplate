@@ -1,7 +1,21 @@
 import { GUI } from 'dat.gui';
-import { BufferAttribute, BufferGeometry, ShaderMaterial, Vector3, Points, Math as Math3, Mesh } from 'three';
+import {
+  BufferAttribute,
+  BufferGeometry,
+  ShaderMaterial,
+  Vector3,
+  Points,
+  Math as Math3,
+  Mesh,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderTarget
+} from 'three';
 import { vertexShader, fragmentShader } from './shader.glsl';
 import ParticlesNormal from './particles-normal';
+import { createRenderTarget } from '../../../../rendering/render-target';
+import { getRenderBufferSize } from '../../../../rendering/resize';
+import renderer from '../../../../rendering/renderer';
 
 export default class Particles {
   config: Object;
@@ -9,6 +23,8 @@ export default class Particles {
     [key: string]: BufferAttribute
   };
   mesh: Mesh;
+  renderTarget: WebGLRenderTarget;
+  scene: Scene;
 
   constructor(gui: GUI, totalParticles: number, particlesNormal: ParticlesNormal, pixelRatio: number) {
     this.config = {
@@ -18,6 +34,11 @@ export default class Particles {
         max: 5
       }
     };
+
+    this.scene = new Scene();
+
+    const { width, height } = getRenderBufferSize();
+    this.renderTarget = createRenderTarget(width, height);
 
     // Create two attributes for positions and size
     this.attributes = {
@@ -59,6 +80,14 @@ export default class Particles {
 
     // Create points mesh
     this.mesh = new Points(geometry, material);
+    this.scene.add(this.mesh);
+  }
+
+  render(delta: number, camera: PerspectiveCamera) {
+    this.mesh.rotation.y += delta * 0.1;
+    renderer.setRenderTarget(this.renderTarget);
+    renderer.render(this.scene, camera);
+    renderer.setRenderTarget(null);
   }
 
   spherePoint(x0: number, y0: number, z0: number, u: number, v: number, radius: number) {

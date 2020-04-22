@@ -3,10 +3,11 @@ import { VECTOR_ZERO } from '../../utils/math';
 import Ambient from '../../lights/ambient';
 import Directional from '../../lights/directional';
 import assets from './assets';
-import Background from './objects/background/background';
+import Background from '../../objects/background/background';
 import renderer from '../../rendering/renderer';
 import ParticlesNormal from './objects/particles/particles-normal';
 import Particles from './objects/particles/particles';
+import Jam3 from './objects/jam3/jam3';
 
 export const LANDING_SCENE_ID = 'landing';
 
@@ -14,8 +15,9 @@ export default class LandingScene extends BaseScene {
   constructor() {
     const lights = [new Ambient(), new Directional()];
     super({ id: LANDING_SCENE_ID, assets, gui: true, guiOpen: true, lights, controls: true });
-    this.camera.position.set(0, 0, 5);
-    this.camera.lookAt(VECTOR_ZERO);
+    this.cameras.main.position.set(0, 0, 60);
+    this.cameras.main.lookAt(VECTOR_ZERO);
+    this.controls.main.enableDamping = true;
   }
 
   /**
@@ -26,18 +28,22 @@ export default class LandingScene extends BaseScene {
   async createSceneObjects() {
     await new Promise((resolve, reject) => {
       try {
-        this.background = new Background(this.gui);
+        this.background = new Background(this.gui, 100);
         this.scene.add(this.background.mesh);
 
         // Create particle classes
         this.particlesNormal = new ParticlesNormal(renderer);
-        const particles = new Particles(
+        this.particles = new Particles(
           this.gui,
           5000, // total particles
           this.particlesNormal, // particles normal texture class
           renderer.getPixelRatio()
         );
-        this.scene.add(particles.mesh);
+
+        this.jam3 = new Jam3(this.gui, this.particles.renderTarget);
+
+        this.scene.add(this.jam3.group);
+
         resolve();
       } catch (error) {
         reject(error);
@@ -51,6 +57,9 @@ export default class LandingScene extends BaseScene {
    * @memberof LandingScene
    */
   update = (delta: number) => {
+    this.controls.main.update();
     this.particlesNormal.render(this.camera);
+    this.particles.render(delta, this.camera);
+    this.jam3.update(this.camera);
   };
 }

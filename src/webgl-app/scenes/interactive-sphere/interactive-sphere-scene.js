@@ -4,7 +4,7 @@ import Sphere from './objects/sphere/sphere';
 import Ambient from '../../lights/ambient';
 import Directional from '../../lights/directional';
 import assets from './assets';
-import Background from './objects/background/background';
+import Background from '../../objects/background/background';
 
 export const INTERACTIVE_SPHERE_SCENE_ID = 'interactive-sphere';
 
