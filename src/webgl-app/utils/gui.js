@@ -87,7 +87,7 @@ class GUIWrapper {
 
 let Cls = GUIWrapper;
 
-if (process.env.NODE_ENV !== 'production' && settings.datGui) {
+if (settings.datGui) {
   Cls = require('dat.gui').GUI;
 
   Cls.prototype.removeFolder = function(name) {
