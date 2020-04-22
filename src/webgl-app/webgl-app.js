@@ -13,6 +13,9 @@ import CameraTransitionScene, {
   CAMERA_TRANSITION_SCENE_ID
 } from './scenes/camera-transitions/camera-transitions-scene';
 import Screenshot from './utils/screenshot';
+import InteractiveSphereScene, {
+  INTERACTIVE_SPHERE_SCENE_ID
+} from './scenes/interactive-sphere/interactive-sphere-scene';
 
 class WebGLApp extends EventEmitter {
   /**
@@ -44,10 +47,11 @@ class WebGLApp extends EventEmitter {
     this.scenes = {
       [PRELOADER_SCENE_ID]: PreloaderScene,
       [LANDING_SCENE_ID]: LandingScene,
+      [INTERACTIVE_SPHERE_SCENE_ID]: InteractiveSphereScene,
       [CAMERA_TRANSITION_SCENE_ID]: CameraTransitionScene
     };
     // List of ids to switch between
-    const sceneIds = [LANDING_SCENE_ID, CAMERA_TRANSITION_SCENE_ID];
+    const sceneIds = [LANDING_SCENE_ID, INTERACTIVE_SPHERE_SCENE_ID, CAMERA_TRANSITION_SCENE_ID];
 
     // The target scene id
     this.sceneId = LANDING_SCENE_ID;
