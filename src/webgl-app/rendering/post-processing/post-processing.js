@@ -26,7 +26,7 @@ export default class PostProcessing {
   constructor(gui: GUI) {
     // Create gui
     this.gui = gui.addFolder('post processing');
-    this.gui.open();
+    // this.gui.open();
     // Create big triangle geometry, faster than using quad
     const geometry = bigTriangle();
     // Post camera

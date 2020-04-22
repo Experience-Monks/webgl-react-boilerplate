@@ -11,7 +11,7 @@ if (settings.stats) {
 
 export { rendererStats };
 
-if (process.env.NODE_ENV !== 'production' && settings.stats) {
+if (settings.stats) {
   const stats = require('@jam3/stats')();
   stats.domElement.style.cssText = 'position:fixed;left:0;top:0;z-index:10000';
 }

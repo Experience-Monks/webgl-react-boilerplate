@@ -5,20 +5,23 @@ const settings = {};
 // Enviroment setting
 settings.isDevelopment = process.env.NODE_ENV !== 'production';
 
+// Base url
+settings.baseUrl = process.env.PUBLIC_URL || '';
+
 // Show fps stats
-settings.stats = getQueryFromParams('stats') === null && settings.isDevelopment;
+settings.stats = getQueryFromParams('stats') === null;
 
 // Enable dev camera rendering
-settings.devCamera = getQueryFromParams('devCamera') === 'true' && settings.isDevelopment;
+settings.devCamera = getQueryFromParams('devCamera') === 'true';
 
 // Enable helpers
-settings.helpers = getQueryFromParams('helpers') === 'true' && settings.isDevelopment;
+settings.helpers = getQueryFromParams('helpers') === 'true';
 
 // Enable dat gui
-settings.datGui = getQueryFromParams('gui') === null && settings.isDevelopment;
+settings.datGui = getQueryFromParams('gui') === null;
 
 // Skips all transitions
-settings.skipTransitions = getQueryFromParams('skipTransitions') === null && settings.isDevelopment;
+settings.skipTransitions = getQueryFromParams('skipTransitions') === null;
 
 // GUI Number precision
 settings.guiPrecision = 0.001;
