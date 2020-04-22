@@ -1,8 +1,6 @@
 import { CameraHelper } from 'three';
 import { Power1 } from 'gsap';
 import BaseScene from '../base/base-scene';
-import Ambient from '../../lights/ambient';
-import Directional from '../../lights/directional';
 import assets from './assets';
 import CameraDollyManager from '../../cameras/camera-dolly/camera-dolly-manager';
 import { resetCamera } from '../../cameras/cameras';
@@ -14,8 +12,7 @@ export default class CameraTransitionsScene extends BaseScene {
   constructor() {
     // Show dev camera view during this scene
     settings.devCamera = true;
-    const lights = [new Ambient(), new Directional()];
-    super({ id: CAMERA_TRANSITION_SCENE_ID, assets, gui: true, guiOpen: true, lights, controls: true });
+    super({ id: CAMERA_TRANSITION_SCENE_ID, assets, gui: true, guiOpen: true, controls: true });
     resetCamera(this.cameras.dev, 50);
   }
 

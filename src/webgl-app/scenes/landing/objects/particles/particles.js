@@ -25,8 +25,12 @@ export default class Particles {
   mesh: Mesh;
   renderTarget: WebGLRenderTarget;
   scene: Scene;
+  gui: GUI;
 
   constructor(gui: GUI, totalParticles: number, particlesNormal: ParticlesNormal, pixelRatio: number) {
+    this.gui = gui.addFolder('particles');
+    this.gui.open();
+
     // Config to adjust particles
     this.config = {
       totalParticles,
@@ -59,8 +63,8 @@ export default class Particles {
 
     // Setup buffer geometry
     const geometry = new BufferGeometry();
-    geometry.addAttribute('position', this.attributes.position);
-    geometry.addAttribute('size', this.attributes.size);
+    geometry.setAttribute('position', this.attributes.position);
+    geometry.setAttribute('size', this.attributes.size);
 
     // Setup custom shader material
     const material = new ShaderMaterial({
@@ -76,9 +80,9 @@ export default class Particles {
     });
 
     // Add gui slider to tweak light direction
-    gui.add(material.uniforms.lightDirection.value, 'x', -1, 1).name('light x');
-    gui.add(material.uniforms.lightDirection.value, 'y', -1, 1).name('light y');
-    gui.add(material.uniforms.lightDirection.value, 'z', -1, 1).name('light z');
+    this.gui.add(material.uniforms.lightDirection.value, 'x', -1, 1).name('light x');
+    this.gui.add(material.uniforms.lightDirection.value, 'y', -1, 1).name('light y');
+    this.gui.add(material.uniforms.lightDirection.value, 'z', -1, 1).name('light z');
 
     // Create points mesh
     this.mesh = new Points(geometry, material);

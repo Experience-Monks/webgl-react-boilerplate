@@ -1,7 +1,5 @@
 import BaseScene from '../base/base-scene';
 import { VECTOR_ZERO } from '../../utils/math';
-import Ambient from '../../lights/ambient';
-import Directional from '../../lights/directional';
 import assets from './assets';
 import Background from '../../objects/background/background';
 import renderer from '../../rendering/renderer';
@@ -14,9 +12,8 @@ export const LANDING_SCENE_ID = 'landing';
 
 export default class LandingScene extends BaseScene {
   constructor() {
-    const lights = [new Ambient(), new Directional()];
     settings.devCamera = false;
-    super({ id: LANDING_SCENE_ID, assets, gui: true, guiOpen: true, lights, controls: true });
+    super({ id: LANDING_SCENE_ID, assets, gui: true, guiOpen: true, controls: true });
     this.cameras.main.position.set(0, 0, 60);
     this.cameras.main.lookAt(VECTOR_ZERO);
     this.controls.main.enableDamping = true;
