@@ -51,6 +51,20 @@ export default class LandingScene extends BaseScene {
   }
 
   /**
+   * Resize the camera's projection matrix
+   *
+   * @memberof LandingScene
+   */
+  resize = (width: number, height: number) => {
+    this.cameras.dev.aspect = width / height;
+    this.cameras.dev.updateProjectionMatrix();
+    this.cameras.main.aspect = width / height;
+    this.cameras.main.updateProjectionMatrix();
+    this.particles.resize();
+    this.jam3.resize();
+  };
+
+  /**
    * Update loop
    *
    * @memberof LandingScene

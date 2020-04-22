@@ -60,11 +60,10 @@ export default class Jam3 {
   /**
    * Resize handler
    *
-   * @param {number} width
-   * @param {number} height
    * @memberof Jam3
    */
-  resize(width: number, height: number) {
+  resize() {
+    const { width, height } = getRenderBufferSize();
     this.material.uniforms.resolution.value.set(width, height);
   }
 

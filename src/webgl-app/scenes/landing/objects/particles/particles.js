@@ -90,6 +90,16 @@ export default class Particles {
   }
 
   /**
+   * Resize handler
+   *
+   * @memberof Particles
+   */
+  resize() {
+    const { width, height } = getRenderBufferSize();
+    this.renderTarget.setSize(width, height);
+  }
+
+  /**
    * Render the scene into the render target
    *
    * @param {number} delta
