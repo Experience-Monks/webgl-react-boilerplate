@@ -34,7 +34,7 @@ class AssetManager {
    * @returns
    * @memberof AssetManager
    */
-  get(groupId: string, id: string, all: boolean = false): boolean | Asset | mixed {
+  get(groupId: string, id: string, all: boolean = false): boolean | mixed {
     // console.log('groupId', groupId, 'id', id);
     const asset = this.find(this.assets[groupId], id);
     if (asset && asset instanceof Asset) {

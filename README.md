@@ -1,5 +1,7 @@
 # WebGL React App
 
+![WebGL React App](webgl-react-app.gif)
+
 The goal is this project is to standardise WebGL and React based projects at Jam3.
 
 Building upon experience it features highly optimised approaches for rendering and scene management.

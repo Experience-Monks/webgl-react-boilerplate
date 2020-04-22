@@ -12,9 +12,11 @@ export const CAMERA_TRANSITION_SCENE_ID = 'camera-transitions';
 
 export default class CameraTransitionsScene extends BaseScene {
   constructor() {
+    // Show dev camera view during this scene
+    settings.devCamera = true;
     const lights = [new Ambient(), new Directional()];
     super({ id: CAMERA_TRANSITION_SCENE_ID, assets, gui: true, guiOpen: true, lights, controls: true });
-    resetCamera(this.camera, 20);
+    resetCamera(this.cameras.dev, 50);
   }
 
   /**
@@ -27,9 +29,6 @@ export default class CameraTransitionsScene extends BaseScene {
       try {
         // Disable main control sincw we're using the camera dolly
         this.controls.main.enabled = false;
-
-        // Show dev camera view during this scene
-        settings.devCamera = true;
 
         this.gui.add(this, 'play');
         this.gui.add(this, 'stop');

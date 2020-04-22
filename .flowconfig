@@ -15,6 +15,7 @@
 [options]
 all=true
 emoji=true
+esproposal.optional_chaining=enable
 
 [strict]
 
