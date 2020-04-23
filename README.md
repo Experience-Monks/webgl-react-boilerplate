@@ -76,9 +76,14 @@ export NVM_DIR="$HOME/.nvm"
 - [Threejs documentation](https://threejs.org/docs/)
 - [Discover threejs Tips and Tricks](https://discoverthreejs.com/tips-and-tricks/)
 
-## Licence
+## Contributing
 
-@jam3/webgl-react-app is open source and released under the MIT Licence.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting
+pull requests.
+
+## License
+
+[MIT](LICENSE)
 
 ---
 
