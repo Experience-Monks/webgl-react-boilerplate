@@ -10,6 +10,10 @@ This is a great starting place for creative coders who want to jump straight int
 
 ## Features
 
+**Flow**
+
+This Project uses [Flow](https://flow.org/) typing. A great place to start is with the [docs](https://flow.org/en/docs/) or this [cheatsheet](https://devhints.io/flow).
+
 **Rendering**
 
 - [Graphics profiling](src/webgl-app/rendering/profiler.js)
@@ -71,6 +75,10 @@ export NVM_DIR="$HOME/.nvm"
 
 - [Threejs documentation](https://threejs.org/docs/)
 - [Discover threejs Tips and Tricks](https://discoverthreejs.com/tips-and-tricks/)
+
+## Licence
+
+@jam3/webgl-react-app is open source and released under the MIT Licence.
 
 ---
 
