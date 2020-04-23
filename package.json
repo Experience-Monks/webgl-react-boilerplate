@@ -30,7 +30,7 @@
     "audit": "audit-ci --high",
     "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
     "flow": "flow",
-    "flow-typed": "rm -rf ./flow-typed && flow-typed install",
+    "flow-typed": "flow-typed install",
     "linters": "npm-run-all flow js-lint",
     "assets": "node scripts/assets/optimise",
     "postinstall": "npm run flow-typed"
