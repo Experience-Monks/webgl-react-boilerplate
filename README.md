@@ -1,5 +1,8 @@
 # WebGL React App
 
+![](https://img.shields.io/david/dev/jam3/webgl-react-app)
+![](https://img.shields.io/github/license/jam3/webgl-react-app)
+
 ![WebGL React App](webgl-react-app.gif)
 
 The goal is this project is to standardise WebGL and React based projects at Jam3.
