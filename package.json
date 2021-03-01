@@ -53,7 +53,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.0",
-    "three": "^0.113.2"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
