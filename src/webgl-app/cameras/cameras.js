@@ -41,3 +41,13 @@ export function createPerspectiveCamera(aspect: number): PerspectiveCamera {
 export function createOrbitControls(camera: PerspectiveCamera): OrbitControls {
   return new OrbitControls(camera, renderer.domElement);
 }
+
+export const mainCamera = createPerspectiveCamera(1);
+export const devCamera = createPerspectiveCamera(1);
+
+export const devControls = createOrbitControls(devCamera);
+export const mainControls = createOrbitControls(mainCamera);
+
+// Set the initial camera positions
+resetCamera(mainCamera, 5);
+resetCamera(devCamera, 5);

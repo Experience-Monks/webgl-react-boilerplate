@@ -16,11 +16,11 @@ class AssetManager {
   /**
    * Add an asset group
    *
-   * @param {String} group
+   * @param {string} group
    * @param {Asset[]} assets
    * @memberof AssetManager
    */
-  add(group: String, assets: Asset[]) {
+  add(group: string, assets: Asset[]) {
     this.assets[group] = this.assets[group] || [];
     this.assets[group].push(...assets);
   }
@@ -28,8 +28,8 @@ class AssetManager {
   /**
    * Retrieve an asset by id
    *
-   * @param {String} groupId
-   * @param {String} id
+   * @param {string} groupId
+   * @param {string} id
    * @param {Boolean} [all=false]
    * @returns
    * @memberof AssetManager
@@ -47,7 +47,7 @@ class AssetManager {
    * Find an asset by id
    *
    * @param {Asset[]} assets
-   * @param {String} id
+   * @param {string} id
    * @returns
    * @memberof AssetManager
    */

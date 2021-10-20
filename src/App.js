@@ -1,72 +1,35 @@
 import React from 'react';
-import { TweenLite } from 'gsap/gsap-core';
 import './App.css';
 import WebGLApp from './webgl-app/webgl-app';
-import AppState from './webgl-app/app-state';
 
-type Props = {};
-
-type State = {|
-  ready: boolean,
-  windowSize: { width: number, height: number }
-|};
-
-class App extends React.PureComponent<Props, State> {
-  state = {
-    ready: false,
-    windowSize: { width: window.innerWidth, height: window.innerHeight }
-  };
-
+class App extends React.PureComponent<{}, {}> {
   componentDidMount() {
     if (this.container === null) return;
     this.webglApp = new WebGLApp(this.container);
     this.webglApp
       .setup()
       .then(() => {
-        this.webglApp.setState(new AppState(this.state));
+        this.onResize();
         this.webglApp.render(true);
-        TweenLite.delayedCall(1, this.onReady);
       })
-      .catch((error: String) => {
+      .catch((error: string) => {
         console.log(error);
       });
 
     window.addEventListener('resize', this.onResize);
   }
 
-  componentDidUpdate(prevProps: Object, prevState: Object) {
-    if (this.container === null) return;
-
-    this.webglApp.setState(new AppState(this.state));
-
-    if (
-      this.state.windowSize.width !== prevState.windowSize.width ||
-      this.state.windowSize.height !== prevState.windowSize.height
-    ) {
-      // Resize the app
-      this.webglApp.resize(this.state.windowSize.width, this.state.windowSize.height);
-    }
-  }
-
   componentWillUnmount() {
     if (this.container === null) return;
-    this.webglApp.render(false);
+    // this.webglApp.render(false);
     window.removeEventListener('resize', this.onResize);
   }
 
   container: HTMLElement | null;
   webglApp: WebGLApp;
 
-  onReady = () => {
-    this.setState({
-      ready: true
-    });
-  };
-
   onResize = () => {
-    this.setState({
-      windowSize: { width: window.innerWidth, height: window.innerHeight }
-    });
+    this.webglApp.resize(window.innerWidth, window.innerHeight);
   };
 
   render() {

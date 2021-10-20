@@ -1,4 +1,4 @@
-import { getQueryFromParams } from './utils/query-params';
+// import { getQueryFromParams } from './utils/query-params';
 
 const settings = {};
 
@@ -9,19 +9,16 @@ settings.isDevelopment = process.env.NODE_ENV !== 'production';
 settings.baseUrl = process.env.PUBLIC_URL || '';
 
 // Show fps stats
-settings.stats = getQueryFromParams('stats') === null;
+settings.stats = true; //getQueryFromParams('stats') === null;
 
 // Enable dev camera rendering
-settings.devCamera = getQueryFromParams('devCamera') === 'true';
+settings.devCamera = true; //getQueryFromParams('devCamera') === 'true';
 
 // Enable helpers
-settings.helpers = getQueryFromParams('helpers') === 'true';
+settings.helpers = true; //getQueryFromParams('helpers') === 'true';
 
 // Enable dat gui
-settings.datGui = getQueryFromParams('gui') === null;
-
-// Skips all transitions
-settings.skipTransitions = getQueryFromParams('skipTransitions') === null;
+settings.datGui = true; //getQueryFromParams('gui') === null;
 
 // GUI Number precision
 settings.guiPrecision = 0.001;
