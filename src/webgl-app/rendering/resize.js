@@ -1,15 +1,11 @@
 import { Vector2, WebGLRenderer } from 'three';
-import graphics, { getGraphicsMode } from './graphics';
+import graphics, { graphicsConfig } from './graphics';
 import settings from '../settings';
-
-const { maxFrameBufferSize, pixelRatio } = graphics[getGraphicsMode()];
-
-const baseSize = Math.sqrt(maxFrameBufferSize.x * maxFrameBufferSize.y);
-const maxSize = baseSize * baseSize;
 
 export const rendererSize = new Vector2();
 
 export function getRenderBufferSize(): { width: number, height: number } {
+  const { pixelRatio } = graphicsConfig[graphics.tier];
   return {
     width: rendererSize.x * pixelRatio,
     height: rendererSize.y * pixelRatio
@@ -17,6 +13,9 @@ export function getRenderBufferSize(): { width: number, height: number } {
 }
 
 function resize(windowWidth: number, windowHeight: number): { width: number, height: number } {
+  const { maxFrameBufferSize } = graphicsConfig[graphics.mode];
+  const baseSize = Math.sqrt(maxFrameBufferSize.x * maxFrameBufferSize.y);
+  const maxSize = baseSize * baseSize;
   let width = windowWidth;
   let height = windowHeight;
   if (windowWidth * windowHeight > maxSize) {

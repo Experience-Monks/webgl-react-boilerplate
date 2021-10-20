@@ -14,6 +14,7 @@ import assets from './assets';
 import assetLoader from './loading/asset-loader';
 import assetManager from './loading/asset-manager';
 import Asset from './loading/asset';
+import graphics from './rendering/graphics';
 
 class WebGLApp extends EventEmitter {
   helpers: Group = new Group();
@@ -26,6 +27,11 @@ class WebGLApp extends EventEmitter {
   constructor(parent: HTMLElement) {
     super();
     parent.appendChild(renderer.domElement);
+
+    const gl = renderer.getContext();
+    const gpuInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    const gpu = gl.getParameter(gpuInfo.UNMASKED_RENDERER_WEBGL);
+    if (settings.isDevelopment) console.log(`Graphics: ${graphics.mode}\nGPU: ${gpu}\nTier: ${graphics.tier}`);
 
     this.viewport = {
       debug: new Vector4(

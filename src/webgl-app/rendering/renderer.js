@@ -1,9 +1,9 @@
 import { WebGLRenderer } from 'three';
-import graphics, { getGraphicsMode, getTier } from './graphics';
+// import graphics, { getGraphicsMode, getTier } from './graphics';
 import settings from '../settings';
-import { setRendererSize } from './resize';
+import graphics, { graphicsConfig } from './graphics';
 
-const { pixelRatio, antialias } = graphics[getGraphicsMode()];
+const { pixelRatio, antialias } = graphicsConfig[graphics.mode];
 
 const renderer = new WebGLRenderer({
   antialias,
@@ -17,12 +17,5 @@ renderer.debug.checkShaderErrors = settings.isDevelopment;
 
 renderer.setPixelRatio(pixelRatio);
 renderer.setScissorTest(true);
-setRendererSize(renderer, window.innerWidth, window.innerHeight);
-
-const gl = renderer.getContext();
-const gpuInfo = gl.getExtension('WEBGL_debug_renderer_info');
-const gpu = gl.getParameter(gpuInfo.UNMASKED_RENDERER_WEBGL);
-
-if (settings.isDevelopment) console.log(`Graphics: ${getGraphicsMode()}\nGPU: ${gpu}\nTier: ${getTier()}`);
 
 export default renderer;
