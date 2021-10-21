@@ -50,8 +50,8 @@ class WebGLApp extends EventEmitter {
       setQuery('devCamera', value);
     });
 
-    guiSettings.add(settings, 'helpers').onChange((value: string) => {
-      setQuery('helpers', value);
+    guiSettings.add(settings, 'helpers').onChange((value: boolean) => {
+      setQuery('helpers', value.toString());
       this.toggleHelpers(value);
     });
 
@@ -77,7 +77,7 @@ class WebGLApp extends EventEmitter {
     return this.loadAssets().then(this.createContent);
   }
 
-  loadAssets() {
+  loadAssets(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
         if (assets.length > 0) {
@@ -101,12 +101,12 @@ class WebGLApp extends EventEmitter {
   createContent = () => {
     const asset = assetManager.get(this.id, 'jam3-logo');
     if (typeof asset === 'object' && asset !== null) {
-      const scene: Scene = asset.scene;
-      const model: Mesh = scene.children[0]?.children[0];
+      const modelScene: Scene = asset.scene;
+      const model: Mesh = modelScene.children[0]?.children[0];
       const scale = 20;
       model.scale.set(scale, scale, scale);
+      scene.add(asset.scene);
     }
-    scene.add(asset.scene);
   };
 
   resize = (width: number, height: number) => {

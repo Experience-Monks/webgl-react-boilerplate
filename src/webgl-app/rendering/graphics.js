@@ -23,6 +23,7 @@ const graphicsConfig = {
 class Graphics {
   mode: string = GRAPHICS_NORMAL;
   tier: string = '';
+  gpuTier: { tier: string, type: string };
 
   async run() {
     this.gpuTier = await getGPUTier();
