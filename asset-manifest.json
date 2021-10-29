@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/webgl-react-app/static/css/main.a9eca149.chunk.css",
-    "main.js": "/webgl-react-app/static/js/main.565d272c.chunk.js",
-    "main.js.map": "/webgl-react-app/static/js/main.565d272c.chunk.js.map",
-    "runtime-main.js": "/webgl-react-app/static/js/runtime-main.8e5c3258.js",
-    "runtime-main.js.map": "/webgl-react-app/static/js/runtime-main.8e5c3258.js.map",
-    "static/js/2.3a286c6d.chunk.js": "/webgl-react-app/static/js/2.3a286c6d.chunk.js",
-    "static/js/2.3a286c6d.chunk.js.map": "/webgl-react-app/static/js/2.3a286c6d.chunk.js.map",
-    "index.html": "/webgl-react-app/index.html",
-    "precache-manifest.bd93ccbac1b216be5fc8d160106af80f.js": "/webgl-react-app/precache-manifest.bd93ccbac1b216be5fc8d160106af80f.js",
-    "service-worker.js": "/webgl-react-app/service-worker.js",
-    "static/css/main.a9eca149.chunk.css.map": "/webgl-react-app/static/css/main.a9eca149.chunk.css.map",
-    "static/js/2.3a286c6d.chunk.js.LICENSE.txt": "/webgl-react-app/static/js/2.3a286c6d.chunk.js.LICENSE.txt"
+    "main.css": "/webgl-react-boilerplate/static/css/main.a9eca149.chunk.css",
+    "main.js": "/webgl-react-boilerplate/static/js/main.5de722c5.chunk.js",
+    "main.js.map": "/webgl-react-boilerplate/static/js/main.5de722c5.chunk.js.map",
+    "runtime-main.js": "/webgl-react-boilerplate/static/js/runtime-main.97725864.js",
+    "runtime-main.js.map": "/webgl-react-boilerplate/static/js/runtime-main.97725864.js.map",
+    "static/js/2.e0a84b87.chunk.js": "/webgl-react-boilerplate/static/js/2.e0a84b87.chunk.js",
+    "static/js/2.e0a84b87.chunk.js.map": "/webgl-react-boilerplate/static/js/2.e0a84b87.chunk.js.map",
+    "index.html": "/webgl-react-boilerplate/index.html",
+    "precache-manifest.e651e35deee74a6c771e71198875298d.js": "/webgl-react-boilerplate/precache-manifest.e651e35deee74a6c771e71198875298d.js",
+    "service-worker.js": "/webgl-react-boilerplate/service-worker.js",
+    "static/css/main.a9eca149.chunk.css.map": "/webgl-react-boilerplate/static/css/main.a9eca149.chunk.css.map",
+    "static/js/2.e0a84b87.chunk.js.LICENSE.txt": "/webgl-react-boilerplate/static/js/2.e0a84b87.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8e5c3258.js",
-    "static/js/2.3a286c6d.chunk.js",
+    "static/js/runtime-main.97725864.js",
+    "static/js/2.e0a84b87.chunk.js",
     "static/css/main.a9eca149.chunk.css",
-    "static/js/main.565d272c.chunk.js"
+    "static/js/main.5de722c5.chunk.js"
   ]
 }
