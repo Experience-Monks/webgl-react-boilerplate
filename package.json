@@ -1,7 +1,44 @@
 {
-  "name": "intern-webgl-react-app",
+  "name": "webgl-react-app",
   "version": "0.2.0",
+  "description": "Jam3's WebGL React App Boilerplate",
+  "keywords": ["webgl", "threejs", "best practices", "create react app"],
   "private": true,
+  "author": {
+    "name": "Amelie Maia Rosser",
+    "email": "amelierosser1986@gmail.com",
+    "url": "https://ameliemaia.com/"
+  },
+  "contributors": [
+    {"name":"Iran Reyes", "email":"iran.reyes@jam3.com"},
+    {"name":"Peter Altamirano", "email":"peter.altamirano@jam3.com"}
+  ],
+  "homepage": "https://jam3.github.io/webgl-react-app/",
+  "bugs": {
+    "url": "https://github.com/Jam3/webgl-react-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jam3/webgl-react-app.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "npm run linters && react-scripts build",
+    "deploy": "env-cmd -f .env.gh-pages npm run build && gh-pages -d build",
+    "eject": "react-scripts eject",
+    "audit": "audit-ci --high",
+    "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
+    "flow": "flow",
+    "flow-typed": "flow-typed install",
+    "linters": "npm-run-all flow js-lint",
+    "assets": "node scripts/assets/optimise",
+    "postinstall": "npm run flow-typed"
+  },
+  "engines": {
+    "node": ">=13.7.0",
+    "npm": ">=6.13.6"
+  },
   "dependencies": {
     "@jam3/detect": "^1.0.2",
     "@jam3/stats": "^1.0.1",
@@ -40,19 +77,7 @@
     "sharp": "^0.24.1",
     "shelljs": "^0.8.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "npm run linters && react-scripts build",
-    "deploy": "env-cmd -f .env.gh-pages npm run build && gh-pages -d build",
-    "eject": "react-scripts eject",
-    "audit": "audit-ci --high",
-    "js-lint": "eslint './src/**/*.js' -c ./.eslintrc.json --quiet --ignore-pattern .gitignore",
-    "flow": "flow",
-    "flow-typed": "rm -rf ./flow-typed && flow-typed install",
-    "linters": "npm-run-all flow js-lint",
-    "assets": "node scripts/assets/optimise",
-    "postinstall": "npm run flow-typed"
-  },
+
   "eslintConfig": {
     "extends": "react-app"
   },
